@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://mo8l4nyp4n1e"]
+
+[ext_resource type="Script" path="res://script/LootboxList.gd" id="1_qlv2p"]
+
+[node name="LootboxPage" type="Node2D"]
+
+[node name="LootboxList" type="HFlowContainer" parent="."]
+unique_name_in_owner = true
+script = ExtResource("1_qlv2p")

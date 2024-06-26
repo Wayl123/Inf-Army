@@ -1,0 +1,54 @@
+[gd_scene load_steps=3 format=3 uid="uid://0d1rc8j5p0et"]
+
+[ext_resource type="Script" path="res://script/LootboxGenerator.gd" id="1_fmmv6"]
+[ext_resource type="Script" path="res://script/AttributeDisplay.gd" id="2_d081o"]
+
+[node name="LootboxGenerator" type="Button"]
+self_modulate = Color(1, 1, 1, 0)
+offset_right = 128.0
+offset_bottom = 128.0
+script = ExtResource("1_fmmv6")
+
+[node name="AttributeDisplay" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 128.0
+mouse_filter = 2
+script = ExtResource("2_d081o")
+
+[node name="GeneratorName" type="RichTextLabel" parent="AttributeDisplay"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+fit_content = true
+
+[node name="StatScroll" type="ScrollContainer" parent="AttributeDisplay"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="ProbStat" type="RichTextLabel" parent="AttributeDisplay/StatScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+bbcode_enabled = true
+fit_content = true
+
+[node name="ClaimableAmount" type="RichTextLabel" parent="AttributeDisplay"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+bbcode_enabled = true
+fit_content = true
+
+[node name="GenerationProgress" type="ProgressBar" parent="AttributeDisplay"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="GenerationTimer" type="Timer" parent="AttributeDisplay/GenerationProgress"]
+unique_name_in_owner = true
+one_shot = true
