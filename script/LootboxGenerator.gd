@@ -4,7 +4,7 @@ extends Button
 
 @onready var display = %AttributeDisplay
 
-var boxType : String = "A1"
+var boxType : String
 var data = {}
 
 func _ready() -> void:

@@ -3,7 +3,7 @@ extends VBoxContainer
 @onready var genName = %GeneratorName
 @onready var probStat = %ProbStat
 @onready var amount = %ClaimableAmount
-@onready var genTimer = %GenerationTimer
+@onready var genTimer = %GeneratorTimer
 
 var storedAmount = 0
 var holdCap = 0

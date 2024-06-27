@@ -1,10 +1,14 @@
 extends Node2D
 
+var LOOTBOXPAGE = preload("res://scene/lootbox_page.tscn")
+
 var lootboxGenListPath = "res://script/LootboxGeneratorTemplate.json"
 var lootboxGenData = {}
 
 func _ready() -> void:
 	_load_all_data()
+	
+	add_child(LOOTBOXPAGE.instantiate())
 
 func _load_json_file(filePath : String) -> Dictionary:
 	if FileAccess.file_exists(filePath):
