@@ -53,8 +53,11 @@ bbcode_enabled = true
 fit_content = true
 
 [node name="GeneratorProgress" type="ProgressBar" parent="GeneratorMargin/AttributeDisplay"]
+unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 1
+max_value = 1.0
+step = 0.001
 
 [node name="GeneratorTimer" type="Timer" parent="GeneratorMargin/AttributeDisplay/GeneratorProgress"]
 unique_name_in_owner = true
