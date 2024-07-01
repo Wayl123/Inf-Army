@@ -1,4 +1,4 @@
-extends PanelContainer
+extends TabContainer
 
 func _ready() -> void:
 	get_tree().root.connect("size_changed", Callable(self, "_on_viewport_size_changed"))

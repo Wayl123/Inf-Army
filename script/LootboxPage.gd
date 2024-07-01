@@ -1,10 +1,10 @@
-extends Node2D
+extends PanelContainer
 
 @onready var lootboxList = %LootboxList
 
 var LOOTBOXGENERATOR = preload("res://scene/lootbox_generator.tscn")
 
-func _ready() -> void:
+func _ready() -> void:	
 	_get_saved_generator()
 
 func _get_saved_generator() -> void:

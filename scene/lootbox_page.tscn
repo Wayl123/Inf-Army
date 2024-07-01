@@ -1,28 +1,24 @@
-[gd_scene load_steps=4 format=3 uid="uid://mo8l4nyp4n1e"]
+[gd_scene load_steps=3 format=3 uid="uid://mo8l4nyp4n1e"]
 
 [ext_resource type="Script" path="res://script/LootboxPage.gd" id="1_ejakl"]
-[ext_resource type="Script" path="res://script/LootboxPanel.gd" id="2_du2cr"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btevp"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xhvws"]
 bg_color = Color(0.247059, 0.74902, 0.74902, 0.498039)
 
-[node name="LootboxPage" type="Node2D"]
-script = ExtResource("1_ejakl")
-
-[node name="LootboxPanel" type="PanelContainer" parent="."]
+[node name="LootboxPage" type="PanelContainer"]
 offset_right = 40.0
 offset_bottom = 40.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_btevp")
-script = ExtResource("2_du2cr")
+theme_override_styles/panel = SubResource("StyleBoxFlat_xhvws")
+script = ExtResource("1_ejakl")
 
-[node name="LootboxMargin" type="MarginContainer" parent="LootboxPanel"]
+[node name="LootboxMargin" type="MarginContainer" parent="."]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="LootboxList" type="HFlowContainer" parent="LootboxPanel/LootboxMargin"]
+[node name="LootboxList" type="HFlowContainer" parent="LootboxMargin"]
 unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 2

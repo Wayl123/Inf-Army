@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=3 uid="uid://im34kmqserum"]
+
+[ext_resource type="PackedScene" uid="uid://mo8l4nyp4n1e" path="res://scene/lootbox_page.tscn" id="1_7v5ko"]
+[ext_resource type="Script" path="res://script/Tabs.gd" id="1_dtb2c"]
+
+[node name="PageTab" type="Node2D"]
+
+[node name="Tabs" type="TabContainer" parent="."]
+offset_right = 16.0
+offset_bottom = 47.0
+script = ExtResource("1_dtb2c")
+
+[node name="LootboxPage" parent="Tabs" instance=ExtResource("1_7v5ko")]
+layout_mode = 2
+
+[node name="LootboxPage2" parent="Tabs" instance=ExtResource("1_7v5ko")]
+visible = false
+layout_mode = 2
