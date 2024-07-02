@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://0d1rc8j5p0et"]
 
 [ext_resource type="Script" path="res://script/LootboxGenerator.gd" id="1_fmmv6"]
-[ext_resource type="Script" path="res://script/AttributeDisplay.gd" id="2_d081o"]
+[ext_resource type="Script" path="res://script/AttributeDisplayGenerator.gd" id="2_rv4xx"]
 
 [node name="LootboxGenerator" type="Button"]
 self_modulate = Color(0.498039, 1, 0.498039, 1)
@@ -22,7 +22,7 @@ theme_override_constants/margin_bottom = 4
 [node name="AttributeDisplay" type="VBoxContainer" parent="GeneratorMargin"]
 unique_name_in_owner = true
 layout_mode = 2
-script = ExtResource("2_d081o")
+script = ExtResource("2_rv4xx")
 
 [node name="GeneratorName" type="RichTextLabel" parent="GeneratorMargin/AttributeDisplay"]
 unique_name_in_owner = true

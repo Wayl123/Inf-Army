@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2sjtbomxp0wk"]
+
+[ext_resource type="Script" path="res://script/InventoryPage.gd" id="1_dfefi"]
+
+[node name="InventoryPage" type="PanelContainer"]
+script = ExtResource("1_dfefi")
+
+[node name="InventoryMargin" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="InventoryList" type="HFlowContainer" parent="InventoryMargin"]
+unique_name_in_owner = true
+layout_mode = 2

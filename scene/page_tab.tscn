@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://im34kmqserum"]
+[gd_scene load_steps=4 format=3 uid="uid://im34kmqserum"]
 
 [ext_resource type="PackedScene" uid="uid://mo8l4nyp4n1e" path="res://scene/lootbox_page.tscn" id="1_7v5ko"]
 [ext_resource type="Script" path="res://script/Tabs.gd" id="1_dtb2c"]
+[ext_resource type="PackedScene" uid="uid://d2sjtbomxp0wk" path="res://scene/inventory_page.tscn" id="3_r7rac"]
 
 [node name="PageTab" type="Node2D"]
 
@@ -13,6 +14,6 @@ script = ExtResource("1_dtb2c")
 [node name="LootboxPage" parent="Tabs" instance=ExtResource("1_7v5ko")]
 layout_mode = 2
 
-[node name="LootboxPage2" parent="Tabs" instance=ExtResource("1_7v5ko")]
+[node name="InventoryPage" parent="Tabs" instance=ExtResource("3_r7rac")]
 visible = false
 layout_mode = 2
