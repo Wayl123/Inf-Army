@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://script/InventoryPage.gd" id="1_dfefi"]
 
-[node name="InventoryPage" type="PanelContainer"]
+[node name="InventoryPage" type="PanelContainer" groups=["Inventory"]]
 script = ExtResource("1_dfefi")
 
 [node name="InventoryMargin" type="MarginContainer" parent="."]

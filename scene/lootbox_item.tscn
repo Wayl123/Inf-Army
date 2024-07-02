@@ -57,6 +57,8 @@ fit_content = true
 [node name="Amount" type="RichTextLabel" parent="LootboxMargin/AttributeDisplay"]
 unique_name_in_owner = true
 layout_mode = 2
+bbcode_enabled = true
+fit_content = true
 
 [node name="ButtonGroup" type="HBoxContainer" parent="LootboxMargin/AttributeDisplay"]
 layout_mode = 2

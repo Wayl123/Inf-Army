@@ -4,16 +4,19 @@ extends PanelContainer
 
 var LOOTBOXITEM = preload("res://scene/lootbox_item.tscn")
 
-func _ready() -> void:	
-	_get_saved_generator()
+var itemContent = {}
 
-func _get_saved_generator() -> void:
-	# to be changed to get from saved file
-	_add_generator("A1")
-
-func _add_generator(pGenType : String) -> void:
-	# might need to change input type later on, still need to decide on how I want to store generator data
-	var lootboxItem = LOOTBOXITEM.instantiate()
-	
-	lootboxItem.boxType = pGenType
-	inventoryList.add_child(lootboxItem)
+func add_item(pType : String, pId : String, pData : Dictionary, pAmount : int) -> void:
+	if pType == "lootbox":
+		if not itemContent.has(pId):
+			var lootboxItem = LOOTBOXITEM.instantiate()
+			
+			lootboxItem.data = pData
+			inventoryList.add_child(lootboxItem)
+			lootboxItem.update_stored_amount(pAmount)
+			
+			itemContent[pId] = lootboxItem
+		else:
+			var lootboxItem = itemContent[pId]
+			
+			lootboxItem.update_stored_amount(pAmount)

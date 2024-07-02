@@ -3,7 +3,6 @@ extends VBoxContainer
 @onready var genName = %GeneratorName
 @onready var probStat = %ProbStat
 
-var storedAmount = 0
 var holdCap = 0
 	
 func set_display(pData : Dictionary) -> void:

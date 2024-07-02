@@ -4,7 +4,7 @@ extends PanelContainer
 
 var LOOTBOXGENERATOR = preload("res://scene/lootbox_generator.tscn")
 
-func _ready() -> void:	
+func _ready() -> void:
 	_get_saved_generator()
 
 func _get_saved_generator() -> void:
@@ -15,5 +15,5 @@ func _add_generator(pGenType : String) -> void:
 	# might need to change input type later on, still need to decide on how I want to store generator data
 	var lootboxGen = LOOTBOXGENERATOR.instantiate()
 	
-	lootboxGen.boxType = pGenType
+	lootboxGen.boxId = pGenType
 	lootboxList.add_child(lootboxGen)
