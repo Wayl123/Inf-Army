@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbnu63cmfrit4"]
+
+[ext_resource type="Script" path="res://script/NormalUnitList.gd" id="1_llgvf"]
+[ext_resource type="PackedScene" uid="uid://c1pamxjlv445v" path="res://scene/normal_unit.tscn" id="2_b3a4d"]
+
+[node name="NormalUnitList" type="VBoxContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+script = ExtResource("1_llgvf")
+
+[node name="Title" parent="." instance=ExtResource("2_b3a4d")]
+layout_mode = 2
+size_flags_vertical = 1
+
+[node name="Name" parent="Title/NameBorder" index="0"]
+text = "[center][b]Name[/b][/center]"
+
+[node name="Amount" parent="Title/AmountBorder" index="0"]
+text = "[center][b]Amount[/b][/center]"
+
+[node name="Power" parent="Title/PowerBorder" index="0"]
+text = "[center][b]Power[/b][/center]"
+
+[node name="Total" parent="Title/TotalBorder" index="0"]
+text = "[center][b]Total Power[/b][/center]"
+
+[editable path="Title"]

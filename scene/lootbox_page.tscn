@@ -6,8 +6,11 @@
 bg_color = Color(0.247059, 0.74902, 0.74902, 0.498039)
 
 [node name="LootboxPage" type="PanelContainer"]
-offset_right = 40.0
-offset_bottom = 40.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_xhvws")
 script = ExtResource("1_ejakl")
 

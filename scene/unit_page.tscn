@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://dhys67yf1mr86"]
+
+[ext_resource type="PackedScene" uid="uid://bbnu63cmfrit4" path="res://scene/normal_unit_list.tscn" id="1_3bjo8"]
+[ext_resource type="Script" path="res://script/UnitPage.gd" id="1_rl4kt"]
+[ext_resource type="PackedScene" uid="uid://cm736vhs5rxx6" path="res://scene/hero_list.tscn" id="2_rm4um"]
+
+[node name="UnitPage" type="PanelContainer" groups=["UnitInventory"]]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_rl4kt")
+
+[node name="UnitMargin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Separator" type="HBoxContainer" parent="UnitMargin"]
+layout_mode = 2
+
+[node name="HeroList" parent="UnitMargin/Separator" instance=ExtResource("2_rm4um")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="NormalUnitList" parent="UnitMargin/Separator" instance=ExtResource("1_3bjo8")]
+unique_name_in_owner = true
+layout_mode = 2
