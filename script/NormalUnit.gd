@@ -24,3 +24,5 @@ func add_amount(pAmount : int) -> void:
 	
 	_display_data()
 	
+func get_power() -> int:
+	return int(unitData["Power"])
