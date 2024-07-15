@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://bbnu63cmfrit4" path="res://scene/normal_unit_list.tscn" id="1_3bjo8"]
 [ext_resource type="Script" path="res://script/UnitPage.gd" id="1_rl4kt"]
-[ext_resource type="PackedScene" uid="uid://cm736vhs5rxx6" path="res://scene/hero_list.tscn" id="2_rm4um"]
+[ext_resource type="PackedScene" uid="uid://cm736vhs5rxx6" path="res://scene/hero_unit_list.tscn" id="2_yi5dd"]
 
 [node name="UnitPage" type="PanelContainer" groups=["UnitInventory"]]
 anchors_preset = 15
@@ -22,7 +22,7 @@ theme_override_constants/margin_bottom = 8
 [node name="Separator" type="HBoxContainer" parent="UnitMargin"]
 layout_mode = 2
 
-[node name="HeroList" parent="UnitMargin/Separator" instance=ExtResource("2_rm4um")]
+[node name="HeroList" parent="UnitMargin/Separator" instance=ExtResource("2_yi5dd")]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3

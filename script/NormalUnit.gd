@@ -11,7 +11,7 @@ func _display_data() -> void:
 	unitName.text = str("[center]", unitData["Name"], "[/center]")
 	unitAmount.text = str("[right]", unitData["Amount"], "[/right]")
 	unitPower.text = str("[right]", unitData["Power"], "[/right]")
-	unitTotal.text = str("[right]", unitData["Amount"] * unitData["Power"], "[/right]")
+	unitTotal.text = str("[right]", int(unitData["Amount"]) * int(unitData["Power"]), "[/right]")
 
 func set_data(pUnit : Dictionary) -> void:
 	unitData = pUnit

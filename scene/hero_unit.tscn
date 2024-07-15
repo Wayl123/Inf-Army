@@ -1,0 +1,75 @@
+[gd_scene load_steps=4 format=3 uid="uid://bgg0cbd6nv2at"]
+
+[ext_resource type="Script" path="res://script/HeroUnit.gd" id="1_04aah"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nqdre"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 1
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pmynu"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+
+[node name="HeroUnit" type="HBoxContainer"]
+custom_minimum_size = Vector2(0, 128)
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 12.0
+grow_horizontal = 2
+theme_override_constants/separation = 0
+script = ExtResource("1_04aah")
+
+[node name="ImageBorder" type="PanelContainer" parent="."]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_nqdre")
+
+[node name="StatBorder" type="PanelContainer" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_pmynu")
+
+[node name="StatBlock" type="VBoxContainer" parent="StatBorder"]
+layout_mode = 2
+
+[node name="Name" type="RichTextLabel" parent="StatBorder/StatBlock"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+
+[node name="LevelExp" type="HBoxContainer" parent="StatBorder/StatBlock"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Level" type="RichTextLabel" parent="StatBorder/StatBlock/LevelExp"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+
+[node name="Exp" type="RichTextLabel" parent="StatBorder/StatBlock/LevelExp"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+
+[node name="LevelPower" type="RichTextLabel" parent="StatBorder/StatBlock"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+
+[node name="Power" type="RichTextLabel" parent="StatBorder/StatBlock"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
