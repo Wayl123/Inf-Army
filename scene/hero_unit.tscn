@@ -46,29 +46,61 @@ layout_mode = 2
 size_flags_vertical = 3
 bbcode_enabled = true
 
-[node name="LevelExp" type="HBoxContainer" parent="StatBorder/StatBlock"]
+[node name="LevelExpBlock" type="HBoxContainer" parent="StatBorder/StatBlock"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Level" type="RichTextLabel" parent="StatBorder/StatBlock/LevelExp"]
+[node name="LevelText" type="RichTextLabel" parent="StatBorder/StatBlock/LevelExpBlock"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "[b]Level[/b]"
+
+[node name="Level" type="RichTextLabel" parent="StatBorder/StatBlock/LevelExpBlock"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 
-[node name="Exp" type="RichTextLabel" parent="StatBorder/StatBlock/LevelExp"]
+[node name="ExpText" type="RichTextLabel" parent="StatBorder/StatBlock/LevelExpBlock"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "[b]Exp[/b]"
+
+[node name="Exp" type="RichTextLabel" parent="StatBorder/StatBlock/LevelExpBlock"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 
-[node name="LevelPower" type="RichTextLabel" parent="StatBorder/StatBlock"]
+[node name="LevelPowerBlock" type="HBoxContainer" parent="StatBorder/StatBlock"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="LevelPowerText" type="RichTextLabel" parent="StatBorder/StatBlock/LevelPowerBlock"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "[b]Power Per Level[/b]"
+
+[node name="LevelPower" type="RichTextLabel" parent="StatBorder/StatBlock/LevelPowerBlock"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 bbcode_enabled = true
 
-[node name="Power" type="RichTextLabel" parent="StatBorder/StatBlock"]
+[node name="PowerBlock" type="HBoxContainer" parent="StatBorder/StatBlock"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PowerText" type="RichTextLabel" parent="StatBorder/StatBlock/PowerBlock"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "[b]Total Power[/b]"
+
+[node name="Power" type="RichTextLabel" parent="StatBorder/StatBlock/PowerBlock"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3

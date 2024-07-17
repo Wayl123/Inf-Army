@@ -1,6 +1,6 @@
 extends PanelContainer
 
-@onready var heroList = %HeroList
+@onready var heroUnitList = %HeroUnitList
 @onready var normalUnitList = %NormalUnitList
 
 func add_unit(pUnits : Dictionary) -> void:
@@ -15,5 +15,5 @@ func add_unit(pUnits : Dictionary) -> void:
 			
 	print_debug(pUnits)
 			
-	heroList.add_unit(heroUnits)
+	heroUnitList.add_unit(heroUnits)
 	normalUnitList.add_unit(normalUnits)
