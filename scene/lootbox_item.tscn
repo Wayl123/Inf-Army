@@ -1,0 +1,91 @@
+[gd_scene load_steps=7 format=3 uid="uid://b3csfqpo4wd6v"]
+
+[ext_resource type="Script" path="res://script/LootboxItem.gd" id="1_lenjs"]
+[ext_resource type="Script" path="res://script/AttributeDisplayInventory.gd" id="1_ods2p"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_50oso"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g6tuq"]
+bg_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3q107"]
+bg_color = Color(0, 0, 0, 0.247059)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7g1vq"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="LootboxItem" type="PanelContainer"]
+custom_minimum_size = Vector2(128, 128)
+offset_right = 256.0
+offset_bottom = 128.0
+script = ExtResource("1_lenjs")
+
+[node name="LootboxMargin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="AttributeDisplay" type="VBoxContainer" parent="LootboxMargin"]
+unique_name_in_owner = true
+layout_mode = 2
+script = ExtResource("1_ods2p")
+
+[node name="GeneratorName" type="RichTextLabel" parent="LootboxMargin/AttributeDisplay"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 1
+bbcode_enabled = true
+fit_content = true
+
+[node name="StatScroll" type="ScrollContainer" parent="LootboxMargin/AttributeDisplay"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="ProbStat" type="RichTextLabel" parent="LootboxMargin/AttributeDisplay/StatScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 1
+bbcode_enabled = true
+fit_content = true
+
+[node name="Amount" type="RichTextLabel" parent="LootboxMargin/AttributeDisplay"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+
+[node name="ButtonGroup" type="HBoxContainer" parent="LootboxMargin/AttributeDisplay"]
+layout_mode = 2
+alignment = 1
+
+[node name="Open1" type="Button" parent="LootboxMargin/AttributeDisplay/ButtonGroup"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_50oso")
+text = "Open"
+
+[node name="Open10" type="Button" parent="LootboxMargin/AttributeDisplay/ButtonGroup"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_g6tuq")
+theme_override_styles/disabled = SubResource("StyleBoxFlat_3q107")
+disabled = true
+text = "Open 10"
+
+[node name="OpenAll" type="Button" parent="LootboxMargin/AttributeDisplay/ButtonGroup"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+theme_override_styles/normal = SubResource("StyleBoxFlat_7g1vq")
+text = "Open All"
