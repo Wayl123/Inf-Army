@@ -45,8 +45,9 @@ func add_unit(pUnits : Dictionary) -> void:
 func get_power_by_amount(pAmount : int) -> int:
 	var power = 0
 	var index = 1
+	var childCount = get_child_count()
 	
-	while pAmount > 0 and index < get_child_count():
+	while pAmount > 0 and index < childCount:
 		var returnPower = get_child(index).get_power_by_amount(pAmount)
 		
 		power += returnPower[0]

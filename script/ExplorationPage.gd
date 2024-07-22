@@ -8,5 +8,5 @@ func _ready() -> void:
 	test.connect("pressed", Callable(self, "_test"))
 
 func _test():
-	var power = unitInventory.get_power_by_amount([0, 5])
+	var power = unitInventory.get_power_by_amount([1, 10])
 	test.text = str(power)

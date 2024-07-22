@@ -21,6 +21,7 @@ func add_unit(pUnits : Dictionary) -> void:
 func get_power_by_amount(pAmounts : Array) -> int:
 	var power = 0
 	
+	power += heroUnitList.get_power_by_amount(pAmounts[0])
 	power += normalUnitList.get_power_by_amount(pAmounts[1])
 	
 	return power
