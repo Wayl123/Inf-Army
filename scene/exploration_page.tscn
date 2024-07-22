@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://dmnimd75ggbx8"]
+
+[ext_resource type="Script" path="res://script/ExplorationPage.gd" id="1_xmf5l"]
+
+[node name="ExplorationPage" type="PanelContainer" groups=["Exploration"]]
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_xmf5l")
+
+[node name="ExplorationMargin" type="MarginContainer" parent="."]
+layout_mode = 2
+
+[node name="Test" type="Button" parent="ExplorationMargin"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"

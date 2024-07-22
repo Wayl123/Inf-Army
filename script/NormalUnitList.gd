@@ -41,3 +41,16 @@ func add_unit(pUnits : Dictionary) -> void:
 			normalUnit.name = unit
 			
 			unitsData[unit] = normalUnit
+			
+func get_power_by_amount(pAmount : int) -> int:
+	var power = 0
+	var index = 1
+	
+	while pAmount > 0 and index < get_child_count():
+		var returnPower = get_child(index).get_power_by_amount(pAmount)
+		
+		power += returnPower[0]
+		pAmount = returnPower[1]
+		index += 1
+		
+	return power
