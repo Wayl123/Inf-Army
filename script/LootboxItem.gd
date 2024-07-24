@@ -1,6 +1,5 @@
 extends PanelContainer
 
-@onready var globalData = get_tree().get_first_node_in_group("GlobalData")
 @onready var unitInventory = get_tree().get_first_node_in_group("UnitInventory")
 @onready var exploration = get_tree().get_first_node_in_group("Exploration")
 

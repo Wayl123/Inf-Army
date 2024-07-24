@@ -1,6 +1,5 @@
 extends Button
 
-@onready var globalData = get_tree().get_first_node_in_group("GlobalData")
 @onready var inventory = get_tree().get_first_node_in_group("Inventory")
 
 @onready var display = %AttributeDisplay
@@ -14,10 +13,7 @@ func _ready() -> void:
 	genTimer.connect("timeout", Callable(self, "_update_stored_amount").bind(1))
 	connect("pressed", Callable(self, "_claim_lootbox"))
 	
-	if boxId:
-		data = globalData.get_lootbox_gen_data_copy(boxId)
-		
-		display.set_display(data)
+	display.set_display(data)
 		
 func _update_stored_amount(pAmount : int) -> void:
 	storedAmount += pAmount
