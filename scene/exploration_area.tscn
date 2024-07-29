@@ -40,20 +40,43 @@ custom_minimum_size = Vector2(128, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 3
+text = "Start"
 
 [node name="LootStat" type="VBoxContainer" parent="AreaAttributeDisplay/Attribute"]
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
 
-[node name="MoneyRate" type="RichTextLabel" parent="AreaAttributeDisplay/Attribute/LootStat"]
+[node name="MoneyBlock" type="HBoxContainer" parent="AreaAttributeDisplay/Attribute/LootStat"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MoneyText" type="RichTextLabel" parent="AreaAttributeDisplay/Attribute/LootStat/MoneyBlock"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "[b]MoneyRate:[/b]"
+
+[node name="MoneyRate" type="RichTextLabel" parent="AreaAttributeDisplay/Attribute/LootStat/MoneyBlock"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 bbcode_enabled = true
 
-[node name="ExpRate" type="RichTextLabel" parent="AreaAttributeDisplay/Attribute/LootStat"]
+[node name="ExpBlock" type="HBoxContainer" parent="AreaAttributeDisplay/Attribute/LootStat"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ExpText" type="RichTextLabel" parent="AreaAttributeDisplay/Attribute/LootStat/ExpBlock"]
+layout_mode = 2
+size_flags_horizontal = 3
+bbcode_enabled = true
+text = "[b]ExpRate:[/b]"
+
+[node name="ExpRate" type="RichTextLabel" parent="AreaAttributeDisplay/Attribute/LootStat/ExpBlock"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 bbcode_enabled = true
 
@@ -77,6 +100,7 @@ theme_override_font_sizes/font_size = 12
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 12
+max_value = 1.0
 
 [node name="PayoutTimer" type="Timer" parent="AreaAttributeDisplay/PayoutProgress"]
 unique_name_in_owner = true

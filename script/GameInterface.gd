@@ -1,6 +1,5 @@
 extends Node2D
 
-#var LOOTBOXPAGE = preload("res://scene/lootbox_page.tscn")
 var PAGETAB = preload("res://scene/page_tab.tscn")
 
 var lootboxGenListPath = "res://script/LootboxGeneratorTemplate.json"
