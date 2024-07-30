@@ -1,7 +1,7 @@
 extends PanelContainer
 
-@onready var globalData = get_tree().get_first_node_in_group("GlobalData")
 @onready var unitInventory = get_tree().get_first_node_in_group("UnitInventory")
+@onready var exploration = get_tree().get_first_node_in_group("Exploration")
 
 @onready var display = %AttributeDisplay
 @onready var open1Button = %Open1
@@ -47,3 +47,4 @@ func _open_box(pAmount : int) -> void:
 	
 func _display_unit_get(pUnits : Dictionary) -> void:
 	unitInventory.add_unit(pUnits)
+	exploration.update_exploration_power()

@@ -66,7 +66,7 @@ bbcode_enabled = true
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
-text = "[b]Exp[/b]"
+text = "[b]Exp Req[/b]"
 
 [node name="Exp" type="RichTextLabel" parent="StatBorder/StatBlock/LevelExpBlock"]
 unique_name_in_owner = true
@@ -87,6 +87,7 @@ text = "[b]Power Per Level[/b]"
 [node name="LevelPower" type="RichTextLabel" parent="StatBorder/StatBlock/LevelPowerBlock"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 bbcode_enabled = true
 
@@ -103,5 +104,6 @@ text = "[b]Total Power[/b]"
 [node name="Power" type="RichTextLabel" parent="StatBorder/StatBlock/PowerBlock"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 3
 bbcode_enabled = true

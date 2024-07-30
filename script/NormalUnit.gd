@@ -26,3 +26,9 @@ func add_amount(pAmount : int) -> void:
 	
 func get_power() -> int:
 	return int(unitData["Power"])
+	
+func get_power_by_amount(pAmount : int) -> Array:
+	if pAmount > int(unitData["Amount"]):
+		return [int(unitData["Amount"]) * int(unitData["Power"]), pAmount - int(unitData["Amount"])]
+	else:
+		return [pAmount * int(unitData["Power"]), 0]

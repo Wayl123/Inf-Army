@@ -4,8 +4,6 @@ extends VBoxContainer
 
 var HEROUNIT = preload("res://scene/hero_unit.tscn")
 
-var unitsData = {}
-
 func add_unit(pUnits : Dictionary) -> void:
 	for unit in pUnits:
 		for i in range(pUnits[unit]):
@@ -16,5 +14,13 @@ func add_unit(pUnits : Dictionary) -> void:
 			move_child(heroUnit, 0)
 			
 			heroUnit.set_data(unitData)
-			
-			unitsData[unit] = heroUnit
+
+func get_power_by_amount(pAmount : int) -> int:
+	var heroUnits = get_children()
+	
+	if pAmount >= heroUnits.size():
+		return heroUnits.reduce(func(a, b) : return a + b.get_power(), 0)
+	else:
+		heroUnits.sort_custom(func(a, b) : return a.get_power() > b.get_power())
+		heroUnits.resize(pAmount)
+		return heroUnits.reduce(func(a, b) : return a + b.get_power(), 0)

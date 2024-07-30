@@ -1,0 +1,14 @@
+{
+	"C1A1": {
+		"Name": "Beginner's Hill",
+		"MoneyBase": 1.0,
+		"ExpBase": 1.0,
+		"MaxMoneyAmount": 1000.0,
+		"MaxExpAmount": 1000.0,
+		"Loot": ["P1"],
+		"ExploreCompletion": 1000.0,
+		"ExploreTimer": 10.0,
+		"UnlockReq": 0.0,
+		"Unlocks": "C1A2"
+	}
+}

@@ -1,8 +1,13 @@
-[gd_scene load_steps=2 format=3 uid="uid://ejrk28nrv7b"]
+[gd_scene load_steps=4 format=3 uid="uid://ejrk28nrv7b"]
 
 [ext_resource type="Script" path="res://script/GameInterface.gd" id="1_barvh"]
+[ext_resource type="PackedScene" uid="uid://da8ep3g0d23y8" path="res://scene/player_ui.tscn" id="2_1bpam"]
+[ext_resource type="Script" path="res://script/GameSetting.gd" id="2_t7boj"]
 
 [node name="GameInterface" type="Node2D" groups=["GlobalData"]]
 script = ExtResource("1_barvh")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+script = ExtResource("2_t7boj")
+
+[node name="PlayerUI" parent="CanvasLayer" instance=ExtResource("2_1bpam")]
