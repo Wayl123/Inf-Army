@@ -18,90 +18,100 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
-[node name="HeroUnit" type="HBoxContainer"]
+[node name="HeroUnit" type="PanelContainer"]
 custom_minimum_size = Vector2(0, 128)
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 12.0
 grow_horizontal = 2
-theme_override_constants/separation = 0
 script = ExtResource("1_04aah")
 
-[node name="ImageBorder" type="PanelContainer" parent="."]
+[node name="HeroUnitDisplay" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="ImageBorder" type="PanelContainer" parent="HeroUnitDisplay"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_nqdre")
 
-[node name="StatBorder" type="PanelContainer" parent="."]
+[node name="StatBorder" type="PanelContainer" parent="HeroUnitDisplay"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_pmynu")
 
-[node name="StatBlock" type="VBoxContainer" parent="StatBorder"]
+[node name="StatMargin" type="MarginContainer" parent="HeroUnitDisplay/StatBorder"]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="StatBlock" type="VBoxContainer" parent="HeroUnitDisplay/StatBorder/StatMargin"]
 layout_mode = 2
 
-[node name="Name" type="RichTextLabel" parent="StatBorder/StatBlock"]
+[node name="Name" type="RichTextLabel" parent="HeroUnitDisplay/StatBorder/StatMargin/StatBlock"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 bbcode_enabled = true
 
-[node name="LevelExpBlock" type="HBoxContainer" parent="StatBorder/StatBlock"]
+[node name="LevelExpBlock" type="HBoxContainer" parent="HeroUnitDisplay/StatBorder/StatMargin/StatBlock"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="LevelText" type="RichTextLabel" parent="StatBorder/StatBlock/LevelExpBlock"]
+[node name="LevelText" type="RichTextLabel" parent="HeroUnitDisplay/StatBorder/StatMargin/StatBlock/LevelExpBlock"]
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 text = "[b]Level[/b]"
 
-[node name="Level" type="RichTextLabel" parent="StatBorder/StatBlock/LevelExpBlock"]
+[node name="Level" type="RichTextLabel" parent="HeroUnitDisplay/StatBorder/StatMargin/StatBlock/LevelExpBlock"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 
-[node name="ExpText" type="RichTextLabel" parent="StatBorder/StatBlock/LevelExpBlock"]
+[node name="ExpText" type="RichTextLabel" parent="HeroUnitDisplay/StatBorder/StatMargin/StatBlock/LevelExpBlock"]
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 text = "[b]Exp Req[/b]"
 
-[node name="Exp" type="RichTextLabel" parent="StatBorder/StatBlock/LevelExpBlock"]
+[node name="Exp" type="RichTextLabel" parent="HeroUnitDisplay/StatBorder/StatMargin/StatBlock/LevelExpBlock"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 
-[node name="LevelPowerBlock" type="HBoxContainer" parent="StatBorder/StatBlock"]
+[node name="LevelPowerBlock" type="HBoxContainer" parent="HeroUnitDisplay/StatBorder/StatMargin/StatBlock"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="LevelPowerText" type="RichTextLabel" parent="StatBorder/StatBlock/LevelPowerBlock"]
+[node name="LevelPowerText" type="RichTextLabel" parent="HeroUnitDisplay/StatBorder/StatMargin/StatBlock/LevelPowerBlock"]
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 text = "[b]Power Per Level[/b]"
 
-[node name="LevelPower" type="RichTextLabel" parent="StatBorder/StatBlock/LevelPowerBlock"]
+[node name="LevelPower" type="RichTextLabel" parent="HeroUnitDisplay/StatBorder/StatMargin/StatBlock/LevelPowerBlock"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 bbcode_enabled = true
 
-[node name="PowerBlock" type="HBoxContainer" parent="StatBorder/StatBlock"]
+[node name="PowerBlock" type="HBoxContainer" parent="HeroUnitDisplay/StatBorder/StatMargin/StatBlock"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PowerText" type="RichTextLabel" parent="StatBorder/StatBlock/PowerBlock"]
+[node name="PowerText" type="RichTextLabel" parent="HeroUnitDisplay/StatBorder/StatMargin/StatBlock/PowerBlock"]
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 text = "[b]Total Power[/b]"
 
-[node name="Power" type="RichTextLabel" parent="StatBorder/StatBlock/PowerBlock"]
+[node name="Power" type="RichTextLabel" parent="HeroUnitDisplay/StatBorder/StatMargin/StatBlock/PowerBlock"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3

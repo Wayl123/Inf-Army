@@ -16,6 +16,17 @@ func _ready() -> void:
 	_get_saved_area()
 	_update_exploration_stat([1, 10])
 	
+func _get_saved_area() -> void:
+	# To be changed to get from save file
+	_add_area("C1A1")
+	
+func _add_area(pArea : String) -> void:
+	var explorationArea = EXPLORATIONAREA.instantiate()
+	
+	explorationArea.data = globalData.get_exploration_area_data_copy(pArea)
+	explorationArea.explorationPower = explorationPower
+	explorationAreaList.add_child(explorationArea)
+	
 func _update_exploration_stat(pTeamSize : Array) -> void:
 	if pTeamSize[0] != teamSize[0]:
 		teamSize[0] = pTeamSize[0]
@@ -32,14 +43,3 @@ func update_exploration_power() -> void:
 	for area in explorationAreaList.get_children():
 		area.explorationPower = explorationPower
 		area.update_claim_amount()
-	
-func _get_saved_area() -> void:
-	# To be changed to get from save file
-	_add_area("C1A1")
-	
-func _add_area(pArea : String) -> void:
-	var explorationArea = EXPLORATIONAREA.instantiate()
-	
-	explorationArea.data = globalData.get_exploration_area_data_copy(pArea)
-	explorationArea.explorationPower = explorationPower
-	explorationAreaList.add_child(explorationArea)

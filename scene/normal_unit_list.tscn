@@ -16,16 +16,16 @@ script = ExtResource("1_llgvf")
 layout_mode = 2
 size_flags_vertical = 1
 
-[node name="Name" parent="Title/NameBorder" index="0"]
+[node name="Name" parent="Title/NormalUnitDisplay/NameBorder" index="0"]
 text = "[center][b]Name[/b][/center]"
 
-[node name="Amount" parent="Title/AmountBorder" index="0"]
+[node name="Amount" parent="Title/NormalUnitDisplay/AmountBorder" index="0"]
 text = "[center][b]Amount[/b][/center]"
 
-[node name="Power" parent="Title/PowerBorder" index="0"]
+[node name="Power" parent="Title/NormalUnitDisplay/PowerBorder" index="0"]
 text = "[center][b]Power[/b][/center]"
 
-[node name="Total" parent="Title/TotalBorder" index="0"]
+[node name="Total" parent="Title/NormalUnitDisplay/TotalBorder" index="0"]
 text = "[center][b]Total Power[/b][/center]"
 
 [editable path="Title"]

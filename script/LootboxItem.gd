@@ -19,18 +19,6 @@ func _ready() -> void:
 	
 	display.set_display(lootboxData)
 
-func update_stored_amount(pAmount : int = -storedAmount) -> void:
-	storedAmount += pAmount
-	display.update_stored_amount(storedAmount)
-	
-	if pAmount < 0:
-		_open_box(abs(pAmount))
-			
-	if storedAmount < 10:
-		open10Button.disabled = true
-	else:
-		open10Button.disabled = false
-
 func _open_box(pAmount : int) -> void:
 	var output = {}
 	for i in range(pAmount):
@@ -48,3 +36,15 @@ func _open_box(pAmount : int) -> void:
 func _display_unit_get(pUnits : Dictionary) -> void:
 	unitInventory.add_unit(pUnits)
 	exploration.update_exploration_power()
+	
+func update_stored_amount(pAmount : int = -storedAmount) -> void:
+	storedAmount += pAmount
+	display.update_stored_amount(storedAmount)
+	
+	if pAmount < 0:
+		_open_box(abs(pAmount))
+			
+	if storedAmount < 10:
+		open10Button.disabled = true
+	else:
+		open10Button.disabled = false

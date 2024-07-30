@@ -1,7 +1,8 @@
-extends Button
+extends PanelContainer
 
 @onready var inventory = get_tree().get_first_node_in_group("Inventory")
 
+@onready var claimButton = %LootboxClaim
 @onready var display = %AttributeDisplay
 @onready var genTimer = %GeneratorTimer
 
@@ -11,7 +12,7 @@ var storedAmount = 0
 
 func _ready() -> void:
 	genTimer.connect("timeout", Callable(self, "_update_stored_amount").bind(1))
-	connect("pressed", Callable(self, "_claim_lootbox"))
+	claimButton.connect("pressed", Callable(self, "_claim_lootbox"))
 	
 	display.set_display(data)
 		

@@ -2,6 +2,21 @@ extends PanelContainer
 
 @onready var heroUnitList = %HeroUnitList
 @onready var normalUnitList = %NormalUnitList
+@onready var unitShopToggle = %UnitShopToggle
+@onready var unitShopPanel = %UnitShopPanel
+
+var shopExpanded = false
+
+func _ready() -> void:
+	unitShopToggle.connect("pressed", Callable(self, "_expand_unit_shop"))
+	
+func _expand_unit_shop() -> void:
+	if not shopExpanded:
+		unitShopPanel.size_flags_vertical = SIZE_EXPAND_FILL
+	else:
+		unitShopPanel.size_flags_vertical = SIZE_FILL
+		
+	shopExpanded = not shopExpanded
 
 func add_unit(pUnits : Dictionary) -> void:
 	var heroUnits = {}

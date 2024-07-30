@@ -4,9 +4,11 @@ var PAGETAB = preload("res://scene/page_tab.tscn")
 
 var lootboxGenListPath = "res://script/LootboxGeneratorTemplate.json"
 var unitStatListPath = "res://script/UnitStat.json"
+var unitCombinationListPath = "res://script/UnitCombination.json"
 var explorationAreaListPath = "res://script/ExplorationAreaTemplate.json"
 var lootboxGenData = {}
 var unitStatData = {}
+var unitCombinationData = {}
 var explorationAreaData = {}
 
 func _ready() -> void:
@@ -31,6 +33,7 @@ func _load_json_file(filePath : String) -> Dictionary:
 func _load_all_data() -> void:
 	lootboxGenData = _load_json_file(lootboxGenListPath)
 	unitStatData = _load_json_file(unitStatListPath)
+	unitCombinationData = _load_json_file(unitCombinationListPath)
 	explorationAreaData = _load_json_file(explorationAreaListPath)
 	
 func get_lootbox_gen_data_copy(pId : String) -> Dictionary:
@@ -38,6 +41,9 @@ func get_lootbox_gen_data_copy(pId : String) -> Dictionary:
 
 func get_unit_stat_data_copy(pId : String) -> Dictionary:
 	return unitStatData[pId].duplicate(true)
+	
+func get_unit_combination_data_copy() -> Dictionary:
+	return unitCombinationData.duplicate(true)
 
 func get_exploration_area_data_copy(pId : String) -> Dictionary:
 	return explorationAreaData[pId].duplicate(true)

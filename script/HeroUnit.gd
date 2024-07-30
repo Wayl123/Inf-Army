@@ -1,4 +1,4 @@
-extends HBoxContainer
+extends PanelContainer
 
 @onready var unitName = %Name
 @onready var unitLevel = %Level

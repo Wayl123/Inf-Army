@@ -7,6 +7,14 @@
 		"Name": "Chicken",
 		"Power": 1
 	},
+	"1S3": {
+		"Name": "Trained Peasant",
+		"Power": 3
+	},
+	"1S4": {
+		"Name": "Chicken Coop",
+		"Power": 5
+	},
 	"2S1": {
 		"Name": "Farmer",
 		"Power": 3
@@ -15,9 +23,29 @@
 		"Name": "Horse",
 		"Power": 3
 	},
+	"2S3": {
+		"Name": "Chicken Farmer",
+		"Power": 12
+	},
+	"2S4": {
+		"Name": "Peasant Rider",
+		"Power": 8
+	},
 	"3S1": {
 		"Name": "Guard",
 		"Power": 10
+	},
+	"3S2": {
+		"Name": "Scout",
+		"Power": 20
+	},
+	"3S3": {
+		"Name": "Supply Area",
+		"Power": 25
+	},
+	"4S1": {
+		"Name": "Expedition Team",
+		"Power": 100
 	},
 	"H3S1": {
 		"Name": "NoobHero",

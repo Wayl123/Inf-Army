@@ -3,14 +3,19 @@
 [ext_resource type="Script" path="res://script/LootboxGenerator.gd" id="1_fmmv6"]
 [ext_resource type="Script" path="res://script/AttributeDisplayGenerator.gd" id="2_rv4xx"]
 
-[node name="LootboxGenerator" type="Button"]
+[node name="LootboxGenerator" type="PanelContainer"]
 self_modulate = Color(0.498039, 1, 0.498039, 1)
 custom_minimum_size = Vector2(128, 128)
 offset_right = 128.0
 offset_bottom = 128.0
+mouse_filter = 2
 script = ExtResource("1_fmmv6")
 
-[node name="GeneratorMargin" type="MarginContainer" parent="."]
+[node name="LootboxClaim" type="Button" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="GeneratorMargin" type="MarginContainer" parent="LootboxClaim"]
 layout_mode = 0
 offset_right = 128.0
 offset_bottom = 128.0
@@ -19,24 +24,24 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="AttributeDisplay" type="VBoxContainer" parent="GeneratorMargin"]
+[node name="AttributeDisplay" type="VBoxContainer" parent="LootboxClaim/GeneratorMargin"]
 unique_name_in_owner = true
 layout_mode = 2
 script = ExtResource("2_rv4xx")
 
-[node name="GeneratorName" type="RichTextLabel" parent="GeneratorMargin/AttributeDisplay"]
+[node name="GeneratorName" type="RichTextLabel" parent="LootboxClaim/GeneratorMargin/AttributeDisplay"]
 unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 1
 bbcode_enabled = true
 fit_content = true
 
-[node name="StatScroll" type="ScrollContainer" parent="GeneratorMargin/AttributeDisplay"]
+[node name="StatScroll" type="ScrollContainer" parent="LootboxClaim/GeneratorMargin/AttributeDisplay"]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="ProbStat" type="RichTextLabel" parent="GeneratorMargin/AttributeDisplay/StatScroll"]
+[node name="ProbStat" type="RichTextLabel" parent="LootboxClaim/GeneratorMargin/AttributeDisplay/StatScroll"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -45,20 +50,20 @@ mouse_filter = 1
 bbcode_enabled = true
 fit_content = true
 
-[node name="ClaimableAmount" type="RichTextLabel" parent="GeneratorMargin/AttributeDisplay"]
+[node name="ClaimableAmount" type="RichTextLabel" parent="LootboxClaim/GeneratorMargin/AttributeDisplay"]
 unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 1
 bbcode_enabled = true
 fit_content = true
 
-[node name="GeneratorProgress" type="ProgressBar" parent="GeneratorMargin/AttributeDisplay"]
+[node name="GeneratorProgress" type="ProgressBar" parent="LootboxClaim/GeneratorMargin/AttributeDisplay"]
 unique_name_in_owner = true
 layout_mode = 2
 mouse_filter = 1
 max_value = 1.0
 step = 0.001
 
-[node name="GeneratorTimer" type="Timer" parent="GeneratorMargin/AttributeDisplay/GeneratorProgress"]
+[node name="GeneratorTimer" type="Timer" parent="LootboxClaim/GeneratorMargin/AttributeDisplay/GeneratorProgress"]
 unique_name_in_owner = true
 one_shot = true
