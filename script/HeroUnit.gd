@@ -6,22 +6,26 @@ extends PanelContainer
 @onready var unitLevelPower = %LevelPower
 @onready var unitPower = %Power
 
-var unitData = {}
+var data = {}
 
-func _display_data() -> void:
-	unitName.text = str("[center][b]", unitData["Name"], "[/b][/center]")
-	unitLevel.text = str("[right]", unitData["Level"], "[/right]")
-	unitExp.text = str("[right]", unitData["ExpReq"], "[/right]")
-	unitLevelPower.text = str("[right]", unitData["LevelPower"], "[/right]")
-	unitPower.text = str("[right]", int(unitData["LevelPower"]) * int(unitData["Level"]), "[/right]")
+func _update_display() -> void:
+	unitName.text = str("[center][b]", data["Name"], "[/b][/center]")
+	unitLevelPower.text = str("[right]", data["LevelPower"], "[/right]")
+	
+	_update_level_display()
+	
+func _update_level_display() -> void:
+	unitLevel.text = str("[right]", data["Level"], "[/right]")
+	unitExp.text = str("[right]", data["ExpReq"], "[/right]")
+	unitPower.text = str("[right]", int(data["LevelPower"]) * int(data["Level"]), "[/right]")
 	
 func set_data(pUnit : Dictionary) -> void:
-	unitData = pUnit
-	unitData["Level"] = 1
-	unitData["ExpReq"] = int(unitData["ExpBase"]) * (int(unitData["ExpScale"]) ** (int(unitData["Level"]) - 1))
+	data = pUnit
+	data["Level"] = 1
+	data["ExpReq"] = int(data["ExpBase"]) * (int(data["ExpScale"]) ** (int(data["Level"]) - 1))
 	
-	_display_data()
+	_update_display()
 	
 func get_power() -> int:
-	return int(unitData["LevelPower"]) * int(unitData["Level"])
+	return int(data["LevelPower"]) * int(data["Level"])
 	

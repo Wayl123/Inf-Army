@@ -4,12 +4,12 @@ extends VBoxContainer
 
 var NORMALUNIT = preload("res://scene/normal_unit.tscn")
 
-var unitsData = {}
+var data = {}
 
 func add_unit(pUnits : Dictionary) -> void:
 	for unit in pUnits:
-		if unitsData.has(unit):
-			unitsData[unit].add_amount(pUnits[unit])
+		if data.has(unit):
+			data[unit].update_amount(pUnits[unit])
 		else:
 			var normalUnit = NORMALUNIT.instantiate()
 			var index = 1
@@ -36,11 +36,11 @@ func add_unit(pUnits : Dictionary) -> void:
 			move_child(normalUnit, index)
 			
 			normalUnit.set_data(unitData)
-			normalUnit.add_amount(pUnits[unit])
+			normalUnit.update_amount(pUnits[unit])
 	
 			normalUnit.name = unit
 			
-			unitsData[unit] = normalUnit
+			data[unit] = normalUnit
 			
 func get_power_by_amount(pAmount : int) -> int:
 	var power = 0
@@ -55,3 +55,8 @@ func get_power_by_amount(pAmount : int) -> int:
 		index += 1
 		
 	return power
+	
+func get_unit_node_ref(pId : String) -> Node:
+	if data.has(pId):
+		return data[pId]
+	return null

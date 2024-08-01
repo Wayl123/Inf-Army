@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bbnu63cmfrit4" path="res://scene/normal_unit_list.tscn" id="1_3bjo8"]
 [ext_resource type="Script" path="res://script/UnitPage.gd" id="1_rl4kt"]
 [ext_resource type="PackedScene" uid="uid://cm736vhs5rxx6" path="res://scene/hero_unit_list.tscn" id="2_yi5dd"]
-[ext_resource type="PackedScene" uid="uid://cc0xwy6jlhklc" path="res://scene/unit_shop_panel.tscn" id="4_3yofb"]
+[ext_resource type="PackedScene" uid="uid://cc0xwy6jlhklc" path="res://scene/unit_shop.tscn" id="4_2c6rx"]
 
 [node name="UnitPage" type="PanelContainer" groups=["UnitInventory"]]
 anchors_preset = 15
@@ -50,6 +50,6 @@ layout_mode = 2
 size_flags_horizontal = 8
 text = "Shop"
 
-[node name="UnitShopPanel" parent="UnitMargin/FoldingMenu" instance=ExtResource("4_3yofb")]
+[node name="UnitShop" parent="UnitMargin/FoldingMenu" instance=ExtResource("4_2c6rx")]
 unique_name_in_owner = true
 layout_mode = 2

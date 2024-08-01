@@ -5,30 +5,37 @@ extends PanelContainer
 @onready var unitPower = %Power
 @onready var unitTotal = %Total
 
-var unitData = {}
+var data = {}
 
-func _display_data() -> void:
-	unitName.text = str("[center]", unitData["Name"], "[/center]")
-	unitAmount.text = str("[right]", unitData["Amount"], "[/right]")
-	unitPower.text = str("[right]", unitData["Power"], "[/right]")
-	unitTotal.text = str("[right]", int(unitData["Amount"]) * int(unitData["Power"]), "[/right]")
+func _update_display() -> void:
+	unitName.text = str("[center]", data["Name"], "[/center]")
+	unitPower.text = str("[right]", data["Power"], "[/right]")
+	
+	_update_amount_display()
+	
+func _update_amount_display() -> void:
+	unitAmount.text = str("[right]", data["Amount"], "[/right]")
+	unitTotal.text = str("[right]", int(data["Amount"]) * int(data["Power"]), "[/right]")
 
 func set_data(pUnit : Dictionary) -> void:
-	unitData = pUnit
-	unitData["Amount"] = 0
+	data = pUnit
+	data["Amount"] = 0
 	
-	_display_data()
+	_update_display()
 	
-func add_amount(pAmount : int) -> void:
-	unitData["Amount"] += pAmount
+func update_amount(pAmount : int) -> void:
+	data["Amount"] += pAmount
 	
-	_display_data()
+	_update_amount_display()
 	
 func get_power() -> int:
-	return int(unitData["Power"])
+	return data["Power"]
 	
 func get_power_by_amount(pAmount : int) -> Array:
-	if pAmount > int(unitData["Amount"]):
-		return [int(unitData["Amount"]) * int(unitData["Power"]), pAmount - int(unitData["Amount"])]
+	if pAmount > int(data["Amount"]):
+		return [int(data["Amount"]) * int(data["Power"]), pAmount - int(data["Amount"])]
 	else:
-		return [pAmount * int(unitData["Power"]), 0]
+		return [pAmount * int(data["Power"]), 0]
+		
+func get_amount() -> int:
+	return data["Amount"]

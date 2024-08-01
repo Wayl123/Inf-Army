@@ -1,9 +1,11 @@
 extends PanelContainer
 
+@onready var exploration = get_tree().get_first_node_in_group("Exploration")
+
 @onready var heroUnitList = %HeroUnitList
 @onready var normalUnitList = %NormalUnitList
 @onready var unitShopToggle = %UnitShopToggle
-@onready var unitShopPanel = %UnitShopPanel
+@onready var unitShop = %UnitShop
 
 var shopExpanded = false
 
@@ -12,9 +14,9 @@ func _ready() -> void:
 	
 func _expand_unit_shop() -> void:
 	if not shopExpanded:
-		unitShopPanel.size_flags_vertical = SIZE_EXPAND_FILL
+		unitShop.size_flags_vertical = SIZE_EXPAND_FILL
 	else:
-		unitShopPanel.size_flags_vertical = SIZE_FILL
+		unitShop.size_flags_vertical = SIZE_FILL
 		
 	shopExpanded = not shopExpanded
 
@@ -32,6 +34,9 @@ func add_unit(pUnits : Dictionary) -> void:
 			
 	heroUnitList.add_unit(heroUnits)
 	normalUnitList.add_unit(normalUnits)
+	
+	exploration.update_exploration_power()
+	unitShop.update_shop_unlocks()
 
 func get_power_by_amount(pAmounts : Array) -> int:
 	var power = 0
@@ -40,3 +45,6 @@ func get_power_by_amount(pAmounts : Array) -> int:
 	power += normalUnitList.get_power_by_amount(pAmounts[1])
 	
 	return power
+
+func get_unit_node_ref(pId : String) -> Node:
+	return normalUnitList.get_unit_node_ref(pId)

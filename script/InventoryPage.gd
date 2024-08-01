@@ -11,7 +11,7 @@ func add_item(pType : String, pId : String, pData : Dictionary, pAmount : int) -
 		if not itemContent.has(pId):
 			var lootboxItem = LOOTBOXITEM.instantiate()
 			
-			lootboxItem.lootboxData = pData
+			lootboxItem.data = pData
 			inventoryList.add_child(lootboxItem)
 			lootboxItem.update_stored_amount(pAmount)
 			
