@@ -1,6 +1,7 @@
 extends PanelContainer
 
 @onready var resource = get_tree().get_first_node_in_group("Resource")
+@onready var unitInventory = get_tree().get_first_node_in_group("UnitInventory")
 
 @onready var areaName = %AreaName
 @onready var activeToggle = %ActiveToggle
@@ -39,6 +40,8 @@ func _update_resource() -> void:
 	resource.update_money(claimAmount[0])
 	resource.update_exp(claimAmount[1])
 	explorationProgress.value += claimAmount[1]
+	
+	unitInventory.update_shop_cost()
 
 func _set_display() -> void:
 	areaName.text = str("[b]", data["Name"], "[/b]")

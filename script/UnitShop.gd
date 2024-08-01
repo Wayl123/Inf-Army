@@ -10,10 +10,10 @@ var SHOPITEM = preload("res://scene/shop_item.tscn")
 
 var data = {}
 
-func _ready():
+func _ready() -> void:
 	data = globalData.get_unit_combination_data_copy()
 		
-func update_shop_unlocks():
+func update_shop_unlocks() -> void:
 	var unitRegex = RegEx.new()
 	unitRegex.compile("\\d+S\\d+")
 	
@@ -39,9 +39,6 @@ func update_shop_unlocks():
 					shopData[cost]["Node"] = resource
 					shopData[cost]["Req"] = data[item][cost]
 				
-			print_debug(shopData)
-			print_debug(unlock)
-				
 			if unlock:
 				var shopItem = SHOPITEM.instantiate()
 			
@@ -53,3 +50,10 @@ func update_shop_unlocks():
 				shopItem.set_display()
 				
 				data[item]["ItemNode"] = shopItem
+		else:
+			data[item]["ItemNode"].set_cost_display()
+			
+func update_shop_cost() -> void:
+	for item in data:
+		if data[item].has("ItemNode"):
+			data[item]["ItemNode"].set_cost_display()

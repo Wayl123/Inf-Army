@@ -48,3 +48,6 @@ func get_power_by_amount(pAmounts : Array) -> int:
 
 func get_unit_node_ref(pId : String) -> Node:
 	return normalUnitList.get_unit_node_ref(pId)
+	
+func update_shop_cost() -> void:
+	unitShop.update_shop_cost()
