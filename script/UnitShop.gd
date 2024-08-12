@@ -42,6 +42,7 @@ func update_shop_unlocks() -> void:
 			if unlock:
 				var shopItem = SHOPITEM.instantiate()
 			
+				shopItem.data["Id"] = item
 				shopItem.data["Name"] = globalData.get_unit_stat_data_copy(item)["Name"]
 				shopItem.data["Cost"] = shopData
 				

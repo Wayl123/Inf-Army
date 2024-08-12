@@ -1,5 +1,7 @@
 extends PanelContainer
 
+@onready var unitInventory = get_tree().get_first_node_in_group("UnitInventory")
+
 @onready var itemName = %ItemName
 @onready var itemCost = %ItemCost
 @onready var quantity = %Quantity
@@ -45,3 +47,23 @@ func set_cost_display(reqAmount : int = quantity.value) -> void:
 	itemCost.text = costText
 	
 	buyButton.disabled = not affordable
+	
+func _set_max_possible() -> void:
+	pass
+	
+func _buy_amount() -> void:
+	for cost in data["Cost"]:
+		var amount : int
+		var req : int
+		var totalReq : int
+		
+		req = data["Cost"][cost]["Req"]
+		
+		totalReq = req * quantity.value
+		
+		if cost == "Money":
+			data["Cost"][cost]["Node"].update_money(-totalReq)
+		else:
+			data["Cost"][cost]["Node"].update_amount(-totalReq)
+			
+	unitInventory.add_unit({data["Id"] : quantity.value})
