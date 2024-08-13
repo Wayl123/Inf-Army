@@ -49,11 +49,22 @@ func set_cost_display(reqAmount : int = quantity.value) -> void:
 	buyButton.disabled = not affordable
 	
 func _set_max_possible() -> void:
-	pass
+	var maxPossible : int
+	
+	for cost in data["Cost"]:
+		var req : int
+		
+		req = data["Cost"][cost]["Req"]
+		
+		if cost == "Money":
+			maxPossible = clampi(floori(data["Cost"][cost]["Node"].money / req), 1, maxPossible) if maxPossible else maxi(floori(data["Cost"][cost]["Node"].money / req), 1)
+		else:
+			maxPossible = clampi(floori(data["Cost"][cost]["Node"].get_amount() / req), 1, maxPossible) if maxPossible else maxi(floori(data["Cost"][cost]["Node"].get_amount() / req), 1)
+		
+	quantity.value = maxPossible
 	
 func _buy_amount() -> void:
 	for cost in data["Cost"]:
-		var amount : int
 		var req : int
 		var totalReq : int
 		
