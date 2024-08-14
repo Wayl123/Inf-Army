@@ -1,8 +1,8 @@
 extends PanelContainer
 
 @onready var globalData = get_tree().get_first_node_in_group("GlobalData")
-@onready var unitInventory = get_tree().get_first_node_in_group("UnitInventory")
 @onready var resource = get_tree().get_first_node_in_group("Resource")
+@onready var unitInventory = get_tree().get_first_node_in_group("UnitInventory")
 
 @onready var unitShopList = %UnitShopList
 
@@ -55,6 +55,5 @@ func update_shop_unlocks() -> void:
 			data[item]["ItemNode"].set_cost_display()
 			
 func update_shop_cost() -> void:
-	for item in data:
-		if data[item].has("ItemNode"):
-			data[item]["ItemNode"].set_cost_display()
+	for item in unitShopList.get_children():
+		item.set_cost_display()

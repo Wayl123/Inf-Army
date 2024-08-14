@@ -1,6 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://bgg0cbd6nv2at"]
+[gd_scene load_steps=7 format=3 uid="uid://bgg0cbd6nv2at"]
 
 [ext_resource type="Script" path="res://script/HeroUnit.gd" id="1_04aah"]
+[ext_resource type="StyleBox" uid="uid://bonnqkn7uvxcy" path="res://stylebox/hidden.tres" id="2_6btii"]
+[ext_resource type="StyleBox" uid="uid://bjnyscmsekyo5" path="res://stylebox/not_available.tres" id="2_6c5lu"]
+[ext_resource type="StyleBox" uid="uid://bno4p3j1ifd4o" path="res://stylebox/available.tres" id="3_i5kaf"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nqdre"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -26,94 +29,121 @@ offset_bottom = 12.0
 grow_horizontal = 2
 script = ExtResource("1_04aah")
 
-[node name="HeroUnitDisplay" type="HBoxContainer" parent="."]
+[node name="FoldingMenu" type="VBoxContainer" parent="."]
 layout_mode = 2
 theme_override_constants/separation = 0
 
-[node name="ImageBorder" type="PanelContainer" parent="HeroUnitDisplay"]
+[node name="HeroUnitDisplay" type="HBoxContainer" parent="FoldingMenu"]
+custom_minimum_size = Vector2(0, 128)
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="ImageBorder" type="PanelContainer" parent="FoldingMenu/HeroUnitDisplay"]
 custom_minimum_size = Vector2(128, 128)
 layout_mode = 2
+mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_nqdre")
 
-[node name="StatBorder" type="PanelContainer" parent="HeroUnitDisplay"]
+[node name="LevelPromotion" type="Button" parent="FoldingMenu/HeroUnitDisplay/ImageBorder"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 0)
+theme_override_colors/font_hover_color = Color(1, 1, 1, 0.247059)
+theme_override_colors/font_focus_color = Color(1, 1, 1, 0)
+theme_override_colors/font_disabled_color = Color(1, 1, 1, 0)
+theme_override_styles/normal = ExtResource("2_6btii")
+theme_override_styles/hover = ExtResource("3_i5kaf")
+theme_override_styles/pressed = ExtResource("3_i5kaf")
+theme_override_styles/disabled = ExtResource("2_6c5lu")
+theme_override_styles/focus = ExtResource("2_6btii")
+
+[node name="StatBorder" type="PanelContainer" parent="FoldingMenu/HeroUnitDisplay"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_pmynu")
 
-[node name="StatMargin" type="MarginContainer" parent="HeroUnitDisplay/StatBorder"]
+[node name="StatMargin" type="MarginContainer" parent="FoldingMenu/HeroUnitDisplay/StatBorder"]
 layout_mode = 2
 theme_override_constants/margin_left = 4
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="StatBlock" type="VBoxContainer" parent="HeroUnitDisplay/StatBorder/StatMargin"]
+[node name="StatBlock" type="VBoxContainer" parent="FoldingMenu/HeroUnitDisplay/StatBorder/StatMargin"]
 layout_mode = 2
 
-[node name="Name" type="RichTextLabel" parent="HeroUnitDisplay/StatBorder/StatMargin/StatBlock"]
+[node name="Name" type="RichTextLabel" parent="FoldingMenu/HeroUnitDisplay/StatBorder/StatMargin/StatBlock"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 bbcode_enabled = true
 
-[node name="LevelExpBlock" type="HBoxContainer" parent="HeroUnitDisplay/StatBorder/StatMargin/StatBlock"]
+[node name="LevelExpBlock" type="HBoxContainer" parent="FoldingMenu/HeroUnitDisplay/StatBorder/StatMargin/StatBlock"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="LevelText" type="RichTextLabel" parent="HeroUnitDisplay/StatBorder/StatMargin/StatBlock/LevelExpBlock"]
+[node name="LevelText" type="RichTextLabel" parent="FoldingMenu/HeroUnitDisplay/StatBorder/StatMargin/StatBlock/LevelExpBlock"]
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 text = "[b]Level[/b]"
 
-[node name="Level" type="RichTextLabel" parent="HeroUnitDisplay/StatBorder/StatMargin/StatBlock/LevelExpBlock"]
+[node name="Level" type="RichTextLabel" parent="FoldingMenu/HeroUnitDisplay/StatBorder/StatMargin/StatBlock/LevelExpBlock"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 
-[node name="ExpText" type="RichTextLabel" parent="HeroUnitDisplay/StatBorder/StatMargin/StatBlock/LevelExpBlock"]
+[node name="ExpText" type="RichTextLabel" parent="FoldingMenu/HeroUnitDisplay/StatBorder/StatMargin/StatBlock/LevelExpBlock"]
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 text = "[b]Exp Req[/b]"
 
-[node name="Exp" type="RichTextLabel" parent="HeroUnitDisplay/StatBorder/StatMargin/StatBlock/LevelExpBlock"]
+[node name="Exp" type="RichTextLabel" parent="FoldingMenu/HeroUnitDisplay/StatBorder/StatMargin/StatBlock/LevelExpBlock"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 
-[node name="LevelPowerBlock" type="HBoxContainer" parent="HeroUnitDisplay/StatBorder/StatMargin/StatBlock"]
+[node name="LevelPowerBlock" type="HBoxContainer" parent="FoldingMenu/HeroUnitDisplay/StatBorder/StatMargin/StatBlock"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="LevelPowerText" type="RichTextLabel" parent="HeroUnitDisplay/StatBorder/StatMargin/StatBlock/LevelPowerBlock"]
+[node name="LevelPowerText" type="RichTextLabel" parent="FoldingMenu/HeroUnitDisplay/StatBorder/StatMargin/StatBlock/LevelPowerBlock"]
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 text = "[b]Power Per Level[/b]"
 
-[node name="LevelPower" type="RichTextLabel" parent="HeroUnitDisplay/StatBorder/StatMargin/StatBlock/LevelPowerBlock"]
+[node name="LevelPower" type="RichTextLabel" parent="FoldingMenu/HeroUnitDisplay/StatBorder/StatMargin/StatBlock/LevelPowerBlock"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 bbcode_enabled = true
 
-[node name="PowerBlock" type="HBoxContainer" parent="HeroUnitDisplay/StatBorder/StatMargin/StatBlock"]
+[node name="PowerBlock" type="HBoxContainer" parent="FoldingMenu/HeroUnitDisplay/StatBorder/StatMargin/StatBlock"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PowerText" type="RichTextLabel" parent="HeroUnitDisplay/StatBorder/StatMargin/StatBlock/PowerBlock"]
+[node name="PowerText" type="RichTextLabel" parent="FoldingMenu/HeroUnitDisplay/StatBorder/StatMargin/StatBlock/PowerBlock"]
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 text = "[b]Total Power[/b]"
 
-[node name="Power" type="RichTextLabel" parent="HeroUnitDisplay/StatBorder/StatMargin/StatBlock/PowerBlock"]
+[node name="Power" type="RichTextLabel" parent="FoldingMenu/HeroUnitDisplay/StatBorder/StatMargin/StatBlock/PowerBlock"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 bbcode_enabled = true
+
+[node name="PromotionDetail" type="PanelContainer" parent="FoldingMenu"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+
+[node name="Test" type="Button" parent="FoldingMenu/PromotionDetail"]
+layout_mode = 2

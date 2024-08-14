@@ -16,7 +16,9 @@ func _set_display() -> void:
 func update_money(pMoneyDelta : int) -> bool:
 	if money >= -pMoneyDelta:
 		money += pMoneyDelta
+		
 		_set_display()
+		
 		return true
 	else:
 		return false
@@ -24,7 +26,9 @@ func update_money(pMoneyDelta : int) -> bool:
 func update_exp(pExpDelta : int) -> bool:
 	if exp >= -pExpDelta:
 		exp += pExpDelta
+		
 		_set_display()
+		
 		return true
 	else:
 		return false

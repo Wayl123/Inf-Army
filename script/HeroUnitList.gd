@@ -14,6 +14,10 @@ func add_unit(pUnits : Dictionary) -> void:
 			move_child(heroUnit, 0)
 			
 			heroUnit.set_data(unitData)
+			
+func update_display() -> void:
+	for item in get_children():
+		item.update_level_display()
 
 func get_power_by_amount(pAmount : int) -> int:
 	var heroUnits = get_children()

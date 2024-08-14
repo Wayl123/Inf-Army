@@ -23,10 +23,15 @@ func set_data(pUnit : Dictionary) -> void:
 	
 	_update_display()
 	
-func update_amount(pAmount : int) -> void:
-	data["Amount"] += pAmount
-	
-	_update_amount_display()
+func update_amount(pAmount : int) -> bool:
+	if data["Amount"] >= -pAmount:
+		data["Amount"] += pAmount
+		
+		_update_amount_display()
+		
+		return true
+	else:
+		return false
 	
 func get_power() -> int:
 	return data["Power"]

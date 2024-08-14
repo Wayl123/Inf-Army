@@ -41,6 +41,7 @@ func _update_resource() -> void:
 	resource.update_exp(claimAmount[1])
 	explorationProgress.value += claimAmount[1]
 	
+	unitInventory.update_hero_display()
 	unitInventory.update_shop_cost()
 
 func _set_display() -> void:

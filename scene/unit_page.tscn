@@ -52,4 +52,5 @@ text = "Shop"
 
 [node name="UnitShop" parent="UnitMargin/FoldingMenu" instance=ExtResource("4_2c6rx")]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
