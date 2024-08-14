@@ -12,8 +12,9 @@ extends PanelContainer
 @onready var promotionDetail = %PromotionDetail
 
 var HIDDENSTYLE = preload("res://stylebox/hidden.tres")
-var NOTAVAILABLESTYLE = preload("res://stylebox/not_available.tres")
 var AVAILABLESTYLE = preload("res://stylebox/available.tres")
+var SEMIAVAILABLESTYLE = preload("res://stylebox/semi_available.tres")
+var NOTAVAILABLESTYLE = preload("res://stylebox/not_available.tres")
 var HIDDENCOLOR = Color.hex(0xffffff00)
 var VISIBLECOLOR = Color.hex(0xffffff3f)
 
@@ -43,6 +44,9 @@ func _level_available() -> void:
 	if resource.exp >= data["ExpReq"]:
 		levelPromotion["theme_override_styles/hover"] = AVAILABLESTYLE
 		levelPromotion.disabled = false
+	elif data["Level"] >= data["MaxLevel"]:
+		levelPromotion["theme_override_styles/hover"] = SEMIAVAILABLESTYLE
+		levelPromotion.disabled = false
 	else:
 		levelPromotion["theme_override_styles/disabled"] = NOTAVAILABLESTYLE
 		levelPromotion.disabled = true
@@ -63,6 +67,19 @@ func _level_or_promote() -> void:
 			else:
 				data["ExpReq"] = NAN
 				
+			var index = 0
+			var spotFound = false
+			
+			while (index < get_index() and not spotFound):
+				var nodePower = get_parent().get_child(index).get_power()
+				
+				if (get_power() >= nodePower):
+					spotFound = true
+				else:
+					index += 1
+					
+			get_parent().move_child(self, index)
+				
 			exploration.update_exploration_power()
 			get_parent().update_display()
 	else:
@@ -75,7 +92,7 @@ func _expand_promotion_detail() -> void:
 		promotionDetail.custom_minimum_size = Vector2.ZERO
 		
 	detailExpanded = not detailExpanded
-	detailExpanded.visible = detailExpanded
+	promotionDetail.visible = detailExpanded
 	
 func set_data(pUnit : Dictionary) -> void:
 	data = pUnit
