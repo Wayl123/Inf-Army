@@ -57,7 +57,7 @@ func update_claim_amount() -> void:
 	if claimAmount[1] < data["MaxExpAmount"]:
 		claimAmount[1] = clampf(explorationPower * float(data["ExpBase"]), 0.0, data["MaxExpAmount"])
 		
-	moneyRate.text = str("[right]", claimAmount[0] / float(data["ExploreTimer"]), "/sec[/right]")
-	expRate.text = str("[right]", claimAmount[1] / float(data["ExploreTimer"]), "/sec[/right]")
+	moneyRate.text = str("[right]", String.num_scientific(claimAmount[0] / float(data["ExploreTimer"])), "/sec[/right]")
+	expRate.text = str("[right]", String.num_scientific(claimAmount[1] / float(data["ExploreTimer"])), "/sec[/right]")
 	
 

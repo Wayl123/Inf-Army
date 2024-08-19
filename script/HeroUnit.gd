@@ -30,7 +30,7 @@ func _ready() -> void:
 
 func _update_display() -> void:
 	unitName.text = str("[center][b]", data["Name"], "[/b][/center]")
-	unitLevelPower.text = str("[right]", data["LevelPower"], "[/right]")
+	unitLevelPower.text = str("[right]", String.num_scientific(data["LevelPower"]), "[/right]")
 	
 	update_level_display()
 	
@@ -63,7 +63,7 @@ func _level_or_promote() -> void:
 		if resource.update_exp(-data["ExpReq"]):
 			data["Level"] += 1
 			if data["Level"] < data["MaxLevel"]:
-				data["ExpReq"] = int(float(data["ExpBase"]) * (float(data["ExpScale"]) ** (float(data["Level"]) - 1)))
+				data["ExpReq"] = _get_exp_req()
 			else:
 				data["ExpReq"] = NAN
 				
@@ -94,18 +94,21 @@ func _expand_promotion_detail() -> void:
 	detailExpanded = not detailExpanded
 	promotionDetail.visible = detailExpanded
 	
+func _get_exp_req() -> int:
+	return int(float(data["ExpBase"]) * (float(data["ExpScale"]) ** (float(data["Level"]) - 1)))
+	
 func set_data(pUnit : Dictionary) -> void:
 	data = pUnit
 	data["Level"] = 1
-	data["ExpReq"] = int(float(data["ExpBase"]) * (float(data["ExpScale"]) ** (float(data["Level"]) - 1)))
+	data["ExpReq"] = _get_exp_req()
 	
 	_update_display()
 	
 func update_level_display() -> void:
 	var expText = ""
 	
-	unitLevel.text = str("[right]", data["Level"], " (Max)" if data["Level"] >= data["MaxLevel"] else "", "[/right]")
-	unitPower.text = str("[right]", int(data["LevelPower"]) * int(data["Level"]), "[/right]")
+	unitLevel.text = str("[right]", String.num_scientific(data["Level"]), " (Max)" if data["Level"] >= data["MaxLevel"] else "", "[/right]")
+	unitPower.text = str("[right]", String.num_scientific(get_power()), "[/right]")
 	
 	expText += str("[right]", data["ExpReq"], " ")
 	if resource.exp >= data["ExpReq"]:
@@ -120,5 +123,5 @@ func update_level_display() -> void:
 		_level_available()
 	
 func get_power() -> int:
-	return int(data["LevelPower"]) * int(data["Level"])
+	return int(float(data["LevelPower"]) * float(data["Level"]))
 	

@@ -9,4 +9,4 @@ func set_display(pData : Dictionary) -> void:
 		amount.text = str("[b]Amount: [/b]", "0")
 
 func update_stored_amount(pAmount : int) -> void:
-	amount.text = str("[b]Amount: [/b]", pAmount)
+	amount.text = str("[b]Amount: [/b]", String.num_scientific(pAmount))

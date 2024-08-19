@@ -10,8 +10,8 @@ func _ready():
 	_set_display()
 	
 func _set_display() -> void:
-	playerMoney.text = str("[right]", money, "[/right]")
-	playerExp.text = str("[right]", exp, "[/right]")
+	playerMoney.text = str("[right]", String.num_scientific(money), "[/right]")
+	playerExp.text = str("[right]", String.num_scientific(exp), "[/right]")
 
 func update_money(pMoneyDelta : int) -> bool:
 	if money >= -pMoneyDelta:

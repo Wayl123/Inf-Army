@@ -5,10 +5,10 @@ extends PanelContainer
 @onready var explorationPower = %ExplorationPower
 
 func update_hero_cap(pCap : int) -> void:
-	heroCap.text = str("[right][font_size={12}]", pCap, "[/font_size][/right]")
+	heroCap.text = str("[right][font_size={12}]", String.num_scientific(pCap), "[/font_size][/right]")
 	
 func update_normal_unit_cap(pCap : int) -> void:
-	normalUnitCap.text = str("[right][font_size={12}]", pCap, "[/font_size][/right]")
+	normalUnitCap.text = str("[right][font_size={12}]", String.num_scientific(pCap), "[/font_size][/right]")
 
 func update_exploration_power(pPower : int) -> void:
-	explorationPower.text = str("[right][font_size={12}]", pPower, "[/font_size][/right]")
+	explorationPower.text = str("[right][font_size={12}]", String.num_scientific(pPower), "[/font_size][/right]")

@@ -79,7 +79,7 @@ func set_cost_display(reqAmount : int = quantity.value) -> void:
 		else:
 			costText += "[color=#ff0000]"
 			affordable = false
-		costText += str("[b]", cost, ":[/b] ", amount, "/", totalReq, "[/color]\n")
+		costText += str("[b]", cost, ":[/b] ", String.num_scientific(amount), "/", String.num_scientific(totalReq), "[/color]\n")
 		
 	itemCost.text = costText
 	

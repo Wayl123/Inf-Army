@@ -9,13 +9,13 @@ var data = {}
 
 func _update_display() -> void:
 	unitName.text = str("[center]", data["Name"], "[/center]")
-	unitPower.text = str("[right]", data["Power"], "[/right]")
+	unitPower.text = str("[right]", String.num_scientific(data["Power"]), "[/right]")
 	
 	_update_amount_display()
 	
 func _update_amount_display() -> void:
-	unitAmount.text = str("[right]", data["Amount"], "[/right]")
-	unitTotal.text = str("[right]", int(data["Amount"]) * int(data["Power"]), "[/right]")
+	unitAmount.text = str("[right]", String.num_scientific(data["Amount"]), "[/right]")
+	unitTotal.text = str("[right]", String.num_scientific(int(data["Amount"]) * int(data["Power"])), "[/right]")
 
 func set_data(pUnit : Dictionary) -> void:
 	data = pUnit

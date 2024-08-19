@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://bgg0cbd6nv2at"]
+[gd_scene load_steps=8 format=3 uid="uid://bgg0cbd6nv2at"]
 
 [ext_resource type="Script" path="res://script/HeroUnit.gd" id="1_04aah"]
 [ext_resource type="StyleBox" uid="uid://bonnqkn7uvxcy" path="res://stylebox/hidden.tres" id="2_6btii"]
 [ext_resource type="StyleBox" uid="uid://bjnyscmsekyo5" path="res://stylebox/not_available.tres" id="2_6c5lu"]
 [ext_resource type="StyleBox" uid="uid://bno4p3j1ifd4o" path="res://stylebox/available.tres" id="3_i5kaf"]
+[ext_resource type="PackedScene" uid="uid://ts52nxk2out7" path="res://scene/promotion_detail.tscn" id="5_df78d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nqdre"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -140,10 +141,7 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 bbcode_enabled = true
 
-[node name="PromotionDetail" type="PanelContainer" parent="FoldingMenu"]
+[node name="PromotionDetail" parent="FoldingMenu" instance=ExtResource("5_df78d")]
 unique_name_in_owner = true
 visible = false
-layout_mode = 2
-
-[node name="Test" type="Button" parent="FoldingMenu/PromotionDetail"]
 layout_mode = 2

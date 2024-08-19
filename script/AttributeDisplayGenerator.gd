@@ -11,11 +11,11 @@ func set_display(pData : Dictionary) -> void:
 	super(pData)
 	
 	if not pData.is_empty():
-		amount.text = str("[b]Amount: [/b]", "0", "/", holdCap)
+		amount.text = str("[b]Amount: [/b]", "0", "/", String.num_scientific(holdCap))
 		genTimer.wait_time = pData["GenTime"]
 		genTimer.start()
 
 func update_stored_amount(pAmount : int) -> void:
 	if pAmount < holdCap and genTimer.is_stopped():
 		genTimer.start()
-	amount.text = str("[b]Amount: [/b]", pAmount, "/", holdCap)
+	amount.text = str("[b]Amount: [/b]", String.num_scientific(pAmount), "/", String.num_scientific(holdCap))
