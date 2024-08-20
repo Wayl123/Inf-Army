@@ -24,8 +24,8 @@ func _add_area(pArea : String) -> void:
 	var explorationArea = EXPLORATIONAREA.instantiate()
 	
 	explorationArea.data = globalData.get_exploration_area_data_copy(pArea)
-	explorationArea.explorationPower = explorationPower
 	explorationAreaList.add_child(explorationArea)
+	explorationArea.update_claim_amount(explorationPower)
 	
 func _update_exploration_stat(pTeamSize : Array) -> void:
 	if pTeamSize[0] != teamSize[0]:
@@ -41,5 +41,4 @@ func update_exploration_power() -> void:
 	explorationStat.update_exploration_power(explorationPower)
 	
 	for area in explorationAreaList.get_children():
-		area.explorationPower = explorationPower
-		area.update_claim_amount()
+		area.update_claim_amount(explorationPower)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://b3csfqpo4wd6v"]
 
 [ext_resource type="Script" path="res://script/LootboxItem.gd" id="1_lenjs"]
-[ext_resource type="Script" path="res://script/AttributeDisplayInventory.gd" id="1_ods2p"]
+[ext_resource type="Script" path="res://script/LootboxAttributeDisplayInventory.gd" id="2_yy73f"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_50oso"]
 bg_color = Color(0, 0, 0, 1)
@@ -28,24 +28,23 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="AttributeDisplay" type="VBoxContainer" parent="LootboxMargin"]
+[node name="LootboxAttributeDisplay" type="VBoxContainer" parent="LootboxMargin"]
 unique_name_in_owner = true
 layout_mode = 2
-script = ExtResource("1_ods2p")
+script = ExtResource("2_yy73f")
 
-[node name="GeneratorName" type="RichTextLabel" parent="LootboxMargin/AttributeDisplay"]
+[node name="LootboxName" type="RichTextLabel" parent="LootboxMargin/LootboxAttributeDisplay"]
 unique_name_in_owner = true
 layout_mode = 2
-mouse_filter = 1
 bbcode_enabled = true
 fit_content = true
 
-[node name="StatScroll" type="ScrollContainer" parent="LootboxMargin/AttributeDisplay"]
+[node name="StatScroll" type="ScrollContainer" parent="LootboxMargin/LootboxAttributeDisplay"]
 layout_mode = 2
 size_flags_vertical = 3
 horizontal_scroll_mode = 0
 
-[node name="ProbStat" type="RichTextLabel" parent="LootboxMargin/AttributeDisplay/StatScroll"]
+[node name="ProbStat" type="RichTextLabel" parent="LootboxMargin/LootboxAttributeDisplay/StatScroll"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -54,17 +53,17 @@ mouse_filter = 1
 bbcode_enabled = true
 fit_content = true
 
-[node name="Amount" type="RichTextLabel" parent="LootboxMargin/AttributeDisplay"]
+[node name="Amount" type="RichTextLabel" parent="LootboxMargin/LootboxAttributeDisplay"]
 unique_name_in_owner = true
 layout_mode = 2
 bbcode_enabled = true
 fit_content = true
 
-[node name="ButtonGroup" type="HBoxContainer" parent="LootboxMargin/AttributeDisplay"]
+[node name="ButtonGroup" type="HBoxContainer" parent="LootboxMargin/LootboxAttributeDisplay"]
 layout_mode = 2
 alignment = 1
 
-[node name="Open1" type="Button" parent="LootboxMargin/AttributeDisplay/ButtonGroup"]
+[node name="Open1" type="Button" parent="LootboxMargin/LootboxAttributeDisplay/ButtonGroup"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
@@ -72,7 +71,7 @@ theme_override_font_sizes/font_size = 8
 theme_override_styles/normal = SubResource("StyleBoxFlat_50oso")
 text = "Open"
 
-[node name="Open10" type="Button" parent="LootboxMargin/AttributeDisplay/ButtonGroup"]
+[node name="Open10" type="Button" parent="LootboxMargin/LootboxAttributeDisplay/ButtonGroup"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
@@ -82,7 +81,7 @@ theme_override_styles/disabled = SubResource("StyleBoxFlat_3q107")
 disabled = true
 text = "Open 10"
 
-[node name="OpenAll" type="Button" parent="LootboxMargin/AttributeDisplay/ButtonGroup"]
+[node name="OpenAll" type="Button" parent="LootboxMargin/LootboxAttributeDisplay/ButtonGroup"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2

@@ -1,6 +1,7 @@
 extends PanelContainer
 
 @onready var resource = get_tree().get_first_node_in_group("Resource")
+@onready var inventory = get_tree().get_first_node_in_group("Inventory")
 @onready var unitInventory = get_tree().get_first_node_in_group("UnitInventory")
 
 @onready var areaName = %AreaName
@@ -14,8 +15,9 @@ extends PanelContainer
 
 var exploring = false
 var data = {}
-var explorationPower = 0
 var claimAmount = [0, 0]
+
+var rng = RandomNumberGenerator.new()
 
 func _ready() -> void:
 	activeToggle.connect("pressed", Callable(self, "_start_exploring"))
@@ -41,21 +43,27 @@ func _update_resource() -> void:
 	resource.update_exp(claimAmount[1])
 	explorationProgress.value += claimAmount[1]
 	
+	_update_loot()
+	
 	unitInventory.update_hero_display()
 	unitInventory.update_shop_cost()
+	
+func _update_loot() -> void:
+	for loot in data["Loot"]:
+		var roll = rng.randf()
+		if roll < data["Loot"][loot] * (claimAmount[1] / float(data["MaxExpAmount"])):
+			inventory.add_item("normal", loot, 1)
 
 func _set_display() -> void:
 	areaName.text = str("[b]", data["Name"], "[/b]")
 	explorationProgress.max_value = data["ExploreCompletion"]
 	payoutTimer.wait_time = data["ExploreTimer"]
 	
-	update_claim_amount()
-	
-func update_claim_amount() -> void:
+func update_claim_amount(pExplorationPower : int) -> void:
 	if claimAmount[0] < data["MaxMoneyAmount"]:
-		claimAmount[0] = clampf(explorationPower * float(data["MoneyBase"]), 0.0, data["MaxMoneyAmount"])
+		claimAmount[0] = clampf(pExplorationPower * float(data["MoneyBase"]), 0.0, data["MaxMoneyAmount"])
 	if claimAmount[1] < data["MaxExpAmount"]:
-		claimAmount[1] = clampf(explorationPower * float(data["ExpBase"]), 0.0, data["MaxExpAmount"])
+		claimAmount[1] = clampf(pExplorationPower * float(data["ExpBase"]), 0.0, data["MaxExpAmount"])
 		
 	moneyRate.text = str("[right]", String.num_scientific(claimAmount[0] / float(data["ExploreTimer"])), "/sec[/right]")
 	expRate.text = str("[right]", String.num_scientific(claimAmount[1] / float(data["ExploreTimer"])), "/sec[/right]")

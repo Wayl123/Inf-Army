@@ -1,6 +1,5 @@
-extends "res://script/AttributeDisplay.gd"
+extends "res://script/LootboxAttributeDisplay.gd"
 
-@onready var amount = %ClaimableAmount
 @onready var genProgress = %GeneratorProgress
 @onready var genTimer = %GeneratorTimer
 
@@ -11,11 +10,11 @@ func set_display(pData : Dictionary) -> void:
 	super(pData)
 	
 	if not pData.is_empty():
-		amount.text = str("[b]Amount: [/b]", "0", "/", String.num_scientific(holdCap))
+		boxAmount.text = str("[b]Amount: [/b]", "0", "/", String.num_scientific(holdCap))
 		genTimer.wait_time = pData["GenTime"]
 		genTimer.start()
 
-func update_stored_amount(pAmount : int) -> void:
+func update_stored_amount_display(pAmount : int) -> void:
 	if pAmount < holdCap and genTimer.is_stopped():
 		genTimer.start()
-	amount.text = str("[b]Amount: [/b]", String.num_scientific(pAmount), "/", String.num_scientific(holdCap))
+	boxAmount.text = str("[b]Amount: [/b]", String.num_scientific(pAmount), "/", String.num_scientific(holdCap))

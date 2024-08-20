@@ -6,10 +6,12 @@ var lootboxGenListPath = "res://script/LootboxGeneratorTemplate.json"
 var unitStatListPath = "res://script/UnitStat.json"
 var unitCombinationListPath = "res://script/UnitCombination.json"
 var explorationAreaListPath = "res://script/ExplorationAreaTemplate.json"
+var itemStatListPath = "res://script/ItemStat.json"
 var lootboxGenData = {}
 var unitStatData = {}
 var unitCombinationData = {}
 var explorationAreaData = {}
+var itemStatData = {}
 
 func _ready() -> void:
 	_load_all_data()
@@ -35,6 +37,7 @@ func _load_all_data() -> void:
 	unitStatData = _load_json_file(unitStatListPath)
 	unitCombinationData = _load_json_file(unitCombinationListPath)
 	explorationAreaData = _load_json_file(explorationAreaListPath)
+	itemStatData = _load_json_file(itemStatListPath)
 	
 func get_lootbox_gen_data_copy(pId : String) -> Dictionary:
 	return lootboxGenData[pId].duplicate(true)
@@ -47,3 +50,6 @@ func get_unit_combination_data_copy() -> Dictionary:
 
 func get_exploration_area_data_copy(pId : String) -> Dictionary:
 	return explorationAreaData[pId].duplicate(true)
+	
+func get_item_stat_data_copy(pId : String) -> Dictionary:
+	return itemStatData[pId].duplicate(true)

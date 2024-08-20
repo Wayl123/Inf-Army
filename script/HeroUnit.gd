@@ -19,6 +19,8 @@ var HIDDENCOLOR = Color.hex(0xffffff00)
 var VISIBLECOLOR = Color.hex(0xffffff3f)
 
 var data = {}
+var level = 1
+var expReq : int
 
 var levelButtonHovering = false
 var detailExpanded = false
@@ -37,14 +39,14 @@ func _update_display() -> void:
 func _level_available() -> void:
 	levelButtonHovering = true
 	
-	levelPromotion.text = "Level up" if data["Level"] < data["MaxLevel"] else "Promote"
+	levelPromotion.text = "Level up" if level < data["MaxLevel"] else "Promote"
 	levelPromotion["theme_override_colors/font_normal_color"] = VISIBLECOLOR
 	levelPromotion["theme_override_colors/font_disabled_color"] = VISIBLECOLOR
 	
-	if resource.exp >= data["ExpReq"]:
+	if resource.exp >= expReq:
 		levelPromotion["theme_override_styles/hover"] = AVAILABLESTYLE
 		levelPromotion.disabled = false
-	elif data["Level"] >= data["MaxLevel"]:
+	elif level >= data["MaxLevel"]:
 		levelPromotion["theme_override_styles/hover"] = SEMIAVAILABLESTYLE
 		levelPromotion.disabled = false
 	else:
@@ -59,13 +61,13 @@ func _hide_hover() -> void:
 	levelPromotion["theme_override_colors/font_disabled_color"] = HIDDENCOLOR
 	
 func _level_or_promote() -> void:
-	if data["Level"] < data["MaxLevel"]:
-		if resource.update_exp(-data["ExpReq"]):
-			data["Level"] += 1
-			if data["Level"] < data["MaxLevel"]:
-				data["ExpReq"] = _get_exp_req()
+	if level < data["MaxLevel"]:
+		if resource.update_exp(-expReq):
+			level += 1
+			if level < data["MaxLevel"]:
+				expReq = _get_exp_req()
 			else:
-				data["ExpReq"] = NAN
+				expReq = NAN
 				
 			var index = 0
 			var spotFound = false
@@ -95,23 +97,22 @@ func _expand_promotion_detail() -> void:
 	promotionDetail.visible = detailExpanded
 	
 func _get_exp_req() -> int:
-	return int(float(data["ExpBase"]) * (float(data["ExpScale"]) ** (float(data["Level"]) - 1)))
+	return int(float(data["ExpBase"]) * (float(data["ExpScale"]) ** (float(level) - 1)))
 	
 func set_data(pUnit : Dictionary) -> void:
 	data = pUnit
-	data["Level"] = 1
-	data["ExpReq"] = _get_exp_req()
+	expReq = _get_exp_req()
 	
 	_update_display()
 	
 func update_level_display() -> void:
 	var expText = ""
 	
-	unitLevel.text = str("[right]", String.num_scientific(data["Level"]), " (Max)" if data["Level"] >= data["MaxLevel"] else "", "[/right]")
+	unitLevel.text = str("[right]", String.num_scientific(level), " (Max)" if level >= data["MaxLevel"] else "", "[/right]")
 	unitPower.text = str("[right]", String.num_scientific(get_power()), "[/right]")
 	
-	expText += str("[right]", data["ExpReq"], " ")
-	if resource.exp >= data["ExpReq"]:
+	expText += str("[right]", expReq, " ")
+	if resource.exp >= expReq:
 		expText += "[color=#00ff00]"
 	else:
 		expText += "[color=#ff0000]"
@@ -123,5 +124,5 @@ func update_level_display() -> void:
 		_level_available()
 	
 func get_power() -> int:
-	return int(float(data["LevelPower"]) * float(data["Level"]))
+	return int(float(data["LevelPower"]) * float(level))
 	

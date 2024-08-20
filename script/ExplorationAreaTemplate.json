@@ -5,7 +5,9 @@
 		"ExpBase": 1.0,
 		"MaxMoneyAmount": 1000.0,
 		"MaxExpAmount": 1000.0,
-		"Loot": ["P1"],
+		"Loot": {
+			"P1": 100.0
+		},
 		"ExploreCompletion": 1000.0,
 		"ExploreTimer": 10.0,
 		"UnlockReq": 0.0,
