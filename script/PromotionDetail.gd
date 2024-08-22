@@ -42,7 +42,7 @@ func _transform_data() -> void:
 	var unitRegex = RegEx.new()
 	var itemRegex = RegEx.new()
 	unitRegex.compile("\\d+S\\d+")
-	itemRegex.compile("[PB]\\d+")
+	itemRegex.compile("^[PB]\\d+")
 	
 	for promo in data:
 		var newCost = {}
@@ -89,7 +89,7 @@ func _fill_empty_data(pData : Dictionary) -> void:
 	var unitRegex = RegEx.new()
 	var itemRegex = RegEx.new()
 	unitRegex.compile("\\d+S\\d+")
-	itemRegex.compile("[PB]\\d+")
+	itemRegex.compile("^[PB]\\d+")
 	
 	if unitRegex.search(pData["Id"]) != null:
 		var unitNode = unitInventory.get_unit_node_ref(pData["Id"])

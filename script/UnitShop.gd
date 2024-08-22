@@ -19,38 +19,17 @@ func update_shop_unlocks() -> void:
 	
 	for item in data:
 		if not data[item].has("ItemNode"):
-			var shopData = {}
-			var unlock = true
+			var shopItem = SHOPITEM.instantiate()
+		
+			shopItem.data["Id"] = item
+			shopItem.data["Name"] = globalData.get_unit_stat_data_copy(item)["Name"]
+			shopItem.data["Cost"] = data[item]
 			
-			for cost in data[item]:
-				if unitRegex.search(cost) != null:
-					var unitNode = unitInventory.get_unit_node_ref(cost)
-					
-					if unitNode != null:
-						var unitName = globalData.get_unit_stat_data_copy(cost)["Name"]
-						shopData[unitName] = {}
-						shopData[unitName]["Node"] = unitNode
-						shopData[unitName]["Req"] = data[item][cost]
-					else:
-						unlock = false
-						break
-				else:
-					shopData[cost] = {}
-					shopData[cost]["Node"] = resource
-					shopData[cost]["Req"] = data[item][cost]
-				
-			if unlock:
-				var shopItem = SHOPITEM.instantiate()
+			unitShopList.add_child(shopItem)
 			
-				shopItem.data["Id"] = item
-				shopItem.data["Name"] = globalData.get_unit_stat_data_copy(item)["Name"]
-				shopItem.data["Cost"] = shopData
-				
-				unitShopList.add_child(shopItem)
-				
-				shopItem.set_display()
-				
-				data[item]["ItemNode"] = shopItem
+			shopItem.set_display()
+			
+			data[item]["ItemNode"] = shopItem
 		else:
 			data[item]["ItemNode"].set_cost_display()
 			

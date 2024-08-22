@@ -1,5 +1,7 @@
 extends PanelContainer
 
+@onready var globalData = get_tree().get_first_node_in_group("GlobalData")
+@onready var resource = get_tree().get_first_node_in_group("Resource")
 @onready var unitInventory = get_tree().get_first_node_in_group("UnitInventory")
 
 @onready var itemName = %ItemName
@@ -51,10 +53,39 @@ func _buy_amount() -> void:
 	
 	if succeed:
 		unitInventory.add_unit({data["Id"]: quantity.value})
+		
+func _transform_data() -> void:
+	var newCost = {}
+	var unitRegex = RegEx.new()
+	unitRegex.compile("\\d+S\\d+")
 	
-func set_display():
+	for cost in data["Cost"]:
+		if unitRegex.search(cost) != null:
+			var unitNode = unitInventory.get_unit_node_ref(cost)
+			var unitName = globalData.get_unit_stat_data_copy(cost)["Name"]
+			newCost[unitName] = {}
+			newCost[unitName]["Id"] = cost
+			newCost[unitName]["Node"] = unitNode
+			newCost[unitName]["Req"] = data["Cost"][cost]
+		else:
+			newCost[cost] = {}
+			newCost[cost]["Node"] = resource
+			newCost[cost]["Req"] = data["Cost"][cost]
+			
+	data["Cost"] = newCost
+			
+func _fill_empty_data(pData : Dictionary) -> void:
+	var unitRegex = RegEx.new()
+	unitRegex.compile("\\d+S\\d+")
+	
+	if unitRegex.search(pData["Id"]) != null:
+		var unitNode = unitInventory.get_unit_node_ref(pData["Id"])
+		pData["Node"] = unitNode
+	
+func set_display() -> void:
 	itemName.text = data["Name"]
 	
+	_transform_data()
 	set_cost_display()
 	
 func set_cost_display(reqAmount : int = quantity.value) -> void:
@@ -66,20 +97,27 @@ func set_cost_display(reqAmount : int = quantity.value) -> void:
 		var req : int
 		var totalReq : int
 		
-		if cost == "Money":
-			amount = data["Cost"][cost]["Node"].money
-		else:
-			amount = data["Cost"][cost]["Node"].amount
-		req = data["Cost"][cost]["Req"]
+		if data["Cost"][cost]["Node"] == null:
+			_fill_empty_data(data["Cost"][cost])
 		
-		totalReq = req * reqAmount
-		
-		if amount >= totalReq:
-			costText += "[color=#00ff00]"
+		if data["Cost"][cost]["Node"] != null:
+			if cost == "Money":
+				amount = data["Cost"][cost]["Node"].money
+			else:
+				amount = data["Cost"][cost]["Node"].amount
+			req = data["Cost"][cost]["Req"]
+			
+			totalReq = req * reqAmount
+			
+			if amount >= totalReq:
+				costText += "[color=#00ff00]"
+			else:
+				costText += "[color=#ff0000]"
+				affordable = false
+			costText += str("[b]", cost, ":[/b] ", String.num_scientific(amount), "/", String.num_scientific(totalReq), "[/color]\n")
 		else:
-			costText += "[color=#ff0000]"
+			costText += "[color=#ff0000]????????[/color]\n"
 			affordable = false
-		costText += str("[b]", cost, ":[/b] ", String.num_scientific(amount), "/", String.num_scientific(totalReq), "[/color]\n")
 		
 	itemCost.text = costText
 	
