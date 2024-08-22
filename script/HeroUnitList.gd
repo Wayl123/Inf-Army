@@ -4,6 +4,8 @@ extends VBoxContainer
 
 var HEROUNIT = preload("res://scene/hero_unit.tscn")
 
+var maxed = {}
+
 func add_unit(pUnits : Dictionary) -> void:
 	for unit in pUnits:
 		for i in range(pUnits[unit]):

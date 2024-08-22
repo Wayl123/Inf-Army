@@ -52,7 +52,7 @@ func _update_loot() -> void:
 	for loot in data["Loot"]:
 		var roll = rng.randf()
 		if roll < data["Loot"][loot] * (claimAmount[1] / float(data["MaxExpAmount"])):
-			inventory.add_item("normal", loot, 1)
+			inventory.add_item(loot, 1)
 
 func _set_display() -> void:
 	areaName.text = str("[b]", data["Name"], "[/b]")

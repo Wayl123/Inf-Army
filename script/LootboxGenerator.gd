@@ -28,4 +28,4 @@ func _get_and_empty_stored_amount() -> int:
 	return retrievedAmount
 	
 func _claim_lootbox() -> void:
-	inventory.add_item("lootbox", boxId, _get_and_empty_stored_amount())
+	inventory.add_item(boxId, _get_and_empty_stored_amount())

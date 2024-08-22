@@ -26,7 +26,7 @@ func _set_max_possible() -> void:
 		if cost == "Money":
 			maxPossible = clampi(floori(data["Cost"][cost]["Node"].money / req), 1, maxPossible) if maxPossible else maxi(floori(data["Cost"][cost]["Node"].money / req), 1)
 		else:
-			maxPossible = clampi(floori(data["Cost"][cost]["Node"].get_amount() / req), 1, maxPossible) if maxPossible else maxi(floori(data["Cost"][cost]["Node"].get_amount() / req), 1)
+			maxPossible = clampi(floori(data["Cost"][cost]["Node"].amount / req), 1, maxPossible) if maxPossible else maxi(floori(data["Cost"][cost]["Node"].amount / req), 1)
 		
 	quantity.value = maxPossible
 	
@@ -50,7 +50,7 @@ func _buy_amount() -> void:
 			break
 	
 	if succeed:
-		unitInventory.add_unit({data["Id"] : quantity.value})
+		unitInventory.add_unit({data["Id"]: quantity.value})
 	
 func set_display():
 	itemName.text = data["Name"]
@@ -69,7 +69,7 @@ func set_cost_display(reqAmount : int = quantity.value) -> void:
 		if cost == "Money":
 			amount = data["Cost"][cost]["Node"].money
 		else:
-			amount = data["Cost"][cost]["Node"].get_amount()
+			amount = data["Cost"][cost]["Node"].amount
 		req = data["Cost"][cost]["Req"]
 		
 		totalReq = req * reqAmount

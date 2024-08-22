@@ -41,6 +41,3 @@ func get_power_by_amount(pAmount : int) -> Array:
 		return [amount * int(data["Power"]), pAmount - amount]
 	else:
 		return [pAmount * int(data["Power"]), 0]
-		
-func get_amount() -> int:
-	return amount

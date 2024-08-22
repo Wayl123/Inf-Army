@@ -68,6 +68,7 @@ func _level_or_promote() -> void:
 				expReq = _get_exp_req()
 			else:
 				expReq = NAN
+				promotionDetail.set_display()
 				
 			var index = 0
 			var spotFound = false
@@ -89,7 +90,7 @@ func _level_or_promote() -> void:
 	
 func _expand_promotion_detail() -> void:
 	if not detailExpanded:
-		promotionDetail.custom_minimum_size = Vector2(0, 128)
+		promotionDetail.custom_minimum_size = Vector2(0, 256)
 	else:
 		promotionDetail.custom_minimum_size = Vector2.ZERO
 		
@@ -102,6 +103,8 @@ func _get_exp_req() -> int:
 func set_data(pUnit : Dictionary) -> void:
 	data = pUnit
 	expReq = _get_exp_req()
+	if pUnit.has("Promotion"):
+		promotionDetail.data = pUnit["Promotion"]
 	
 	_update_display()
 	
@@ -122,6 +125,9 @@ func update_level_display() -> void:
 	
 	if levelButtonHovering:
 		_level_available()
+		
+	if level >= data["MaxLevel"]:
+		promotionDetail.update_display()
 	
 func get_power() -> int:
 	return int(float(data["LevelPower"]) * float(level))

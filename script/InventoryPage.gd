@@ -7,25 +7,30 @@ extends PanelContainer
 var LOOTBOXITEM = preload("res://scene/lootbox_item.tscn")
 var NORMALITEM = preload("res://scene/normal_item.tscn")
 
-var itemContent = {}
+var data = {}
 
-func add_item(pType : String, pId : String, pAmount : int) -> void:
+func add_item(pId : String, pAmount : int) -> void:
 	var item : Node
-	var data : Dictionary
+	var itemData : Dictionary
 	
-	if not itemContent.has(pId):
-		if pType == "lootbox":
+	if not data.has(pId):
+		if pId.begins_with("L"):
 			item = LOOTBOXITEM.instantiate()
-			data = globalData.get_lootbox_gen_data_copy(pId)
+			itemData = globalData.get_lootbox_gen_data_copy(pId)
 		else:
 			item = NORMALITEM.instantiate()
-			data = globalData.get_item_stat_data_copy(pId)
+			itemData = globalData.get_item_stat_data_copy(pId)
 		
-		item.data = data
+		item.data = itemData
 		inventoryList.add_child(item)
 		
-		itemContent[pId] = item
+		data[pId] = item
 	else:
-		item = itemContent[pId]
+		item = data[pId]
 		
 	item.update_stored_amount(pAmount)
+	
+func get_item_node_ref(pId : String) -> Node:
+	if data.has(pId):
+		return data[pId]
+	return null

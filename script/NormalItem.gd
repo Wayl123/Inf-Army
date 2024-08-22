@@ -18,4 +18,4 @@ func _set_display():
 			itemStat.text += str(effect, "\n")
 
 func _update_stored_amount_display() -> void:
-	itemAmount.text = str("[b]Amount: [/b]", amount)
+	itemAmount.text = str("[b]Amount: [/b]", String.num_scientific(amount))

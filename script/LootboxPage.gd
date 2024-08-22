@@ -11,7 +11,7 @@ func _ready() -> void:
 
 func _get_saved_generator() -> void:
 	# To be changed to get from save file
-	_add_generator("NB1")
+	_add_generator("L1T1")
 
 func _add_generator(pGen : String) -> void:
 	# Might need to change input type later on, still need to decide on how I want to store generator data
