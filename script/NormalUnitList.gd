@@ -14,12 +14,12 @@ func add_unit(pUnits : Dictionary) -> void:
 			var normalUnit = NORMALUNIT.instantiate()
 			var index = 1
 			var spotFound = false
-			var splitUnitName = unit.split("S")
+			var splitUnitName = unit.right(-1).split("S")
 			var unitData = globalData.get_unit_stat_data_copy(unit)
 			
 			while (index < get_child_count() and not spotFound):
 				var nodePower = get_child(index).get_power()
-				var splitNodeName = get_child(index).name.split("S")
+				var splitNodeName = get_child(index).name.right(-1).split("S")
 				
 				# Sort by power first then sort by rarity and id
 				# Move index if the node at current position is of higher rarity or same rarity but higher id

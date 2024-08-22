@@ -1,49 +1,49 @@
 {
-	"1S1": {
+	"U1S1": {
 		"Name": "Peasant",
 		"Power": 1
 	},
-	"1S2": {
+	"U1S2": {
 		"Name": "Chicken",
 		"Power": 1
 	},
-	"1S3": {
+	"U1S3": {
 		"Name": "Trained Peasant",
 		"Power": 3
 	},
-	"1S4": {
+	"U1S4": {
 		"Name": "Chicken Coop",
 		"Power": 5
 	},
-	"2S1": {
+	"U2S1": {
 		"Name": "Farmer",
 		"Power": 3
 	},
-	"2S2": {
+	"U2S2": {
 		"Name": "Horse",
 		"Power": 3
 	},
-	"2S3": {
+	"U2S3": {
 		"Name": "Chicken Farmer",
 		"Power": 12
 	},
-	"2S4": {
+	"U2S4": {
 		"Name": "Peasant Rider",
 		"Power": 8
 	},
-	"3S1": {
+	"U3S1": {
 		"Name": "Guard",
 		"Power": 10
 	},
-	"3S2": {
+	"U3S2": {
 		"Name": "Scout",
 		"Power": 20
 	},
-	"3S3": {
+	"U3S3": {
 		"Name": "Supply Area",
 		"Power": 25
 	},
-	"4S1": {
+	"U4S1": {
 		"Name": "Expedition Team",
 		"Power": 100
 	},
@@ -56,12 +56,12 @@
 		"Promotion": {
 			"H4S1": {
 				"Cost": {
-					"4S1": 1,
+					"U4S1": 1,
 					"P1": 10
 				},
 				"MaterialMulti": 0.8,
 				"Optional": {
-					"Selection": ["2S3", "2S4", "3S2", "3S3", "4S1"],
+					"Selection": ["U2S3", "U2S4", "U3S2", "U3S3", "U4S1"],
 					"MaxAmount": 1
 				},
 				"OptionalMulti": 0.5
