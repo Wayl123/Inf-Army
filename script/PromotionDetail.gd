@@ -14,7 +14,7 @@ extends PanelContainer
 @onready var basePowerIncrease = %BasePowerIncrease
 @onready var promoteButton = %PromoteButton
 
-signal promoteUnit(promotePower : int, promoteSpecial : Dictionary)
+signal promote_unit(promoteData : Dictionary)
 
 var data = {}
 var promoSelection : Array
@@ -23,6 +23,8 @@ var optionalSelection = []
 var maxOptional = 0
 var promoPower = 0
 var promoMulti = {}
+var totalPower = 0
+var totalMulti = {}
 
 func _ready() -> void:
 	selectLeft.connect("pressed", Callable(self, "_change_selection").bind(-1))
@@ -42,7 +44,32 @@ func _change_selection(direction : int) -> void:
 		optionalSelection = []
 
 func _promote_unit() -> void:
-	pass
+	var promoData = {}
+	var id = promoSelection[currentIndex]
+	var succeed = true
+	
+	for cost in data[id]["Cost"]:
+		var req : int
+		
+		req = data[id]["Cost"][cost]["Req"]
+		
+		if cost == "Money":
+			succeed = data[id]["Cost"][cost]["Node"].update_money(-req)
+		elif cost == "Exp":
+			succeed = data[id]["Cost"][cost]["Node"].update_exp(-req)
+		else:
+			succeed = data[id]["Cost"][cost]["Node"].update_amount(-req)
+			
+		if not succeed:
+			break
+	
+	if succeed:
+		promoData["Data"] = globalData.get_unit_stat_data_copy(id)
+		promoData["Power"] = totalPower
+		promoData["Multi"] = totalMulti
+		
+		promoteButton.disabled = true
+		promote_unit.emit(promoData)
 	
 func _transform_data() -> void:
 	var unitRegex = RegEx.new()
@@ -157,10 +184,12 @@ func _set_promotion_power(pSelected : Dictionary) -> void:
 	
 	for cost in pSelected["Cost"]:
 		if pSelected["Cost"][cost].has("Power"):
-			power += pSelected["Cost"][cost]["Power"] * pSelected["Cost"][cost]["Req"]
+			power += int(float(pSelected["Cost"][cost]["Power"]) * float(pSelected["Cost"][cost]["Req"]))
 		if pSelected["Cost"][cost].has("Multi"):
 			for item in pSelected["Cost"][cost]["Multi"]:
-				multi[item] += pSelected["Cost"][cost]["Multi"][item] * pSelected["Cost"][cost]["Req"]
+				if not multi.has(item):
+					multi[item] = 0
+				multi[item] += float(pSelected["Cost"][cost]["Multi"][item]) * float(pSelected["Cost"][cost]["Req"])
 			
 	promoPower = int(float(power) * float(pSelected["BaseMulti"]))
 	promoMulti = multi
@@ -172,6 +201,7 @@ func _set_power_increase() -> void:
 	
 	power += promoPower
 	
+	totalPower = power
 	basePowerIncrease.text = str("[right]+", power, "[/right]")
 	
 func set_display() -> void:

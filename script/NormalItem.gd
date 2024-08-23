@@ -17,5 +17,5 @@ func _set_display():
 		for effect in data["SpecialEffect"]:
 			itemStat.text += str(effect, "\n")
 
-func _update_stored_amount_display() -> void:
+func _update_amount_display() -> void:
 	itemAmount.text = str("[b]Amount: [/b]", String.num_scientific(amount))

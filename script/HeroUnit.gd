@@ -21,6 +21,9 @@ var data = {}
 var level = 1
 var expReq = 0
 
+var basePower = 0
+var baseMulti = {}
+
 var levelButtonHovering = false
 var detailExpanded = false
 
@@ -28,6 +31,7 @@ func _ready() -> void:
 	levelPromotion.connect("mouse_entered", Callable(self, "_level_available"))
 	levelPromotion.connect("mouse_exited", Callable(self, "_hide_hover"))
 	levelPromotion.connect("pressed", Callable(self, "_level_or_promote"))
+	promotionDetail.connect("promote_unit", Callable(self, "_promote_unit"))
 
 func _update_display() -> void:
 	unitName.text = str("[center][b]", data["Name"], "[/b][/center]")
@@ -103,6 +107,18 @@ func _expand_promotion_detail() -> void:
 func _get_exp_req() -> int:
 	return int(float(data["ExpBase"]) * (float(data["ExpScale"]) ** (float(level) - 1)))
 	
+func _promote_unit(pData : Dictionary) -> void:
+	basePower += int(float(data["LevelPower"]) * float(level)) + pData["Power"]
+	for item in pData["Multi"]:
+		if not baseMulti.has(item):
+			baseMulti[item] = 1
+		baseMulti[item] += pData["Multi"][item]
+	
+	level = 1
+	
+	_expand_promotion_detail()
+	set_data(pData["Data"])
+	
 func set_data(pUnit : Dictionary) -> void:
 	data = pUnit
 	expReq = _get_exp_req()
@@ -133,5 +149,5 @@ func update_level_display() -> void:
 		promotionDetail.update_display()
 	
 func get_power() -> int:
-	return int(float(data["LevelPower"]) * float(level))
+	return int(float(data["LevelPower"]) * float(level)) + basePower
 	

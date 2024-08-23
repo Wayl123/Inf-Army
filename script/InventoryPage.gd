@@ -28,7 +28,7 @@ func add_item(pId : String, pAmount : int) -> void:
 	else:
 		item = data[pId]
 		
-	item.update_stored_amount(pAmount)
+	item.update_amount(pAmount)
 	
 func get_item_node_ref(pId : String) -> Node:
 	if data.has(pId):

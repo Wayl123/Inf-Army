@@ -16,6 +16,3 @@ func set_display(pData : Dictionary) -> void:
 		probStat.text = str("[b]Probability[/b]\n")
 		for item in pData["Prob"]:
 			probStat.text += str(globalData.get_unit_stat_data_copy(item)["Name"], ": ", pData["Prob"][item] * 100, "%", "\n")
-	
-func update_stored_amount_display(pAmount : int) -> void:
-	pass

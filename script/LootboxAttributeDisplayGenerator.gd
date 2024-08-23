@@ -14,7 +14,7 @@ func set_display(pData : Dictionary) -> void:
 		genTimer.wait_time = pData["GenTime"]
 		genTimer.start()
 
-func update_stored_amount_display(pAmount : int) -> void:
+func update_amount_display(pAmount : int) -> void:
 	if pAmount < holdCap and genTimer.is_stopped():
 		genTimer.start()
 	boxAmount.text = str("[b]Amount: [/b]", String.num_scientific(pAmount), "/", String.num_scientific(holdCap))
