@@ -59,7 +59,7 @@
 					"U4S1": 1,
 					"P1": 10
 				},
-				"MaterialMulti": 0.8,
+				"BaseMulti": 0.8,
 				"Optional": {
 					"Selection": ["U2S3", "U2S4", "U3S2", "U3S3", "U4S1"],
 					"MaxAmount": 1

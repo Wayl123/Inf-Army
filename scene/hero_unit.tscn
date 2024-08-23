@@ -1,9 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://bgg0cbd6nv2at"]
+[gd_scene load_steps=7 format=3 uid="uid://bgg0cbd6nv2at"]
 
 [ext_resource type="Script" path="res://script/HeroUnit.gd" id="1_04aah"]
-[ext_resource type="StyleBox" uid="uid://bonnqkn7uvxcy" path="res://stylebox/hidden.tres" id="2_6btii"]
-[ext_resource type="StyleBox" uid="uid://bjnyscmsekyo5" path="res://stylebox/not_available.tres" id="2_6c5lu"]
-[ext_resource type="StyleBox" uid="uid://bno4p3j1ifd4o" path="res://stylebox/available.tres" id="3_i5kaf"]
+[ext_resource type="Theme" uid="uid://dppjxn65e65xt" path="res://theme/level_promotion_button_default.tres" id="2_cp7p7"]
+[ext_resource type="Theme" uid="uid://bjw5mp8feqv60" path="res://theme/empty_style.tres" id="3_si0dj"]
 [ext_resource type="PackedScene" uid="uid://ts52nxk2out7" path="res://scene/promotion_detail.tscn" id="5_df78d"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_nqdre"]
@@ -48,15 +47,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_nqdre")
 [node name="LevelPromotion" type="Button" parent="FoldingMenu/HeroUnitDisplay/ImageBorder"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 0)
-theme_override_colors/font_hover_color = Color(1, 1, 1, 0.247059)
-theme_override_colors/font_focus_color = Color(1, 1, 1, 0)
-theme_override_colors/font_disabled_color = Color(1, 1, 1, 0)
-theme_override_styles/normal = ExtResource("2_6btii")
-theme_override_styles/hover = ExtResource("3_i5kaf")
-theme_override_styles/pressed = ExtResource("3_i5kaf")
-theme_override_styles/disabled = ExtResource("2_6c5lu")
-theme_override_styles/focus = ExtResource("2_6btii")
+theme = ExtResource("2_cp7p7")
 
 [node name="StatBorder" type="PanelContainer" parent="FoldingMenu/HeroUnitDisplay"]
 layout_mode = 2
@@ -134,12 +125,13 @@ size_flags_horizontal = 3
 bbcode_enabled = true
 text = "[b]Total Power[/b]"
 
-[node name="Power" type="RichTextLabel" parent="FoldingMenu/HeroUnitDisplay/StatBorder/StatMargin/StatBlock/PowerBlock"]
+[node name="Power" type="MenuButton" parent="FoldingMenu/HeroUnitDisplay/StatBorder/StatMargin/StatBlock/PowerBlock"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-bbcode_enabled = true
+theme = ExtResource("3_si0dj")
+alignment = 2
 
 [node name="PromotionDetail" parent="FoldingMenu" instance=ExtResource("5_df78d")]
 unique_name_in_owner = true

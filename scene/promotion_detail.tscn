@@ -93,14 +93,37 @@ alignment = 2
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
-select_mode = 1
+theme_override_font_sizes/font_size = 12
+
+[node name="SelectedAmountBlock" type="HBoxContainer" parent="PromotionMargin/PromotionNameSeparator/Separator/PromoteOption"]
+layout_mode = 2
+
+[node name="SelectedAmountText" type="RichTextLabel" parent="PromotionMargin/PromotionNameSeparator/Separator/PromoteOption/SelectedAmountBlock"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 12
+bbcode_enabled = true
+text = "[b]Selected:[/b]"
+fit_content = true
+
+[node name="SelectedAmount" type="RichTextLabel" parent="PromotionMargin/PromotionNameSeparator/Separator/PromoteOption/SelectedAmountBlock"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 12
+fit_content = true
+
+[node name="SelectedItem" type="ItemList" parent="PromotionMargin/PromotionNameSeparator/Separator/PromoteOption"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 12
 
 [node name="BasePowerIncrease" type="RichTextLabel" parent="PromotionMargin/PromotionNameSeparator/Separator/PromoteOption"]
 unique_name_in_owner = true
 layout_mode = 2
-theme_override_font_sizes/normal_font_size = 12
 bbcode_enabled = true
-text = "[right]-[/right]"
+text = "[right]-[/right]
+"
 fit_content = true
 
 [node name="PromoteButton" type="Button" parent="PromotionMargin/PromotionNameSeparator/Separator/PromoteOption"]

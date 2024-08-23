@@ -83,7 +83,7 @@ func _fill_empty_data(pData : Dictionary) -> void:
 		pData["Node"] = unitNode
 	
 func set_display() -> void:
-	itemName.text = data["Name"]
+	itemName.text = str("[b]", data["Name"], "[/b]")
 	
 	_transform_data()
 	set_cost_display()

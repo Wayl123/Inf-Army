@@ -15,12 +15,11 @@ var HIDDENSTYLE = preload("res://stylebox/hidden.tres")
 var AVAILABLESTYLE = preload("res://stylebox/available.tres")
 var SEMIAVAILABLESTYLE = preload("res://stylebox/semi_available.tres")
 var NOTAVAILABLESTYLE = preload("res://stylebox/not_available.tres")
-var HIDDENCOLOR = Color.hex(0xffffff00)
 var VISIBLECOLOR = Color.hex(0xffffff3f)
 
 var data = {}
 var level = 1
-var expReq : int
+var expReq = 0
 
 var levelButtonHovering = false
 var detailExpanded = false
@@ -40,25 +39,29 @@ func _level_available() -> void:
 	levelButtonHovering = true
 	
 	levelPromotion.text = "Level up" if level < data["MaxLevel"] else "Promote"
-	levelPromotion["theme_override_colors/font_normal_color"] = VISIBLECOLOR
-	levelPromotion["theme_override_colors/font_disabled_color"] = VISIBLECOLOR
+	levelPromotion.add_theme_color_override("font_color", VISIBLECOLOR)
+	levelPromotion.add_theme_color_override("font_disabled_color", VISIBLECOLOR)
 	
-	if resource.exp >= expReq:
-		levelPromotion["theme_override_styles/hover"] = AVAILABLESTYLE
+	if level >= data["MaxLevel"]:
+		levelPromotion.add_theme_stylebox_override("hover", SEMIAVAILABLESTYLE)
+		levelPromotion.add_theme_stylebox_override("pressed", SEMIAVAILABLESTYLE)
 		levelPromotion.disabled = false
-	elif level >= data["MaxLevel"]:
-		levelPromotion["theme_override_styles/hover"] = SEMIAVAILABLESTYLE
+	elif resource.exp >= expReq:
+		levelPromotion.add_theme_stylebox_override("hover", AVAILABLESTYLE)
+		levelPromotion.add_theme_stylebox_override("pressed", AVAILABLESTYLE)
 		levelPromotion.disabled = false
 	else:
-		levelPromotion["theme_override_styles/disabled"] = NOTAVAILABLESTYLE
+		levelPromotion.add_theme_stylebox_override("disabled", NOTAVAILABLESTYLE)
 		levelPromotion.disabled = true
 	
 func _hide_hover() -> void:
 	levelButtonHovering = false
 	
-	levelPromotion["theme_override_styles/disabled"] = HIDDENSTYLE
-	levelPromotion["theme_override_colors/font_normal_color"] = HIDDENCOLOR
-	levelPromotion["theme_override_colors/font_disabled_color"] = HIDDENCOLOR
+	levelPromotion.remove_theme_stylebox_override("hover")
+	levelPromotion.remove_theme_stylebox_override("pressed")
+	levelPromotion.remove_theme_stylebox_override("disabled")
+	levelPromotion.remove_theme_color_override("font_color")
+	levelPromotion.remove_theme_color_override("font_disabled_color")
 	
 func _level_or_promote() -> void:
 	if level < data["MaxLevel"]:
@@ -112,7 +115,7 @@ func update_level_display() -> void:
 	var expText = ""
 	
 	unitLevel.text = str("[right]", String.num_scientific(level), " (Max)" if level >= data["MaxLevel"] else "", "[/right]")
-	unitPower.text = str("[right]", String.num_scientific(get_power()), "[/right]")
+	unitPower.text = String.num_scientific(get_power())
 	
 	expText += str("[right]", expReq, " ")
 	if resource.exp >= expReq:
