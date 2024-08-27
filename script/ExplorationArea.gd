@@ -31,10 +31,10 @@ func _process(delta : float) -> void:
 func _start_exploring() -> void:
 	if not exploring:
 		activeToggle.text = "Stop"
-		payoutTimer.start()
+		payoutTimer.paused = false
 	else:
 		activeToggle.text = "Start"
-		payoutTimer.stop()
+		payoutTimer.paused = true
 
 	exploring = not exploring
 	
@@ -58,6 +58,7 @@ func _set_display() -> void:
 	areaName.text = str("[b]", data["Name"], "[/b]")
 	explorationProgress.max_value = data["ExploreCompletion"]
 	payoutTimer.wait_time = data["ExploreTimer"]
+	payoutTimer.paused = true
 	
 func update_claim_amount(pExplorationPower : int) -> void:
 	if claimAmount[0] < data["MaxMoneyAmount"]:

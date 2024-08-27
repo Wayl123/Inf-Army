@@ -17,6 +17,8 @@ func _update_display() -> void:
 func _update_amount_display() -> void:
 	unitAmount.text = str("[right]", String.num_scientific(amount), "[/right]")
 	unitTotal.text = str("[right]", String.num_scientific(amount * int(data["Power"])), "[/right]")
+	
+	visible = amount > 0
 
 func set_data(pUnit : Dictionary) -> void:
 	data = pUnit

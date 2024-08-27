@@ -78,53 +78,62 @@ func _transform_data() -> void:
 	itemRegex.compile("^[PB]\\d+")
 	
 	for promo in data:
-		var newCost = {}
-		var newSelection = {}
-		data[promo]["Name"] = globalData.get_unit_stat_data_copy(promo)["Name"]
+		var cacheData = globalData.get_cache_promo_data(promo)
 		
-		for cost in data[promo]["Cost"]:
-			if unitRegex.search(cost) != null:
-				var unitNode = unitInventory.get_unit_node_ref(cost)
-				var unitData = globalData.get_unit_stat_data_copy(cost)
-				var unitName = unitData["Name"]
-				newCost[unitName] = {}
-				newCost[unitName]["Id"] = cost
-				newCost[unitName]["Node"] = unitNode
-				newCost[unitName]["Power"] = unitData["Power"]
-				newCost[unitName]["Req"] = data[promo]["Cost"][cost]
-			elif itemRegex.search(cost) != null:
-				var itemNode = inventory.get_item_node_ref(cost)
-				var itemData = globalData.get_item_stat_data_copy(cost)
-				var itemName = itemData["Name"]
-				newCost[itemName] = {}
-				newCost[itemName]["Id"] = cost
-				newCost[itemName]["Node"] = itemNode
-				newCost[itemName]["Power"] = itemData["Power"]
-				newCost[itemName]["Req"] = data[promo]["Cost"][cost]
-				if itemData.has("Multi"):
-					newCost[itemName]["Multi"] = itemData["Multi"]
-			else:
-				newCost[cost] = {}
-				newCost[cost]["Node"] = resource
-				newCost[cost]["Req"] = data[promo]["Cost"][cost]
-				
-		data[promo]["Cost"] = newCost
-				
-		for selection in data[promo]["Optional"]["Selection"]:
-			if unitRegex.search(selection) != null:
-				var unitNode = unitInventory.get_unit_node_ref(selection)
-				var unitName = globalData.get_unit_stat_data_copy(selection)["Name"]
-				newSelection[unitName] = {}
-				newSelection[unitName]["Id"] = selection
-				newSelection[unitName]["Node"] = unitNode
-			elif itemRegex.search(selection) != null:
-				var itemNode = inventory.get_item_node_ref(selection)
-				var itemName = globalData.get_item_stat_data_copy(selection)["Name"]
-				newSelection[itemName] = {}
-				newSelection[itemName]["Id"] = selection
-				newSelection[itemName]["Node"] = itemNode
-				
-		data[promo]["Optional"]["Selection"] = newSelection
+		if cacheData.is_empty():
+			var newCost = {}
+			var newSelection = {}
+			cacheData["Name"] = globalData.get_unit_stat_data_copy(promo)["Name"]
+			
+			for cost in data[promo]["Cost"]:
+				if unitRegex.search(cost) != null:
+					var unitNode = unitInventory.get_unit_node_ref(cost)
+					var unitData = globalData.get_unit_stat_data_copy(cost)
+					var unitName = unitData["Name"]
+					newCost[unitName] = {}
+					newCost[unitName]["Id"] = cost
+					newCost[unitName]["Node"] = unitNode
+					newCost[unitName]["Power"] = unitData["Power"]
+					newCost[unitName]["Req"] = data[promo]["Cost"][cost]
+				elif itemRegex.search(cost) != null:
+					var itemNode = inventory.get_item_node_ref(cost)
+					var itemData = globalData.get_item_stat_data_copy(cost)
+					var itemName = itemData["Name"]
+					newCost[itemName] = {}
+					newCost[itemName]["Id"] = cost
+					newCost[itemName]["Node"] = itemNode
+					newCost[itemName]["Power"] = itemData["Power"]
+					newCost[itemName]["Req"] = data[promo]["Cost"][cost]
+					if itemData.has("Multi"):
+						newCost[itemName]["Multi"] = itemData["Multi"]
+				else:
+					newCost[cost] = {}
+					newCost[cost]["Node"] = resource
+					newCost[cost]["Req"] = data[promo]["Cost"][cost]
+					
+			cacheData["Cost"] = newCost
+			cacheData["BaseMulti"] = data[promo]["BaseMulti"]
+					
+			for selection in data[promo]["Optional"]["Selection"]:
+				if unitRegex.search(selection) != null:
+					var unitNode = unitInventory.get_unit_node_ref(selection)
+					var unitName = globalData.get_unit_stat_data_copy(selection)["Name"]
+					newSelection[unitName] = {}
+					newSelection[unitName]["Id"] = selection
+					newSelection[unitName]["Node"] = unitNode
+				elif itemRegex.search(selection) != null:
+					var itemNode = inventory.get_item_node_ref(selection)
+					var itemName = globalData.get_item_stat_data_copy(selection)["Name"]
+					newSelection[itemName] = {}
+					newSelection[itemName]["Id"] = selection
+					newSelection[itemName]["Node"] = itemNode
+					
+			cacheData["Optional"] = {}
+			cacheData["Optional"]["Selection"] = newSelection
+			cacheData["Optional"]["MaxAmount"] = data[promo]["Optional"]["MaxAmount"]
+			cacheData["OptionalMulti"] = data[promo]["OptionalMulti"]
+			
+		data[promo] = cacheData
 		
 func _fill_empty_data(pData : Dictionary) -> void:
 	var unitRegex = RegEx.new()
@@ -210,6 +219,9 @@ func set_display() -> void:
 		if promoSelection.size() > 1:
 			selectLeft.disabled = false
 			selectRight.disabled = false
+		else:
+			selectLeft.disabled = true
+			selectRight.disabled = true
 		
 		_transform_data()
 		_set_selected_display(data[promoSelection[currentIndex]])

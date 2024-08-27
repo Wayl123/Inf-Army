@@ -37,6 +37,7 @@ func add_unit(pUnits : Dictionary) -> void:
 	normalUnitList.add_unit(normalUnits)
 	
 	exploration.update_exploration_power()
+	update_hero_display()
 	unitShop.update_shop_unlocks()
 
 func get_power_by_amount(pAmounts : Array) -> int:

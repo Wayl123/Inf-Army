@@ -4,7 +4,7 @@ extends HBoxContainer
 @onready var playerExp = %Exp
 
 var money = 0
-var exp = 0
+var exp = 200
 
 func _ready():
 	_set_display()

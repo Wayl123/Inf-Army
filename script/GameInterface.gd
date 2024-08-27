@@ -13,6 +13,8 @@ var unitCombinationData = {}
 var explorationAreaData = {}
 var itemStatData = {}
 
+var cachePromoData = {}
+
 func _ready() -> void:
 	_load_all_data()
 	
@@ -38,6 +40,11 @@ func _load_all_data() -> void:
 	unitCombinationData = _load_json_file(unitCombinationListPath)
 	explorationAreaData = _load_json_file(explorationAreaListPath)
 	itemStatData = _load_json_file(itemStatListPath)
+	
+func get_cache_promo_data(pId : String) -> Dictionary:
+	if not cachePromoData.has(pId):
+		cachePromoData[pId] = {}
+	return cachePromoData[pId]
 	
 func get_lootbox_gen_data_copy(pId : String) -> Dictionary:
 	return lootboxGenData[pId].duplicate(true)

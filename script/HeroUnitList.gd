@@ -26,6 +26,7 @@ func add_unit(pUnits : Dictionary) -> void:
 			move_child(heroUnit, index)
 			
 			heroUnit.set_data(unitData)
+			heroUnit.connect("unit_promoted", Callable(self, "update_display"))
 			
 func update_display() -> void:
 	for item in get_children():

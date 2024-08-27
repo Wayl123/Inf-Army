@@ -30,6 +30,7 @@ func update_shop_unlocks() -> void:
 			shopItem.set_display()
 			
 			data[item]["ItemNode"] = shopItem
+			shopItem.connect("item_purchased", Callable(self, "update_shop_cost"))
 		else:
 			data[item]["ItemNode"].set_cost_display()
 			

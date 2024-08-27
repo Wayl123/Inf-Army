@@ -10,6 +10,8 @@ extends PanelContainer
 @onready var setMax = %SetMax
 @onready var buyButton = %BuyButton
 
+signal item_purchased
+
 var data = {}
 
 func _ready() -> void:
@@ -53,6 +55,7 @@ func _buy_amount() -> void:
 	
 	if succeed:
 		unitInventory.add_unit({data["Id"]: quantity.value})
+		item_purchased.emit()
 		
 func _transform_data() -> void:
 	var newCost = {}
