@@ -6,6 +6,9 @@ var HEROUNIT = preload("res://scene/hero_unit.tscn")
 
 var maxed = {}
 
+func _move_unit(pIndex : int, pNode : Node) -> void:
+	move_child(pNode, pIndex)
+
 func add_unit(pUnits : Dictionary) -> void:
 	for unit in pUnits:
 		for i in range(pUnits[unit]):
@@ -26,7 +29,8 @@ func add_unit(pUnits : Dictionary) -> void:
 			move_child(heroUnit, index)
 			
 			heroUnit.set_data(unitData)
-			heroUnit.connect("unit_promoted", Callable(self, "update_display"))
+			heroUnit.connect("move_node", Callable(self, "_move_unit").bind(heroUnit))
+			heroUnit.connect("unit_info_changed", Callable(self, "update_display"))
 			
 func update_display() -> void:
 	for item in get_children():

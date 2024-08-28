@@ -17,7 +17,8 @@ var SEMIAVAILABLESTYLE = preload("res://stylebox/semi_available.tres")
 var NOTAVAILABLESTYLE = preload("res://stylebox/not_available.tres")
 var VISIBLECOLOR = Color.hex(0xffffff3f)
 
-signal unit_promoted
+signal move_node(index : int)
+signal unit_info_changed
 
 var data = {}
 var level = 1
@@ -91,10 +92,10 @@ func _level_or_promote() -> void:
 				else:
 					index -= 1
 					
-			get_parent().move_child(self, index)
+			move_node.emit(index)
 				
 			exploration.update_exploration_power()
-			get_parent().update_display()
+			unit_info_changed.emit()
 	else:
 		_expand_promotion_detail()
 	
@@ -121,7 +122,7 @@ func _promote_unit(pData : Dictionary) -> void:
 	
 	_expand_promotion_detail()
 	set_data(pData["Data"])
-	unit_promoted.emit()
+	unit_info_changed.emit()
 	
 func set_data(pUnit : Dictionary) -> void:
 	data = pUnit
