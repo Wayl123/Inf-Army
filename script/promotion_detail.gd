@@ -289,6 +289,7 @@ func _update_selection() -> void:
 	
 	totalCost = selectedData["Cost"].duplicate(true)
 	update_display()
+	selectionDisplay.text = str("[center]", currentIndex + 1, "/", promoSelection.size(), "[/center]")
 	_update_promotion_power()
 	maxOptional = selectedData["Optional"]["MaxAmount"]
 	_update_selected_amount()
