@@ -1,4 +1,4 @@
-extends "res://script/InventoryItem.gd"
+extends "res://script/inventory_item.gd"
 
 @onready var unitInventory : Node = get_tree().get_first_node_in_group("UnitInventory")
 

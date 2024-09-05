@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://0d1rc8j5p0et"]
 
-[ext_resource type="Script" path="res://script/LootboxGenerator.gd" id="1_fmmv6"]
-[ext_resource type="Script" path="res://script/LootboxAttributeDisplayGenerator.gd" id="2_lxnmj"]
+[ext_resource type="Script" path="res://script/lootbox_generator.gd" id="1_fmmv6"]
+[ext_resource type="Script" path="res://script/lootbox_attribute_display_generator.gd" id="2_lxnmj"]
 
 [node name="LootboxGenerator" type="PanelContainer"]
 self_modulate = Color(0.498039, 1, 0.498039, 1)

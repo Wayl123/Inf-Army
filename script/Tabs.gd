@@ -1,4 +1,4 @@
-extends "res://script/Resizer.gd"
+extends "res://script/resizer.gd"
 	
 func _update_size() -> void:
 	var viewportSize : Vector2 = get_viewport().size

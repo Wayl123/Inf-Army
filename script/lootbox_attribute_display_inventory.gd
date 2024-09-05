@@ -1,4 +1,4 @@
-extends "res://script/LootboxAttributeDisplay.gd"
+extends "res://script/lootbox_attribute_display.gd"
 
 func update_display(pData : Dictionary) -> void:
 	super(pData)

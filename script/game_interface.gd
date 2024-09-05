@@ -2,11 +2,11 @@ extends Node2D
 
 var PAGETAB : PackedScene = preload("res://scene/page_tab.tscn")
 
-var lootboxGenListPath : String = "res://script/LootboxGeneratorTemplate.json"
-var unitStatListPath : String = "res://script/UnitStat.json"
-var unitCombinationListPath : String = "res://script/UnitCombination.json"
-var explorationAreaListPath : String = "res://script/ExplorationAreaTemplate.json"
-var itemStatListPath : String = "res://script/ItemStat.json"
+var lootboxGenListPath : String = "res://script/lootbox_generator_template.json"
+var unitStatListPath : String = "res://script/unit_stat.json"
+var unitCombinationListPath : String = "res://script/unit_combination.json"
+var explorationAreaListPath : String = "res://script/exploration_area_template.json"
+var itemStatListPath : String = "res://script/item_stat.json"
 var lootboxGenData : Dictionary
 var unitStatData : Dictionary
 var unitCombinationData : Dictionary

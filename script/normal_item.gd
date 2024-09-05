@@ -1,4 +1,4 @@
-extends "res://script/InventoryItem.gd"
+extends "res://script/inventory_item.gd"
 
 @onready var itemName : Node = %ItemName
 @onready var itemImage : Node = %ItemImage

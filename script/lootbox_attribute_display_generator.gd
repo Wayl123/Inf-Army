@@ -1,4 +1,4 @@
-extends "res://script/LootboxAttributeDisplay.gd"
+extends "res://script/lootbox_attribute_display.gd"
 
 @onready var genProgress : Node = %GeneratorProgress
 @onready var genTimer : Node = %GeneratorTimer

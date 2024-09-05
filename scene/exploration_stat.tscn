@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dadw42ayhju7r"]
 
-[ext_resource type="Script" path="res://script/ExplorationStat.gd" id="1_iv5yo"]
+[ext_resource type="Script" path="res://script/exploration_stat.gd" id="1_iv5yo"]
 
 [node name="ExplorationStat" type="PanelContainer"]
 custom_minimum_size = Vector2(256, 0)

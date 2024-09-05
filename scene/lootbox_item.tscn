@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://b3csfqpo4wd6v"]
 
-[ext_resource type="Script" path="res://script/LootboxItem.gd" id="1_lenjs"]
-[ext_resource type="Script" path="res://script/LootboxAttributeDisplayInventory.gd" id="2_yy73f"]
+[ext_resource type="Script" path="res://script/lootbox_item.gd" id="1_lenjs"]
+[ext_resource type="Script" path="res://script/lootbox_attribute_display_inventory.gd" id="2_yy73f"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_50oso"]
 bg_color = Color(0, 0, 0, 1)

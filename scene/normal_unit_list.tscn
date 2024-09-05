@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bbnu63cmfrit4"]
 
-[ext_resource type="Script" path="res://script/NormalUnitList.gd" id="1_llgvf"]
+[ext_resource type="Script" path="res://script/normal_unit_list.gd" id="1_llgvf"]
 [ext_resource type="PackedScene" uid="uid://c1pamxjlv445v" path="res://scene/normal_unit.tscn" id="2_b3a4d"]
 
 [node name="NormalUnitList" type="VBoxContainer"]

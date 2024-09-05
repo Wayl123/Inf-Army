@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cc0xwy6jlhklc"]
 
-[ext_resource type="Script" path="res://script/UnitShop.gd" id="1_lkeye"]
+[ext_resource type="Script" path="res://script/unit_shop.gd" id="1_lkeye"]
 
 [node name="UnitShop" type="PanelContainer"]
 anchors_preset = 15
