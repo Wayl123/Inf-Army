@@ -1,0 +1,79 @@
+{
+	"U1S1": {
+		"Name": "Peasant",
+		"Power": 1
+	},
+	"U1S2": {
+		"Name": "Chicken",
+		"Power": 1
+	},
+	"U1S3": {
+		"Name": "Trained Peasant",
+		"Power": 3
+	},
+	"U1S4": {
+		"Name": "Chicken Coop",
+		"Power": 5
+	},
+	"U2S1": {
+		"Name": "Farmer",
+		"Power": 3
+	},
+	"U2S2": {
+		"Name": "Horse",
+		"Power": 3
+	},
+	"U2S3": {
+		"Name": "Chicken Farmer",
+		"Power": 12
+	},
+	"U2S4": {
+		"Name": "Peasant Rider",
+		"Power": 8
+	},
+	"U3S1": {
+		"Name": "Guard",
+		"Power": 10
+	},
+	"U3S2": {
+		"Name": "Scout",
+		"Power": 20
+	},
+	"U3S3": {
+		"Name": "Supply Area",
+		"Power": 25
+	},
+	"U4S1": {
+		"Name": "Expedition Team",
+		"Power": 100
+	},
+	"H3S1": {
+		"Name": "NoobHero",
+		"MaxLevel": 10,
+		"LevelPower": 3,
+		"ExpBase": 10,
+		"ExpScale": 1.0,
+		"Promotion": {
+			"H4S1": {
+				"Cost": {
+					"U4S1": 1,
+					"P1": 10
+				},
+				"BaseMulti": 0.8,
+				"Optional": {
+					"Selection": ["U2S3", "U2S4", "U3S2", "U3S3", "U4S1"],
+					"MaxAmount": 1
+				},
+				"OptionalMulti": 0.5
+			}
+		}
+	},
+	"H4S1": {
+		"Name": "NoviceHero",
+		"MaxLevel": 30,
+		"LevelPower": 10,
+		"ExpBase": 100,
+		"ExpScale": 1.3,
+		"TeamSize": [0, 20]
+	}
+}

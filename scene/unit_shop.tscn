@@ -1,0 +1,28 @@
+[gd_scene load_steps=2 format=3 uid="uid://cc0xwy6jlhklc"]
+
+[ext_resource type="Script" path="res://script/unit_shop.gd" id="1_lkeye"]
+
+[node name="UnitShop" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lkeye")
+
+[node name="UnitShopMargin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="UnitShopScroll" type="ScrollContainer" parent="UnitShopMargin"]
+layout_mode = 2
+horizontal_scroll_mode = 0
+
+[node name="UnitShopList" type="HFlowContainer" parent="UnitShopMargin/UnitShopScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3

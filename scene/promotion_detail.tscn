@@ -1,0 +1,140 @@
+[gd_scene load_steps=2 format=3 uid="uid://ts52nxk2out7"]
+
+[ext_resource type="Script" path="res://script/promotion_detail.gd" id="1_xg1qu"]
+
+[node name="PromotionDetail" type="PanelContainer"]
+offset_right = 256.0
+offset_bottom = 256.0
+script = ExtResource("1_xg1qu")
+
+[node name="PromotionMargin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="PromotionNameSeparator" type="VBoxContainer" parent="PromotionMargin"]
+layout_mode = 2
+
+[node name="PromotionName" type="RichTextLabel" parent="PromotionMargin/PromotionNameSeparator"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "[b]N/A[/b]
+"
+fit_content = true
+
+[node name="Separator" type="HBoxContainer" parent="PromotionMargin/PromotionNameSeparator"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Promotion" type="VBoxContainer" parent="PromotionMargin/PromotionNameSeparator/Separator"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PromotionCostScroll" type="ScrollContainer" parent="PromotionMargin/PromotionNameSeparator/Separator/Promotion"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="PromotionCost" type="RichTextLabel" parent="PromotionMargin/PromotionNameSeparator/Separator/Promotion/PromotionCostScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 12
+bbcode_enabled = true
+text = "Get to max level first"
+fit_content = true
+
+[node name="PromotionSelect" type="HBoxContainer" parent="PromotionMargin/PromotionNameSeparator/Separator/Promotion"]
+layout_mode = 2
+
+[node name="SelectLeft" type="Button" parent="PromotionMargin/PromotionNameSeparator/Separator/Promotion/PromotionSelect"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 12
+disabled = true
+text = "<"
+
+[node name="CenterDisplay" type="VBoxContainer" parent="PromotionMargin/PromotionNameSeparator/Separator/Promotion/PromotionSelect"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="SelectionDisplay" type="RichTextLabel" parent="PromotionMargin/PromotionNameSeparator/Separator/Promotion/PromotionSelect/CenterDisplay"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 10
+bbcode_enabled = true
+text = "[center]0/0[/center]"
+fit_content = true
+scroll_active = false
+
+[node name="SelectRight" type="Button" parent="PromotionMargin/PromotionNameSeparator/Separator/Promotion/PromotionSelect"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 12
+disabled = true
+text = ">"
+
+[node name="PromoteOption" type="VBoxContainer" parent="PromotionMargin/PromotionNameSeparator/Separator"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="OptionalItemList" type="ItemList" parent="PromotionMargin/PromotionNameSeparator/Separator/PromoteOption"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 12
+item_count = 1
+item_0/text = "test"
+item_0/selectable = false
+
+[node name="SelectedAmountBlock" type="HBoxContainer" parent="PromotionMargin/PromotionNameSeparator/Separator/PromoteOption"]
+layout_mode = 2
+
+[node name="SelectedAmountText" type="RichTextLabel" parent="PromotionMargin/PromotionNameSeparator/Separator/PromoteOption/SelectedAmountBlock"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 12
+bbcode_enabled = true
+text = "[b]Selected:[/b]"
+fit_content = true
+
+[node name="SelectedAmount" type="RichTextLabel" parent="PromotionMargin/PromotionNameSeparator/Separator/PromoteOption/SelectedAmountBlock"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
+fit_content = true
+
+[node name="SelectedItem" type="ItemList" parent="PromotionMargin/PromotionNameSeparator/Separator/PromoteOption"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 12
+
+[node name="BasePowerIncrease" type="RichTextLabel" parent="PromotionMargin/PromotionNameSeparator/Separator/PromoteOption"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+text = "[right]-[/right]
+"
+fit_content = true
+
+[node name="PromoteButton" type="Button" parent="PromotionMargin/PromotionNameSeparator/Separator/PromoteOption"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+disabled = true
+text = "Promote"

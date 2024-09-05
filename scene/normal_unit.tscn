@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://c1pamxjlv445v"]
 
-[ext_resource type="Script" path="res://script/NormalUnit.gd" id="1_3piwl"]
+[ext_resource type="Script" path="res://script/normal_unit.gd" id="1_3piwl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_61x0t"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
@@ -34,7 +34,7 @@ border_width_right = 2
 border_width_bottom = 2
 border_color = Color(0, 0, 0, 1)
 
-[node name="NormalUnit" type="HBoxContainer"]
+[node name="NormalUnit" type="PanelContainer"]
 custom_minimum_size = Vector2(0, 32)
 anchors_preset = 10
 anchor_right = 1.0
@@ -42,48 +42,51 @@ offset_bottom = 32.0
 grow_horizontal = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
-theme_override_constants/separation = 0
 script = ExtResource("1_3piwl")
 
-[node name="NameBorder" type="PanelContainer" parent="."]
+[node name="NormalUnitDisplay" type="HBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="NameBorder" type="PanelContainer" parent="NormalUnitDisplay"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_61x0t")
 
-[node name="Name" type="RichTextLabel" parent="NameBorder"]
+[node name="Name" type="RichTextLabel" parent="NormalUnitDisplay/NameBorder"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 
-[node name="AmountBorder" type="PanelContainer" parent="."]
+[node name="AmountBorder" type="PanelContainer" parent="NormalUnitDisplay"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_1brvi")
 
-[node name="Amount" type="RichTextLabel" parent="AmountBorder"]
+[node name="Amount" type="RichTextLabel" parent="NormalUnitDisplay/AmountBorder"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 
-[node name="PowerBorder" type="PanelContainer" parent="."]
+[node name="PowerBorder" type="PanelContainer" parent="NormalUnitDisplay"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_deiy1")
 
-[node name="Power" type="RichTextLabel" parent="PowerBorder"]
+[node name="Power" type="RichTextLabel" parent="NormalUnitDisplay/PowerBorder"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 
-[node name="TotalBorder" type="PanelContainer" parent="."]
+[node name="TotalBorder" type="PanelContainer" parent="NormalUnitDisplay"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_3dukj")
 
-[node name="Total" type="RichTextLabel" parent="TotalBorder"]
+[node name="Total" type="RichTextLabel" parent="NormalUnitDisplay/TotalBorder"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3

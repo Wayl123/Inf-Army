@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dmnimd75ggbx8"]
 
-[ext_resource type="Script" path="res://script/ExplorationPage.gd" id="1_xmf5l"]
+[ext_resource type="Script" path="res://script/exploration_page.gd" id="1_xmf5l"]
 [ext_resource type="PackedScene" uid="uid://dadw42ayhju7r" path="res://scene/exploration_stat.tscn" id="2_kjv1u"]
 
 [node name="ExplorationPage" type="PanelContainer" groups=["Exploration"]]

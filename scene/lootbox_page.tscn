@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://mo8l4nyp4n1e"]
 
-[ext_resource type="Script" path="res://script/LootboxPage.gd" id="1_ejakl"]
+[ext_resource type="Script" path="res://script/lootbox_page.gd" id="1_ejakl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xhvws"]
 bg_color = Color(0.247059, 0.74902, 0.74902, 0.498039)

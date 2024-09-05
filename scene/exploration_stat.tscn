@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dadw42ayhju7r"]
 
-[ext_resource type="Script" path="res://script/ExplorationStat.gd" id="1_iv5yo"]
+[ext_resource type="Script" path="res://script/exploration_stat.gd" id="1_iv5yo"]
 
 [node name="ExplorationStat" type="PanelContainer"]
 custom_minimum_size = Vector2(256, 0)
@@ -8,70 +8,77 @@ offset_right = 40.0
 offset_bottom = 40.0
 script = ExtResource("1_iv5yo")
 
-[node name="Stats" type="VBoxContainer" parent="."]
+[node name="StatMargin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="Stats" type="VBoxContainer" parent="StatMargin"]
 layout_mode = 2
 
-[node name="TeamSize" type="VBoxContainer" parent="Stats"]
+[node name="TeamSize" type="VBoxContainer" parent="StatMargin/Stats"]
 layout_mode = 2
 
-[node name="TeamSizeText" type="RichTextLabel" parent="Stats/TeamSize"]
+[node name="TeamSizeText" type="RichTextLabel" parent="StatMargin/Stats/TeamSize"]
 layout_mode = 2
 bbcode_enabled = true
 text = "[font_size={12)][b]Team Size[/b][/font_size]"
 fit_content = true
 
-[node name="CapMargin" type="MarginContainer" parent="Stats/TeamSize"]
+[node name="CapMargin" type="MarginContainer" parent="StatMargin/Stats/TeamSize"]
 layout_mode = 2
 theme_override_constants/margin_left = 16
 
-[node name="CapBlock" type="VBoxContainer" parent="Stats/TeamSize/CapMargin"]
+[node name="CapBlock" type="VBoxContainer" parent="StatMargin/Stats/TeamSize/CapMargin"]
 layout_mode = 2
 
-[node name="HeroCapBlock" type="HBoxContainer" parent="Stats/TeamSize/CapMargin/CapBlock"]
+[node name="HeroCapBlock" type="HBoxContainer" parent="StatMargin/Stats/TeamSize/CapMargin/CapBlock"]
 layout_mode = 2
 
-[node name="HeroCapText" type="RichTextLabel" parent="Stats/TeamSize/CapMargin/CapBlock/HeroCapBlock"]
+[node name="HeroCapText" type="RichTextLabel" parent="StatMargin/Stats/TeamSize/CapMargin/CapBlock/HeroCapBlock"]
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 text = "[font_size={12}][b]Hero[/b][/font_size]"
 fit_content = true
 
-[node name="HeroCap" type="RichTextLabel" parent="Stats/TeamSize/CapMargin/CapBlock/HeroCapBlock"]
+[node name="HeroCap" type="RichTextLabel" parent="StatMargin/Stats/TeamSize/CapMargin/CapBlock/HeroCapBlock"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 fit_content = true
 
-[node name="NormalUnitCapBlock" type="HBoxContainer" parent="Stats/TeamSize/CapMargin/CapBlock"]
+[node name="NormalUnitCapBlock" type="HBoxContainer" parent="StatMargin/Stats/TeamSize/CapMargin/CapBlock"]
 layout_mode = 2
 
-[node name="NormalUnitCapText" type="RichTextLabel" parent="Stats/TeamSize/CapMargin/CapBlock/NormalUnitCapBlock"]
+[node name="NormalUnitCapText" type="RichTextLabel" parent="StatMargin/Stats/TeamSize/CapMargin/CapBlock/NormalUnitCapBlock"]
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 text = "[font_size={12}][b]Normal Unit[/b][/font_size]"
 fit_content = true
 
-[node name="NormalUnitCap" type="RichTextLabel" parent="Stats/TeamSize/CapMargin/CapBlock/NormalUnitCapBlock"]
+[node name="NormalUnitCap" type="RichTextLabel" parent="StatMargin/Stats/TeamSize/CapMargin/CapBlock/NormalUnitCapBlock"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 fit_content = true
 
-[node name="ExplorationPowerBlock" type="HBoxContainer" parent="Stats"]
+[node name="ExplorationPowerBlock" type="HBoxContainer" parent="StatMargin/Stats"]
 layout_mode = 2
 
-[node name="ExplorationPowerText" type="RichTextLabel" parent="Stats/ExplorationPowerBlock"]
+[node name="ExplorationPowerText" type="RichTextLabel" parent="StatMargin/Stats/ExplorationPowerBlock"]
 layout_mode = 2
 size_flags_horizontal = 3
 bbcode_enabled = true
 text = "[font_size={12}][b]Exploration Power[/b][/font_size]"
 fit_content = true
 
-[node name="ExplorationPower" type="RichTextLabel" parent="Stats/ExplorationPowerBlock"]
+[node name="ExplorationPower" type="RichTextLabel" parent="StatMargin/Stats/ExplorationPowerBlock"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3

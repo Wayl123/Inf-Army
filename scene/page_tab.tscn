@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://im34kmqserum"]
 
 [ext_resource type="PackedScene" uid="uid://mo8l4nyp4n1e" path="res://scene/lootbox_page.tscn" id="1_7v5ko"]
-[ext_resource type="Script" path="res://script/Tabs.gd" id="1_dtb2c"]
+[ext_resource type="Script" path="res://script/tabs.gd" id="1_dtb2c"]
 [ext_resource type="PackedScene" uid="uid://d2sjtbomxp0wk" path="res://scene/inventory_page.tscn" id="3_r7rac"]
 [ext_resource type="PackedScene" uid="uid://dhys67yf1mr86" path="res://scene/unit_page.tscn" id="4_oihgv"]
 [ext_resource type="PackedScene" uid="uid://dmnimd75ggbx8" path="res://scene/exploration_page.tscn" id="5_unfvf"]
@@ -11,19 +11,24 @@
 [node name="Tabs" type="TabContainer" parent="."]
 offset_right = 1152.0
 offset_bottom = 648.0
+current_tab = 0
 script = ExtResource("1_dtb2c")
 
 [node name="LootboxPage" parent="Tabs" instance=ExtResource("1_7v5ko")]
 layout_mode = 2
+metadata/_tab_index = 0
 
 [node name="InventoryPage" parent="Tabs" instance=ExtResource("3_r7rac")]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 1
 
 [node name="UnitPage" parent="Tabs" instance=ExtResource("4_oihgv")]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 2
 
 [node name="ExplorationPage" parent="Tabs" instance=ExtResource("5_unfvf")]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 3

@@ -1,0 +1,81 @@
+[gd_scene load_steps=2 format=3 uid="uid://ctehddgk6yrsr"]
+
+[ext_resource type="Script" path="res://script/shop_item.gd" id="1_sxyuk"]
+
+[node name="ShopItem" type="PanelContainer"]
+custom_minimum_size = Vector2(256, 128)
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_sxyuk")
+
+[node name="ItemMargin" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 4
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="ItemNameSeparator" type="VBoxContainer" parent="ItemMargin"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ItemName" type="RichTextLabel" parent="ItemMargin/ItemNameSeparator"]
+unique_name_in_owner = true
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+
+[node name="Separator" type="HBoxContainer" parent="ItemMargin/ItemNameSeparator"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ItemCostScroll" type="ScrollContainer" parent="ItemMargin/ItemNameSeparator/Separator"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="ItemCost" type="RichTextLabel" parent="ItemMargin/ItemNameSeparator/Separator/ItemCostScroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_font_sizes/normal_font_size = 12
+theme_override_font_sizes/bold_font_size = 12
+bbcode_enabled = true
+
+[node name="BuyOption" type="VBoxContainer" parent="ItemMargin/ItemNameSeparator/Separator"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="QuantityText" type="RichTextLabel" parent="ItemMargin/ItemNameSeparator/Separator/BuyOption"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[font_size=12]Buy Amount[/font_size]"
+fit_content = true
+
+[node name="QuantityBlock" type="HBoxContainer" parent="ItemMargin/ItemNameSeparator/Separator/BuyOption"]
+layout_mode = 2
+
+[node name="Quantity" type="SpinBox" parent="ItemMargin/ItemNameSeparator/Separator/BuyOption/QuantityBlock"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 1.0
+value = 1.0
+allow_greater = true
+alignment = 2
+
+[node name="SetMax" type="Button" parent="ItemMargin/ItemNameSeparator/Separator/BuyOption/QuantityBlock"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Max"
+
+[node name="BuyButton" type="Button" parent="ItemMargin/ItemNameSeparator/Separator/BuyOption"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 12
+disabled = true
+text = "Buy"

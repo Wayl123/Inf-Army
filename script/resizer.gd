@@ -1,4 +1,4 @@
-extends PanelContainer
+extends Control
 
 func _ready() -> void:
 	get_tree().root.connect("size_changed", Callable(self, "_on_viewport_size_changed"))
@@ -7,8 +7,6 @@ func _ready() -> void:
 	
 func _on_viewport_size_changed() -> void:
 	_update_size()
-	
-func _update_size() -> void:
-	var viewportSize = get_viewport().size
-	size = Vector2(viewportSize.x, 32)
-	position = Vector2.ZERO
+
+func _update_size():
+	pass

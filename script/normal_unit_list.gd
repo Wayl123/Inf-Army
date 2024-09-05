@@ -1,30 +1,28 @@
 extends VBoxContainer
 
-@onready var globalData = get_tree().get_first_node_in_group("GlobalData")
+@onready var globalData : Node = get_tree().get_first_node_in_group("GlobalData")
 
-var NORMALUNIT = preload("res://scene/normal_unit.tscn")
+var NORMALUNIT : PackedScene = preload("res://scene/normal_unit.tscn")
 
-var unitsData = {}
+var data : Dictionary
 
 func add_unit(pUnits : Dictionary) -> void:
 	for unit in pUnits:
-		if unitsData.has(unit):
-			unitsData[unit].add_amount(pUnits[unit])
-		else:
-			var normalUnit = NORMALUNIT.instantiate()
-			var index = 1
-			var spotFound = false
-			var splitUnitName = unit.split("S")
-			var unitData = globalData.get_unit_stat_data_copy(unit)
+		if not data.has(unit):
+			var normalUnit : Node = NORMALUNIT.instantiate()
+			var index : int = 1
+			var spotFound : bool = false
+			var splitUnitName : PackedStringArray = unit.right(-1).split("S")
+			var unitData : Dictionary = globalData.get_unit_stat_data_copy(unit)
 			
 			while (index < get_child_count() and not spotFound):
-				var nodePower = get_child(index).get_power()
-				var splitNodeName = get_child(index).name.split("S")
+				var nodePower : float = get_child(index).get_power()
+				var splitNodeName : PackedStringArray = get_child(index).name.right(-1).split("S")
 				
 				# Sort by power first then sort by rarity and id
 				# Move index if the node at current position is of higher rarity or same rarity but higher id
-				if (int(unitData["Power"]) > nodePower or 
-					(int(unitData["Power"]) == nodePower and 
+				if (unitData["Power"] > nodePower or 
+					(abs(unitData["Power"] - nodePower) < 0.00001 and 
 					(int(splitUnitName[0]) > int(splitNodeName[0]) or 
 					(int(splitUnitName[0]) == int(splitNodeName[0]) and 
 					int(splitUnitName[1]) > int(splitNodeName[1]))))):
@@ -36,13 +34,14 @@ func add_unit(pUnits : Dictionary) -> void:
 			move_child(normalUnit, index)
 			
 			normalUnit.set_data(unitData)
-			normalUnit.add_amount(pUnits[unit])
 	
 			normalUnit.name = unit
 			
-			unitsData[unit] = normalUnit
+			data[unit] = normalUnit
 			
-func get_power_by_amount(pAmount : int) -> int:
+		data[unit].update_amount(pUnits[unit])
+			
+func get_power_by_amount(pAmount : int) -> float:
 	var power = 0
 	var index = 1
 	var childCount = get_child_count()
@@ -55,3 +54,8 @@ func get_power_by_amount(pAmount : int) -> int:
 		index += 1
 		
 	return power
+	
+func get_unit_node_ref(pId : String) -> Node:
+	if data.has(pId):
+		return data[pId]
+	return null
