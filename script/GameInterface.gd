@@ -1,19 +1,19 @@
 extends Node2D
 
-var PAGETAB = preload("res://scene/page_tab.tscn")
+var PAGETAB : PackedScene = preload("res://scene/page_tab.tscn")
 
-var lootboxGenListPath = "res://script/LootboxGeneratorTemplate.json"
-var unitStatListPath = "res://script/UnitStat.json"
-var unitCombinationListPath = "res://script/UnitCombination.json"
-var explorationAreaListPath = "res://script/ExplorationAreaTemplate.json"
-var itemStatListPath = "res://script/ItemStat.json"
-var lootboxGenData = {}
-var unitStatData = {}
-var unitCombinationData = {}
-var explorationAreaData = {}
-var itemStatData = {}
+var lootboxGenListPath : String = "res://script/LootboxGeneratorTemplate.json"
+var unitStatListPath : String = "res://script/UnitStat.json"
+var unitCombinationListPath : String = "res://script/UnitCombination.json"
+var explorationAreaListPath : String = "res://script/ExplorationAreaTemplate.json"
+var itemStatListPath : String = "res://script/ItemStat.json"
+var lootboxGenData : Dictionary
+var unitStatData : Dictionary
+var unitCombinationData : Dictionary
+var explorationAreaData : Dictionary
+var itemStatData : Dictionary
 
-var cachePromoData = {}
+var cachePromoData : Dictionary
 
 func _ready() -> void:
 	_load_all_data()
@@ -22,8 +22,8 @@ func _ready() -> void:
 
 func _load_json_file(filePath : String) -> Dictionary:
 	if FileAccess.file_exists(filePath):
-		var dataFile = FileAccess.open(filePath, FileAccess.READ)
-		var parsedResult = JSON.parse_string(dataFile.get_as_text())
+		var dataFile : Object = FileAccess.open(filePath, FileAccess.READ)
+		var parsedResult : Variant = JSON.parse_string(dataFile.get_as_text())
 		
 		if parsedResult is Dictionary:
 			return parsedResult

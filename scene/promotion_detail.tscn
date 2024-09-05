@@ -94,6 +94,9 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 12
+item_count = 1
+item_0/text = "test"
+item_0/selectable = false
 
 [node name="SelectedAmountBlock" type="HBoxContainer" parent="PromotionMargin/PromotionNameSeparator/Separator/PromoteOption"]
 layout_mode = 2
@@ -108,12 +111,15 @@ text = "[b]Selected:[/b]"
 fit_content = true
 
 [node name="SelectedAmount" type="RichTextLabel" parent="PromotionMargin/PromotionNameSeparator/Separator/PromoteOption/SelectedAmountBlock"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/normal_font_size = 12
+bbcode_enabled = true
 fit_content = true
 
 [node name="SelectedItem" type="ItemList" parent="PromotionMargin/PromotionNameSeparator/Separator/PromoteOption"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 12

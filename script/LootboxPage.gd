@@ -1,10 +1,10 @@
 extends PanelContainer
 
-@onready var globalData = get_tree().get_first_node_in_group("GlobalData")
+@onready var globalData : Node = get_tree().get_first_node_in_group("GlobalData")
 
-@onready var lootboxList = %LootboxList
+@onready var lootboxList : Node = %LootboxList
 
-var LOOTBOXGENERATOR = preload("res://scene/lootbox_generator.tscn")
+var LOOTBOXGENERATOR : PackedScene = preload("res://scene/lootbox_generator.tscn")
 
 func _ready() -> void:
 	_get_saved_generator()
@@ -15,7 +15,7 @@ func _get_saved_generator() -> void:
 
 func _add_generator(pGen : String) -> void:
 	# Might need to change input type later on, still need to decide on how I want to store generator data
-	var lootboxGen = LOOTBOXGENERATOR.instantiate()
+	var lootboxGen : Node = LOOTBOXGENERATOR.instantiate()
 	
 	lootboxGen.boxId = pGen
 	lootboxGen.data = globalData.get_lootbox_gen_data_copy(pGen)

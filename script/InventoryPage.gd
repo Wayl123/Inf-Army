@@ -1,13 +1,13 @@
 extends PanelContainer
 
-@onready var globalData = get_tree().get_first_node_in_group("GlobalData")
+@onready var globalData : Node = get_tree().get_first_node_in_group("GlobalData")
 
-@onready var inventoryList = %InventoryList
+@onready var inventoryList : Node = %InventoryList
 
-var LOOTBOXITEM = preload("res://scene/lootbox_item.tscn")
-var NORMALITEM = preload("res://scene/normal_item.tscn")
+var LOOTBOXITEM : PackedScene = preload("res://scene/lootbox_item.tscn")
+var NORMALITEM : PackedScene = preload("res://scene/normal_item.tscn")
 
-var data = {}
+var data : Dictionary
 
 func add_item(pId : String, pAmount : int) -> void:
 	var item : Node

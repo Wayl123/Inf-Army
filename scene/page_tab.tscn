@@ -11,19 +11,24 @@
 [node name="Tabs" type="TabContainer" parent="."]
 offset_right = 1152.0
 offset_bottom = 648.0
+current_tab = 0
 script = ExtResource("1_dtb2c")
 
 [node name="LootboxPage" parent="Tabs" instance=ExtResource("1_7v5ko")]
 layout_mode = 2
+metadata/_tab_index = 0
 
 [node name="InventoryPage" parent="Tabs" instance=ExtResource("3_r7rac")]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 1
 
 [node name="UnitPage" parent="Tabs" instance=ExtResource("4_oihgv")]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 2
 
 [node name="ExplorationPage" parent="Tabs" instance=ExtResource("5_unfvf")]
 visible = false
 layout_mode = 2
+metadata/_tab_index = 3

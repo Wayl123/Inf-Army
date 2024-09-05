@@ -1,29 +1,29 @@
 extends PanelContainer
 
-@onready var globalData = get_tree().get_first_node_in_group("GlobalData")
-@onready var resource = get_tree().get_first_node_in_group("Resource")
-@onready var unitInventory = get_tree().get_first_node_in_group("UnitInventory")
+@onready var globalData : Node = get_tree().get_first_node_in_group("GlobalData")
+@onready var resource : Node = get_tree().get_first_node_in_group("Resource")
+@onready var unitInventory : Node = get_tree().get_first_node_in_group("UnitInventory")
 
-@onready var itemName = %ItemName
-@onready var itemCost = %ItemCost
-@onready var quantity = %Quantity
-@onready var setMax = %SetMax
-@onready var buyButton = %BuyButton
+@onready var itemName : Node = %ItemName
+@onready var itemCost : Node = %ItemCost
+@onready var quantity : Node = %Quantity
+@onready var setMax : Node = %SetMax
+@onready var buyButton : Node = %BuyButton
 
 signal item_purchased
 
-var data = {}
+var data : Dictionary
 
 func _ready() -> void:
-	quantity.connect("value_changed", Callable(self, "set_cost_display"))
-	setMax.connect("pressed", Callable(self, "_set_max_possible"))
+	quantity.connect("value_changed", Callable(self, "update_cost_display"))
+	setMax.connect("pressed", Callable(self, "_max_possible"))
 	buyButton.connect("pressed", Callable(self, "_buy_amount"))
 	
-func _set_max_possible() -> void:
+func _max_possible() -> void:
 	var maxPossible : int
 	
 	for cost in data["Cost"]:
-		var req : int
+		var req : float
 		
 		req = data["Cost"][cost]["Req"]
 		
@@ -35,11 +35,11 @@ func _set_max_possible() -> void:
 	quantity.value = maxPossible
 	
 func _buy_amount() -> void:
-	var succeed = true
+	var succeed : bool = true
 	
 	for cost in data["Cost"]:
-		var req : int
-		var totalReq : int
+		var req : float
+		var totalReq : float
 		
 		req = data["Cost"][cost]["Req"]
 		
@@ -58,14 +58,14 @@ func _buy_amount() -> void:
 		item_purchased.emit()
 		
 func _transform_data() -> void:
-	var newCost = {}
-	var unitRegex = RegEx.new()
+	var newCost : Dictionary
+	var unitRegex : Object = RegEx.new()
 	unitRegex.compile("\\d+S\\d+")
 	
 	for cost in data["Cost"]:
 		if unitRegex.search(cost) != null:
-			var unitNode = unitInventory.get_unit_node_ref(cost)
-			var unitName = globalData.get_unit_stat_data_copy(cost)["Name"]
+			var unitNode : Node = unitInventory.get_unit_node_ref(cost)
+			var unitName : String = globalData.get_unit_stat_data_copy(cost)["Name"]
 			newCost[unitName] = {}
 			newCost[unitName]["Id"] = cost
 			newCost[unitName]["Node"] = unitNode
@@ -78,27 +78,27 @@ func _transform_data() -> void:
 	data["Cost"] = newCost
 			
 func _fill_empty_data(pData : Dictionary) -> void:
-	var unitRegex = RegEx.new()
+	var unitRegex : Object = RegEx.new()
 	unitRegex.compile("\\d+S\\d+")
 	
 	if unitRegex.search(pData["Id"]) != null:
-		var unitNode = unitInventory.get_unit_node_ref(pData["Id"])
+		var unitNode : Node = unitInventory.get_unit_node_ref(pData["Id"])
 		pData["Node"] = unitNode
 	
-func set_display() -> void:
+func update_display() -> void:
 	itemName.text = str("[b]", data["Name"], "[/b]")
 	
 	_transform_data()
-	set_cost_display()
+	update_cost_display()
 	
-func set_cost_display(reqAmount : int = quantity.value) -> void:
-	var costText = ""
-	var affordable = true
+func update_cost_display(reqAmount : int = quantity.value) -> void:
+	var costText : String
+	var affordable : bool = true
 	
 	for cost in data["Cost"]:
-		var amount : int
-		var req : int
-		var totalReq : int
+		var amount : float
+		var req : float
+		var totalReq : float
 		
 		if data["Cost"][cost]["Node"] == null:
 			_fill_empty_data(data["Cost"][cost])

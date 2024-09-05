@@ -1,7 +1,7 @@
 extends PanelContainer
 
-var data = {}
-var amount = 0
+var data : Dictionary
+var amount : int = 0
 
 func _update_amount_display() -> void:
 	pass

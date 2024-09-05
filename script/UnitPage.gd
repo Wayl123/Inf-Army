@@ -1,13 +1,13 @@
 extends PanelContainer
 
-@onready var exploration = get_tree().get_first_node_in_group("Exploration")
+@onready var exploration : Node = get_tree().get_first_node_in_group("Exploration")
 
-@onready var heroUnitList = %HeroUnitList
-@onready var normalUnitList = %NormalUnitList
-@onready var unitShopToggle = %UnitShopToggle
-@onready var unitShop = %UnitShop
+@onready var heroUnitList : Node = %HeroUnitList
+@onready var normalUnitList : Node = %NormalUnitList
+@onready var unitShopToggle : Node = %UnitShopToggle
+@onready var unitShop : Node = %UnitShop
 
-var shopExpanded = false
+var shopExpanded : bool = false
 
 func _ready() -> void:
 	unitShopToggle.connect("pressed", Callable(self, "_expand_unit_shop"))
@@ -22,8 +22,8 @@ func _expand_unit_shop() -> void:
 	unitShop.visible = shopExpanded
 
 func add_unit(pUnits : Dictionary) -> void:
-	var heroUnits = {}
-	var normalUnits = {}
+	var heroUnits : Dictionary
+	var normalUnits : Dictionary
 	
 	for unit in pUnits:
 		if unit.begins_with("H"):
@@ -40,8 +40,8 @@ func add_unit(pUnits : Dictionary) -> void:
 	update_hero_display()
 	unitShop.update_shop_unlocks()
 
-func get_power_by_amount(pAmounts : Array) -> int:
-	var power = 0
+func get_power_by_amount(pAmounts : Array) -> float:
+	var power : float = 0
 	
 	power += heroUnitList.get_power_by_amount(pAmounts[0])
 	power += normalUnitList.get_power_by_amount(pAmounts[1])

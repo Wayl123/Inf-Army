@@ -1,10 +1,10 @@
 extends VBoxContainer
 
-@onready var globalData = get_tree().get_first_node_in_group("GlobalData")
+@onready var globalData : Node = get_tree().get_first_node_in_group("GlobalData")
 
-var HEROUNIT = preload("res://scene/hero_unit.tscn")
+var HEROUNIT : PackedScene = preload("res://scene/hero_unit.tscn")
 
-var maxed = {}
+var maxed : Dictionary
 
 func _move_unit(pIndex : int, pNode : Node) -> void:
 	move_child(pNode, pIndex)
@@ -12,15 +12,15 @@ func _move_unit(pIndex : int, pNode : Node) -> void:
 func add_unit(pUnits : Dictionary) -> void:
 	for unit in pUnits:
 		for i in range(pUnits[unit]):
-			var heroUnit = HEROUNIT.instantiate()
-			var index = 0
-			var spotFound = false
-			var unitData = globalData.get_unit_stat_data_copy(unit)
+			var heroUnit : Node = HEROUNIT.instantiate()
+			var index : int = 0
+			var spotFound : bool = false
+			var unitData : Dictionary = globalData.get_unit_stat_data_copy(unit)
 			
 			while (index < get_child_count() and not spotFound):
-				var nodePower = get_child(index).get_power()
+				var nodePower : float = get_child(index).get_power()
 				
-				if (int(unitData["LevelPower"]) >= nodePower):
+				if (unitData["LevelPower"] >= nodePower):
 					spotFound = true
 				else:
 					index += 1
@@ -36,8 +36,8 @@ func update_display() -> void:
 	for item in get_children():
 		item.update_level_display()
 
-func get_power_by_amount(pAmount : int) -> int:
-	var heroUnits = get_children()
+func get_power_by_amount(pAmount : int) -> float:
+	var heroUnits : Array[Node] = get_children()
 	
 	if pAmount >= heroUnits.size():
 		return heroUnits.reduce(func(a, b) : return a + b.get_power(), 0)

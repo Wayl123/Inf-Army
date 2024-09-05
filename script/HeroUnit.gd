@@ -1,34 +1,33 @@
 extends PanelContainer
 
-@onready var resource = get_tree().get_first_node_in_group("Resource")
-@onready var exploration = get_tree().get_first_node_in_group("Exploration")
+@onready var resource : Node = get_tree().get_first_node_in_group("Resource")
+@onready var exploration : Node = get_tree().get_first_node_in_group("Exploration")
 
-@onready var levelPromotion = %LevelPromotion
-@onready var unitName = %Name
-@onready var unitLevel = %Level
-@onready var unitExp = %Exp
-@onready var unitLevelPower = %LevelPower
-@onready var unitPower = %Power
-@onready var promotionDetail = %PromotionDetail
+@onready var levelPromotion : Node = %LevelPromotion
+@onready var unitName : Node = %Name
+@onready var unitLevel : Node = %Level
+@onready var unitExp : Node = %Exp
+@onready var unitLevelPower : Node = %LevelPower
+@onready var unitPower : Node = %Power
+@onready var promotionDetail : Node = %PromotionDetail
 
-var HIDDENSTYLE = preload("res://stylebox/hidden.tres")
-var AVAILABLESTYLE = preload("res://stylebox/available.tres")
-var SEMIAVAILABLESTYLE = preload("res://stylebox/semi_available.tres")
-var NOTAVAILABLESTYLE = preload("res://stylebox/not_available.tres")
-var VISIBLECOLOR = Color.hex(0xffffff3f)
+var AVAILABLESTYLE : StyleBox = preload("res://stylebox/available.tres")
+var SEMIAVAILABLESTYLE : StyleBox = preload("res://stylebox/semi_available.tres")
+var NOTAVAILABLESTYLE : StyleBox = preload("res://stylebox/not_available.tres")
+var VISIBLECOLOR : Color = Color.hex(0xffffff3f)
 
 signal move_node(index : int)
 signal unit_info_changed
 
-var data = {}
-var level = 1
-var expReq = 0
+var data : Dictionary
+var level : int = 1
+var expReq : float
 
-var basePower = 0
-var baseMulti = {}
+var basePower : float = 0
+var baseMulti : Dictionary = {}
 
-var levelButtonHovering = false
-var detailExpanded = false
+var levelButtonHovering : bool = false
+var detailExpanded : bool = false
 
 func _ready() -> void:
 	levelPromotion.connect("mouse_entered", Callable(self, "_level_available"))
@@ -78,14 +77,13 @@ func _level_or_promote() -> void:
 				expReq = _get_exp_req()
 			else:
 				expReq = NAN
-				promotionDetail.set_display()
 				
 			# Go from bottom up for leveling since it likely won't move much from current position
-			var index = get_index()
-			var spotFound = false
+			var index : int = get_index()
+			var spotFound : bool = false
 			
 			while (index > 0 and not spotFound):
-				var nodePower = get_parent().get_child(index-1).get_power()
+				var nodePower : float = get_parent().get_child(index-1).get_power()
 				
 				if (get_power() <= nodePower):
 					spotFound = true
@@ -108,11 +106,11 @@ func _expand_promotion_detail() -> void:
 	detailExpanded = not detailExpanded
 	promotionDetail.visible = detailExpanded
 	
-func _get_exp_req() -> int:
-	return int(float(data["ExpBase"]) * (float(data["ExpScale"]) ** (float(level) - 1)))
+func _get_exp_req() -> float:
+	return floorf(float(data["ExpBase"]) * (float(data["ExpScale"]) ** (float(level) - 1)))
 	
 func _promote_unit(pData : Dictionary) -> void:
-	basePower += int(float(data["LevelPower"]) * float(level)) + pData["Power"]
+	basePower += float(data["LevelPower"]) * float(level) + pData["Power"]
 	for item in pData["Multi"]:
 		if not baseMulti.has(item):
 			baseMulti[item] = 1
@@ -127,13 +125,12 @@ func _promote_unit(pData : Dictionary) -> void:
 func set_data(pUnit : Dictionary) -> void:
 	data = pUnit
 	expReq = _get_exp_req()
-	if pUnit.has("Promotion"):
-		promotionDetail.data = pUnit["Promotion"]
+	promotionDetail.set_data(pUnit["Promotion"] if pUnit.has("Promotion") else {})
 	
 	_update_display()
 	
 func update_level_display() -> void:
-	var expText = ""
+	var expText : String = ""
 	
 	unitLevel.text = str("[right]", String.num_scientific(level), " (Max)" if level >= data["MaxLevel"] else "", "[/right]")
 	unitPower.text = String.num_scientific(get_power())
@@ -153,6 +150,6 @@ func update_level_display() -> void:
 	if level >= data["MaxLevel"]:
 		promotionDetail.update_display()
 	
-func get_power() -> int:
-	return int(float(data["LevelPower"]) * float(level)) + basePower
+func get_power() -> float:
+	return float(data["LevelPower"]) * float(level) + basePower
 	

@@ -1,14 +1,14 @@
 extends "res://script/InventoryItem.gd"
 
-@onready var itemName = %ItemName
-@onready var itemImage = %ItemImage
-@onready var itemStat = %ItemStat
-@onready var itemAmount = %Amount
+@onready var itemName : Node = %ItemName
+@onready var itemImage : Node = %ItemImage
+@onready var itemStat : Node = %ItemStat
+@onready var itemAmount : Node = %Amount
 
 func _ready() -> void:
-	_set_display()
+	_update_display()
 	
-func _set_display():
+func _update_display():
 	itemName.text = str("[b]", data["Name"], "[/b]")
 	#itemImage
 	itemStat.text = str("[b]Power: [/b]", data["Power"], "\n")

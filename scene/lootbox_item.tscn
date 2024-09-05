@@ -6,11 +6,11 @@
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_50oso"]
 bg_color = Color(0, 0, 0, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g6tuq"]
-bg_color = Color(0, 0, 0, 1)
-
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3q107"]
 bg_color = Color(0, 0, 0, 0.247059)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g6tuq"]
+bg_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7g1vq"]
 bg_color = Color(0, 0, 0, 1)
@@ -76,8 +76,8 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
-theme_override_styles/normal = SubResource("StyleBoxFlat_g6tuq")
 theme_override_styles/disabled = SubResource("StyleBoxFlat_3q107")
+theme_override_styles/normal = SubResource("StyleBoxFlat_g6tuq")
 disabled = true
 text = "Open 10"
 

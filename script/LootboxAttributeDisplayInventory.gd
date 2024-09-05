@@ -1,6 +1,6 @@
 extends "res://script/LootboxAttributeDisplay.gd"
 
-func set_display(pData : Dictionary) -> void:
+func update_display(pData : Dictionary) -> void:
 	super(pData)
 	
 	if not pData.is_empty():

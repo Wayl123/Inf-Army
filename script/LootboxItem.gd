@@ -1,25 +1,26 @@
 extends "res://script/InventoryItem.gd"
 
-@onready var unitInventory = get_tree().get_first_node_in_group("UnitInventory")
+@onready var unitInventory : Node = get_tree().get_first_node_in_group("UnitInventory")
 
-@onready var display = %LootboxAttributeDisplay
-@onready var open1Button = %Open1
-@onready var open10Button = %Open10
-@onready var openAllButton = %OpenAll
+@onready var display : Node = %LootboxAttributeDisplay
+@onready var open1Button : Node = %Open1
+@onready var open10Button : Node = %Open10
+@onready var openAllButton : Node = %OpenAll
 
-var rng = RandomNumberGenerator.new()
+var rng : Object = RandomNumberGenerator.new()
 
 func _ready() -> void:
 	open1Button.connect("pressed", Callable(self, "update_amount").bind(-1))
 	open10Button.connect("pressed", Callable(self, "update_amount").bind(-10))
 	openAllButton.connect("pressed", Callable(self, "update_amount"))
 	
-	display.set_display(data)
+	display.update_display(data)
 
 func _open_box(pAmount : int) -> void:
-	var output = {}
+	var output : Dictionary
+	
 	for i in range(pAmount):
-		var roll = rng.randf()
+		var roll : float = rng.randf()
 		for itemKey in data["Prob"]:
 			roll -= data["Prob"][itemKey]
 			if roll < 0:

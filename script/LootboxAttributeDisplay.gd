@@ -1,14 +1,14 @@
 extends VBoxContainer
 
-@onready var globalData = get_tree().get_first_node_in_group("GlobalData")
+@onready var globalData : Node = get_tree().get_first_node_in_group("GlobalData")
 
-@onready var lootboxName = %LootboxName
-@onready var probStat = %ProbStat
-@onready var boxAmount = %Amount
+@onready var lootboxName : Node = %LootboxName
+@onready var probStat : Node = %ProbStat
+@onready var boxAmount : Node = %Amount
 
-var holdCap = 0
+var holdCap : int
 	
-func set_display(pData : Dictionary) -> void:
+func update_display(pData : Dictionary) -> void:
 	if not pData.is_empty():
 		holdCap = pData["HoldCap"]
 		

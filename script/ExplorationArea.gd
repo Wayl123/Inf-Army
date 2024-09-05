@@ -1,29 +1,29 @@
 extends PanelContainer
 
-@onready var resource = get_tree().get_first_node_in_group("Resource")
-@onready var inventory = get_tree().get_first_node_in_group("Inventory")
-@onready var unitInventory = get_tree().get_first_node_in_group("UnitInventory")
+@onready var resource : Node = get_tree().get_first_node_in_group("Resource")
+@onready var inventory : Node = get_tree().get_first_node_in_group("Inventory")
+@onready var unitInventory : Node = get_tree().get_first_node_in_group("UnitInventory")
 
-@onready var areaName = %AreaName
-@onready var activeToggle = %ActiveToggle
-@onready var moneyRate = %MoneyRate
-@onready var expRate = %ExpRate
-@onready var lootList = %PossibleLoot
-@onready var explorationProgress = %ExplorationProgress
-@onready var payoutProgress = %PayoutProgress
-@onready var payoutTimer = %PayoutTimer
+@onready var areaName : Node = %AreaName
+@onready var activeToggle : Node = %ActiveToggle
+@onready var moneyRate : Node = %MoneyRate
+@onready var expRate : Node = %ExpRate
+@onready var lootList : Node = %PossibleLoot
+@onready var explorationProgress : Node = %ExplorationProgress
+@onready var payoutProgress : Node = %PayoutProgress
+@onready var payoutTimer : Node = %PayoutTimer
 
-var exploring = false
-var data = {}
-var claimAmount = [0, 0]
+var exploring : bool = false
+var data : Dictionary
+var claimAmount : Array = [0, 0]
 
-var rng = RandomNumberGenerator.new()
+var rng : Object = RandomNumberGenerator.new()
 
 func _ready() -> void:
 	activeToggle.connect("pressed", Callable(self, "_start_exploring"))
 	payoutTimer.connect("timeout", Callable(self, "_update_resource"))
 	
-	_set_display()
+	_update_display()
 	
 func _process(delta : float) -> void:
 	payoutProgress.value = 0 if payoutTimer.is_stopped() else abs((payoutTimer.time_left / payoutTimer.wait_time) - 1.0)
@@ -50,17 +50,17 @@ func _update_resource() -> void:
 	
 func _update_loot() -> void:
 	for loot in data["Loot"]:
-		var roll = rng.randf()
+		var roll : float = rng.randf()
 		if roll < data["Loot"][loot] * (claimAmount[1] / float(data["MaxExpAmount"])):
 			inventory.add_item(loot, 1)
 
-func _set_display() -> void:
+func _update_display() -> void:
 	areaName.text = str("[b]", data["Name"], "[/b]")
 	explorationProgress.max_value = data["ExploreCompletion"]
 	payoutTimer.wait_time = data["ExploreTimer"]
 	payoutTimer.paused = true
 	
-func update_claim_amount(pExplorationPower : int) -> void:
+func update_claim_amount(pExplorationPower : float) -> void:
 	if claimAmount[0] < data["MaxMoneyAmount"]:
 		claimAmount[0] = clampf(pExplorationPower * float(data["MoneyBase"]), 0.0, data["MaxMoneyAmount"])
 	if claimAmount[1] < data["MaxExpAmount"]:
@@ -69,4 +69,3 @@ func update_claim_amount(pExplorationPower : int) -> void:
 	moneyRate.text = str("[right]", String.num_scientific(claimAmount[0] / float(data["ExploreTimer"])), "/sec[/right]")
 	expRate.text = str("[right]", String.num_scientific(claimAmount[1] / float(data["ExploreTimer"])), "/sec[/right]")
 	
-

@@ -1,15 +1,15 @@
 extends PanelContainer
 
-@onready var globalData = get_tree().get_first_node_in_group("GlobalData")
-@onready var unitInventory = get_tree().get_first_node_in_group("UnitInventory")
+@onready var globalData : Node = get_tree().get_first_node_in_group("GlobalData")
+@onready var unitInventory : Node = get_tree().get_first_node_in_group("UnitInventory")
 
-@onready var explorationStat = %ExplorationStat
-@onready var explorationAreaList = %ExplorationAreaList
+@onready var explorationStat : Node = %ExplorationStat
+@onready var explorationAreaList : Node = %ExplorationAreaList
 
-var EXPLORATIONAREA = preload("res://scene/exploration_area.tscn")
+var EXPLORATIONAREA : PackedScene = preload("res://scene/exploration_area.tscn")
 
-var teamSize = [0, 0]
-var explorationPower = 0
+var teamSize : Array = [0, 0]
+var explorationPower : float
 
 func _ready() -> void:
 	# To be changed to get from save file
@@ -21,7 +21,7 @@ func _get_saved_area() -> void:
 	_add_area("C1A1")
 	
 func _add_area(pArea : String) -> void:
-	var explorationArea = EXPLORATIONAREA.instantiate()
+	var explorationArea : Node = EXPLORATIONAREA.instantiate()
 	
 	explorationArea.data = globalData.get_exploration_area_data_copy(pArea)
 	explorationAreaList.add_child(explorationArea)

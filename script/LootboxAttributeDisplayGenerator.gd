@@ -1,12 +1,12 @@
 extends "res://script/LootboxAttributeDisplay.gd"
 
-@onready var genProgress = %GeneratorProgress
-@onready var genTimer = %GeneratorTimer
+@onready var genProgress : Node = %GeneratorProgress
+@onready var genTimer : Node = %GeneratorTimer
 
 func _process(delta : float) -> void:
 	genProgress.value = 0 if genTimer.is_stopped() else abs((genTimer.time_left / genTimer.wait_time) - 1.0)
 	
-func set_display(pData : Dictionary) -> void:
+func update_display(pData : Dictionary) -> void:
 	super(pData)
 	
 	if not pData.is_empty():

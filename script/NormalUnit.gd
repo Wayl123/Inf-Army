@@ -1,12 +1,12 @@
 extends PanelContainer
 
-@onready var unitName = %Name
-@onready var unitAmount = %Amount
-@onready var unitPower = %Power
-@onready var unitTotal = %Total
+@onready var unitName : Node = %Name
+@onready var unitAmount : Node = %Amount
+@onready var unitPower : Node = %Power
+@onready var unitTotal : Node = %Total
 
-var data = {}
-var amount = 0
+var data : Dictionary
+var amount : int = 0
 
 func _update_display() -> void:
 	unitName.text = str("[center]", data["Name"], "[/center]")
@@ -16,7 +16,7 @@ func _update_display() -> void:
 	
 func _update_amount_display() -> void:
 	unitAmount.text = str("[right]", String.num_scientific(amount), "[/right]")
-	unitTotal.text = str("[right]", String.num_scientific(amount * int(data["Power"])), "[/right]")
+	unitTotal.text = str("[right]", String.num_scientific(amount * data["Power"]), "[/right]")
 	
 	visible = amount > 0
 
@@ -35,11 +35,11 @@ func update_amount(pAmount : int) -> bool:
 	else:
 		return false
 	
-func get_power() -> int:
+func get_power() -> float:
 	return data["Power"]
 	
 func get_power_by_amount(pAmount : int) -> Array:
 	if pAmount > amount:
-		return [amount * int(data["Power"]), pAmount - amount]
+		return [amount * data["Power"], pAmount - amount]
 	else:
-		return [pAmount * int(data["Power"]), 0]
+		return [pAmount * data["Power"], 0]

@@ -1,33 +1,33 @@
 extends HBoxContainer
 
-@onready var playerMoney = %Money
-@onready var playerExp = %Exp
+@onready var playerMoney : Node = %Money
+@onready var playerExp : Node = %Exp
 
-var money = 0
-var exp = 200
+var money : float = 0
+var exp : float = 200
 
 func _ready():
-	_set_display()
+	_update_display()
 	
-func _set_display() -> void:
+func _update_display() -> void:
 	playerMoney.text = str("[right]", String.num_scientific(money), "[/right]")
 	playerExp.text = str("[right]", String.num_scientific(exp), "[/right]")
 
-func update_money(pMoneyDelta : int) -> bool:
+func update_money(pMoneyDelta : float) -> bool:
 	if money >= -pMoneyDelta:
 		money += pMoneyDelta
 		
-		_set_display()
+		_update_display()
 		
 		return true
 	else:
 		return false
 		
-func update_exp(pExpDelta : int) -> bool:
+func update_exp(pExpDelta : float) -> bool:
 	if exp >= -pExpDelta:
 		exp += pExpDelta
 		
-		_set_display()
+		_update_display()
 		
 		return true
 	else:
