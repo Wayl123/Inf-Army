@@ -1,9 +1,5 @@
 extends PanelContainer
 
-@onready var globalData : Node = get_tree().get_first_node_in_group("GlobalData")
-@onready var resource : Node = get_tree().get_first_node_in_group("Resource")
-@onready var unitInventory : Node = get_tree().get_first_node_in_group("UnitInventory")
-
 @onready var itemName : Node = %ItemName
 @onready var itemCost : Node = %ItemCost
 @onready var quantity : Node = %Quantity
@@ -54,7 +50,7 @@ func _buy_amount() -> void:
 			break
 	
 	if succeed:
-		unitInventory.add_unit({data["Id"]: quantity.value})
+		UnitInventory.ref.add_unit({data["Id"]: quantity.value})
 		item_purchased.emit()
 		
 func _transform_data() -> void:
@@ -64,15 +60,15 @@ func _transform_data() -> void:
 	
 	for cost in data["Cost"]:
 		if unitRegex.search(cost) != null:
-			var unitNode : Node = unitInventory.get_unit_node_ref(cost)
-			var unitName : String = globalData.get_unit_stat_data_copy(cost)["Name"]
+			var unitNode : Node = UnitInventory.ref.get_unit_node_ref(cost)
+			var unitName : String = GlobalData.ref.get_unit_stat_data_copy(cost)["Name"]
 			newCost[unitName] = {}
 			newCost[unitName]["Id"] = cost
 			newCost[unitName]["Node"] = unitNode
 			newCost[unitName]["Req"] = data["Cost"][cost]
 		else:
 			newCost[cost] = {}
-			newCost[cost]["Node"] = resource
+			newCost[cost]["Node"] = PlayerResource.ref
 			newCost[cost]["Req"] = data["Cost"][cost]
 			
 	data["Cost"] = newCost
@@ -82,7 +78,7 @@ func _fill_empty_data(pData : Dictionary) -> void:
 	unitRegex.compile("\\d+S\\d+")
 	
 	if unitRegex.search(pData["Id"]) != null:
-		var unitNode : Node = unitInventory.get_unit_node_ref(pData["Id"])
+		var unitNode : Node = UnitInventory.ref.get_unit_node_ref(pData["Id"])
 		pData["Node"] = unitNode
 	
 func update_display() -> void:

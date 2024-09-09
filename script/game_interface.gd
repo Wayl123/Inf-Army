@@ -1,4 +1,7 @@
+class_name GlobalData
 extends Node2D
+
+static var ref : GlobalData
 
 var PAGETAB : PackedScene = preload("res://scene/page_tab.tscn")
 
@@ -16,6 +19,8 @@ var itemStatData : Dictionary
 var cachePromoData : Dictionary
 
 func _ready() -> void:
+	if not ref: ref = self
+	
 	_load_all_data()
 	
 	add_child(PAGETAB.instantiate())

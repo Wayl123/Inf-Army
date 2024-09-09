@@ -1,8 +1,5 @@
 extends PanelContainer
 
-@onready var resource : Node = get_tree().get_first_node_in_group("Resource")
-@onready var exploration : Node = get_tree().get_first_node_in_group("Exploration")
-
 @onready var levelPromotion : Node = %LevelPromotion
 @onready var unitName : Node = %Name
 @onready var unitLevel : Node = %Level
@@ -52,7 +49,7 @@ func _level_available() -> void:
 		levelPromotion.add_theme_stylebox_override("hover", SEMIAVAILABLESTYLE)
 		levelPromotion.add_theme_stylebox_override("pressed", SEMIAVAILABLESTYLE)
 		levelPromotion.disabled = false
-	elif resource.exp >= expReq:
+	elif PlayerResource.ref.exp >= expReq:
 		levelPromotion.add_theme_stylebox_override("hover", AVAILABLESTYLE)
 		levelPromotion.add_theme_stylebox_override("pressed", AVAILABLESTYLE)
 		levelPromotion.disabled = false
@@ -71,7 +68,7 @@ func _hide_hover() -> void:
 	
 func _level_or_promote() -> void:
 	if level < data["MaxLevel"]:
-		if resource.update_exp(-expReq):
+		if PlayerResource.ref.update_exp(-expReq):
 			level += 1
 			if level < data["MaxLevel"]:
 				expReq = _get_exp_req()
@@ -92,7 +89,7 @@ func _level_or_promote() -> void:
 					
 			move_node.emit(index)
 				
-			exploration.update_exploration_power()
+			Exploration.ref.update_exploration_power()
 			unit_info_changed.emit()
 	else:
 		_expand_promotion_detail()
@@ -136,11 +133,11 @@ func update_level_display() -> void:
 	unitPower.text = String.num_scientific(get_power())
 	
 	expText += str("[right]", expReq, " ")
-	if resource.exp >= expReq:
+	if PlayerResource.ref.exp >= expReq:
 		expText += "[color=#00ff00]"
 	else:
 		expText += "[color=#ff0000]"
-	expText += str("(", resource.exp, ")[/color][/right]")
+	expText += str("(", PlayerResource.ref.exp, ")[/color][/right]")
 	
 	unitExp.text = expText
 	

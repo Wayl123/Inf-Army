@@ -1,4 +1,7 @@
+class_name PlayerResource
 extends HBoxContainer
+
+static var ref : PlayerResource
 
 @onready var playerMoney : Node = %Money
 @onready var playerExp : Node = %Exp
@@ -7,6 +10,8 @@ var money : float = 0
 var exp : float = 200
 
 func _ready():
+	if not ref: ref = self
+	
 	_update_display()
 	
 func _update_display() -> void:

@@ -1,7 +1,5 @@
 extends "res://script/inventory_item.gd"
 
-@onready var unitInventory : Node = get_tree().get_first_node_in_group("UnitInventory")
-
 @onready var display : Node = %LootboxAttributeDisplay
 @onready var open1Button : Node = %Open1
 @onready var open10Button : Node = %Open10
@@ -32,7 +30,7 @@ func _open_box(pAmount : int) -> void:
 	_update_unit_get(output)
 	
 func _update_unit_get(pUnits : Dictionary) -> void:
-	unitInventory.add_unit(pUnits)
+	UnitInventory.ref.add_unit(pUnits)
 	
 func _update_amount_display() -> void:
 	display.update_amount_display(amount)

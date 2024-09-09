@@ -1,7 +1,5 @@
 extends PanelContainer
 
-@onready var inventory : Node = get_tree().get_first_node_in_group("Inventory")
-
 @onready var claimButton : Node = %LootboxClaim
 @onready var display : Node = %LootboxAttributeDisplay
 @onready var genTimer : Node = %GeneratorTimer
@@ -28,4 +26,4 @@ func _get_and_empty_stored_amount() -> int:
 	return retrievedAmount
 	
 func _claim_lootbox() -> void:
-	inventory.add_item(boxId, _get_and_empty_stored_amount())
+	Inventory.ref.add_item(boxId, _get_and_empty_stored_amount())

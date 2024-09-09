@@ -1,9 +1,5 @@
 extends PanelContainer
 
-@onready var resource : Node = get_tree().get_first_node_in_group("Resource")
-@onready var inventory : Node = get_tree().get_first_node_in_group("Inventory")
-@onready var unitInventory : Node = get_tree().get_first_node_in_group("UnitInventory")
-
 @onready var areaName : Node = %AreaName
 @onready var activeToggle : Node = %ActiveToggle
 @onready var moneyRate : Node = %MoneyRate
@@ -39,20 +35,20 @@ func _start_exploring() -> void:
 	exploring = not exploring
 	
 func _update_resource() -> void:
-	resource.update_money(claimAmount[0])
-	resource.update_exp(claimAmount[1])
+	PlayerResource.ref.update_money(claimAmount[0])
+	PlayerResource.ref.update_exp(claimAmount[1])
 	explorationProgress.value += claimAmount[1]
 	
 	_update_loot()
 	
-	unitInventory.update_hero_display()
-	unitInventory.update_shop_cost()
+	UnitInventory.ref.update_hero_display()
+	UnitInventory.ref.update_shop_cost()
 	
 func _update_loot() -> void:
 	for loot in data["Loot"]:
 		var roll : float = rng.randf()
 		if roll < data["Loot"][loot] * (claimAmount[1] / float(data["MaxExpAmount"])):
-			inventory.add_item(loot, 1)
+			Inventory.ref.add_item(loot, 1)
 
 func _update_display() -> void:
 	areaName.text = str("[b]", data["Name"], "[/b]")

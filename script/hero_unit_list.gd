@@ -1,7 +1,5 @@
 extends VBoxContainer
 
-@onready var globalData : Node = get_tree().get_first_node_in_group("GlobalData")
-
 var HEROUNIT : PackedScene = preload("res://scene/hero_unit.tscn")
 
 var maxed : Dictionary
@@ -15,7 +13,7 @@ func add_unit(pUnits : Dictionary) -> void:
 			var heroUnit : Node = HEROUNIT.instantiate()
 			var index : int = 0
 			var spotFound : bool = false
-			var unitData : Dictionary = globalData.get_unit_stat_data_copy(unit)
+			var unitData : Dictionary = GlobalData.ref.get_unit_stat_data_copy(unit)
 			
 			while (index < get_child_count() and not spotFound):
 				var nodePower : float = get_child(index).get_power()

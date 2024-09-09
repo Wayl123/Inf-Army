@@ -1,6 +1,7 @@
+class_name UnitInventory
 extends PanelContainer
 
-@onready var exploration : Node = get_tree().get_first_node_in_group("Exploration")
+static var ref : UnitInventory
 
 @onready var heroUnitList : Node = %HeroUnitList
 @onready var normalUnitList : Node = %NormalUnitList
@@ -10,6 +11,8 @@ extends PanelContainer
 var shopExpanded : bool = false
 
 func _ready() -> void:
+	if not ref: ref = self
+	
 	unitShopToggle.connect("pressed", Callable(self, "_expand_unit_shop"))
 	
 func _expand_unit_shop() -> void:
@@ -36,7 +39,7 @@ func add_unit(pUnits : Dictionary) -> void:
 	heroUnitList.add_unit(heroUnits)
 	normalUnitList.add_unit(normalUnits)
 	
-	exploration.update_exploration_power()
+	Exploration.ref.update_exploration_power()
 	update_hero_display()
 	unitShop.update_shop_unlocks()
 

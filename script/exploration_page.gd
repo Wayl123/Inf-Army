@@ -1,7 +1,7 @@
+class_name Exploration
 extends PanelContainer
 
-@onready var globalData : Node = get_tree().get_first_node_in_group("GlobalData")
-@onready var unitInventory : Node = get_tree().get_first_node_in_group("UnitInventory")
+static var ref : Exploration
 
 @onready var explorationStat : Node = %ExplorationStat
 @onready var explorationAreaList : Node = %ExplorationAreaList
@@ -12,6 +12,8 @@ var teamSize : Array = [0, 0]
 var explorationPower : float
 
 func _ready() -> void:
+	if not ref: ref = self
+	
 	# To be changed to get from save file
 	_get_saved_area()
 	_update_exploration_stat([1, 10])
@@ -23,7 +25,7 @@ func _get_saved_area() -> void:
 func _add_area(pArea : String) -> void:
 	var explorationArea : Node = EXPLORATIONAREA.instantiate()
 	
-	explorationArea.data = globalData.get_exploration_area_data_copy(pArea)
+	explorationArea.data = GlobalData.ref.get_exploration_area_data_copy(pArea)
 	explorationAreaList.add_child(explorationArea)
 	explorationArea.update_claim_amount(explorationPower)
 	
@@ -37,7 +39,7 @@ func _update_exploration_stat(pTeamSize : Array) -> void:
 	update_exploration_power()
 	
 func update_exploration_power() -> void:
-	explorationPower = unitInventory.get_power_by_amount(teamSize)
+	explorationPower = UnitInventory.ref.get_power_by_amount(teamSize)
 	explorationStat.update_exploration_power(explorationPower)
 	
 	for area in explorationAreaList.get_children():

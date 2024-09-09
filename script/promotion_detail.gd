@@ -1,10 +1,5 @@
 extends PanelContainer
 
-@onready var globalData : Node = get_tree().get_first_node_in_group("GlobalData")
-@onready var resource : Node = get_tree().get_first_node_in_group("Resource")
-@onready var inventory : Node = get_tree().get_first_node_in_group("Inventory")
-@onready var unitInventory : Node = get_tree().get_first_node_in_group("UnitInventory")
-
 @onready var promotionName : Node = %PromotionName
 @onready var promotionCost : Node = %PromotionCost
 @onready var selectLeft : Node = %SelectLeft
@@ -67,7 +62,7 @@ func _promote_unit() -> void:
 			break
 	
 	if succeed:
-		promoData["Data"] = globalData.get_unit_stat_data_copy(promoSelection[currentIndex])
+		promoData["Data"] = GlobalData.ref.get_unit_stat_data_copy(promoSelection[currentIndex])
 		promoData["Power"] = totalPower
 		promoData["Multi"] = totalMulti
 		
@@ -81,17 +76,17 @@ func _transform_data() -> void:
 	itemRegex.compile("^[PB]\\d+")
 	
 	for promo in data:
-		var cacheData : Dictionary = globalData.get_cache_promo_data(promo)
+		var cacheData : Dictionary = GlobalData.ref.get_cache_promo_data(promo)
 		
 		if cacheData.is_empty():
 			var newCost : Dictionary
 			var newSelection : Dictionary
-			cacheData["Name"] = globalData.get_unit_stat_data_copy(promo)["Name"]
+			cacheData["Name"] = GlobalData.ref.get_unit_stat_data_copy(promo)["Name"]
 			
 			for cost in data[promo]["Cost"]:
 				if unitRegex.search(cost) != null:
-					var unitNode : Node = unitInventory.get_unit_node_ref(cost)
-					var unitData : Dictionary = globalData.get_unit_stat_data_copy(cost)
+					var unitNode : Node = UnitInventory.ref.get_unit_node_ref(cost)
+					var unitData : Dictionary = GlobalData.ref.get_unit_stat_data_copy(cost)
 					var unitName : String = unitData["Name"]
 					newCost[unitName] = {}
 					newCost[unitName]["Id"] = cost
@@ -99,8 +94,8 @@ func _transform_data() -> void:
 					newCost[unitName]["Power"] = unitData["Power"]
 					newCost[unitName]["Req"] = data[promo]["Cost"][cost]
 				elif itemRegex.search(cost) != null:
-					var itemNode : Node = inventory.get_item_node_ref(cost)
-					var itemData : Dictionary = globalData.get_item_stat_data_copy(cost)
+					var itemNode : Node = Inventory.ref.get_item_node_ref(cost)
+					var itemData : Dictionary = GlobalData.ref.get_item_stat_data_copy(cost)
 					var itemName : String = itemData["Name"]
 					newCost[itemName] = {}
 					newCost[itemName]["Id"] = cost
@@ -111,7 +106,7 @@ func _transform_data() -> void:
 						newCost[itemName]["Multi"] = itemData["Multi"]
 				else:
 					newCost[cost] = {}
-					newCost[cost]["Node"] = resource
+					newCost[cost]["Node"] = PlayerResource.ref
 					newCost[cost]["Req"] = data[promo]["Cost"][cost]
 					
 			cacheData["Cost"] = newCost
@@ -119,16 +114,16 @@ func _transform_data() -> void:
 					
 			for selection in data[promo]["Optional"]["Selection"]:
 				if unitRegex.search(selection) != null:
-					var unitNode : Node = unitInventory.get_unit_node_ref(selection)
-					var unitData : Dictionary = globalData.get_unit_stat_data_copy(selection)
+					var unitNode : Node = UnitInventory.ref.get_unit_node_ref(selection)
+					var unitData : Dictionary = GlobalData.ref.get_unit_stat_data_copy(selection)
 					var unitName : String = unitData["Name"]
 					newSelection[unitName] = {}
 					newSelection[unitName]["Id"] = selection
 					newSelection[unitName]["Node"] = unitNode
 					newSelection[unitName]["Power"] = unitData["Power"]
 				elif itemRegex.search(selection) != null:
-					var itemNode : Node = inventory.get_item_node_ref(selection)
-					var itemData : Dictionary = globalData.get_item_stat_data_copy(selection)
+					var itemNode : Node = Inventory.ref.get_item_node_ref(selection)
+					var itemData : Dictionary = GlobalData.ref.get_item_stat_data_copy(selection)
 					var itemName : String = itemData["Name"]
 					newSelection[itemName] = {}
 					newSelection[itemName]["Id"] = selection
@@ -152,9 +147,9 @@ func _fill_empty_data(pData : Dictionary) -> void:
 	itemRegex.compile("^[PB]\\d+")
 	
 	if unitRegex.search(pData["Id"]) != null:
-		dataNode = unitInventory.get_unit_node_ref(pData["Id"])
+		dataNode = UnitInventory.ref.get_unit_node_ref(pData["Id"])
 	elif itemRegex.search(pData["Id"]) != null:
-		dataNode = inventory.get_item_node_ref(pData["Id"])
+		dataNode = Inventory.ref.get_item_node_ref(pData["Id"])
 		
 	pData["Node"] = dataNode
 	

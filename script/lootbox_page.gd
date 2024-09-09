@@ -1,12 +1,15 @@
+class_name LootboxInventory
 extends PanelContainer
 
-@onready var globalData : Node = get_tree().get_first_node_in_group("GlobalData")
+static var ref : LootboxInventory
 
 @onready var lootboxList : Node = %LootboxList
 
 var LOOTBOXGENERATOR : PackedScene = preload("res://scene/lootbox_generator.tscn")
 
 func _ready() -> void:
+	if not ref: ref = self
+	
 	_get_saved_generator()
 
 func _get_saved_generator() -> void:
@@ -18,5 +21,5 @@ func _add_generator(pGen : String) -> void:
 	var lootboxGen : Node = LOOTBOXGENERATOR.instantiate()
 	
 	lootboxGen.boxId = pGen
-	lootboxGen.data = globalData.get_lootbox_gen_data_copy(pGen)
+	lootboxGen.data = GlobalData.ref.get_lootbox_gen_data_copy(pGen)
 	lootboxList.add_child(lootboxGen)

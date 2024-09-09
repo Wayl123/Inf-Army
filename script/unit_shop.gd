@@ -1,9 +1,5 @@
 extends PanelContainer
 
-@onready var globalData : Node = get_tree().get_first_node_in_group("GlobalData")
-@onready var resource : Node = get_tree().get_first_node_in_group("Resource")
-@onready var unitInventory : Node = get_tree().get_first_node_in_group("UnitInventory")
-
 @onready var unitShopList : Node = %UnitShopList
 
 var SHOPITEM : PackedScene = preload("res://scene/shop_item.tscn")
@@ -11,7 +7,7 @@ var SHOPITEM : PackedScene = preload("res://scene/shop_item.tscn")
 var data : Dictionary
 
 func _ready() -> void:
-	data = globalData.get_unit_combination_data_copy()
+	data = GlobalData.ref.get_unit_combination_data_copy()
 		
 func update_shop_unlocks() -> void:
 	var unitRegex : Object = RegEx.new()
@@ -22,7 +18,7 @@ func update_shop_unlocks() -> void:
 			var shopItem : Node = SHOPITEM.instantiate()
 		
 			shopItem.data["Id"] = item
-			shopItem.data["Name"] = globalData.get_unit_stat_data_copy(item)["Name"]
+			shopItem.data["Name"] = GlobalData.ref.get_unit_stat_data_copy(item)["Name"]
 			shopItem.data["Cost"] = data[item]
 			
 			unitShopList.add_child(shopItem)
