@@ -68,7 +68,7 @@ func _transform_data() -> void:
 			newCost[unitName]["Req"] = data["Cost"][cost]
 		else:
 			newCost[cost] = {}
-			newCost[cost]["Node"] = PlayerResource.ref
+			newCost[cost]["Node"] = GlobalData.ref.gameData
 			newCost[cost]["Req"] = data["Cost"][cost]
 			
 	data["Cost"] = newCost

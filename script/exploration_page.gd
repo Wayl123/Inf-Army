@@ -11,9 +11,10 @@ var EXPLORATIONAREA : PackedScene = preload("res://scene/exploration_area.tscn")
 var teamSize : Array = [0, 0]
 var explorationPower : float
 
-func _ready() -> void:
+func _enter_tree() -> void:
 	if not ref: ref = self
-	
+
+func _ready() -> void:
 	# To be changed to get from save file
 	_get_saved_area()
 	_update_exploration_stat([1, 10])

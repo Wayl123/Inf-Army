@@ -10,7 +10,7 @@ var NORMALITEM : PackedScene = preload("res://scene/normal_item.tscn")
 
 var data : Dictionary
 
-func _ready() -> void:
+func _enter_tree() -> void:
 	if not ref: ref = self
 
 func add_item(pId : String, pAmount : int) -> void:

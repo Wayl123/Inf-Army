@@ -7,9 +7,10 @@ static var ref : LootboxInventory
 
 var LOOTBOXGENERATOR : PackedScene = preload("res://scene/lootbox_generator.tscn")
 
-func _ready() -> void:
+func _enter_tree() -> void:
 	if not ref: ref = self
-	
+
+func _ready() -> void:
 	_get_saved_generator()
 
 func _get_saved_generator() -> void:

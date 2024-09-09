@@ -10,9 +10,10 @@ static var ref : UnitInventory
 
 var shopExpanded : bool = false
 
-func _ready() -> void:
+func _enter_tree() -> void:
 	if not ref: ref = self
-	
+
+func _ready() -> void:
 	unitShopToggle.connect("pressed", Callable(self, "_expand_unit_shop"))
 	
 func _expand_unit_shop() -> void:

@@ -49,7 +49,7 @@ func _level_available() -> void:
 		levelPromotion.add_theme_stylebox_override("hover", SEMIAVAILABLESTYLE)
 		levelPromotion.add_theme_stylebox_override("pressed", SEMIAVAILABLESTYLE)
 		levelPromotion.disabled = false
-	elif PlayerResource.ref.exp >= expReq:
+	elif GlobalData.ref.gameData.exp >= expReq:
 		levelPromotion.add_theme_stylebox_override("hover", AVAILABLESTYLE)
 		levelPromotion.add_theme_stylebox_override("pressed", AVAILABLESTYLE)
 		levelPromotion.disabled = false
@@ -68,7 +68,7 @@ func _hide_hover() -> void:
 	
 func _level_or_promote() -> void:
 	if level < data["MaxLevel"]:
-		if PlayerResource.ref.update_exp(-expReq):
+		if GlobalData.ref.gameData.update_exp(-expReq):
 			level += 1
 			if level < data["MaxLevel"]:
 				expReq = _get_exp_req()
@@ -133,11 +133,11 @@ func update_level_display() -> void:
 	unitPower.text = String.num_scientific(get_power())
 	
 	expText += str("[right]", expReq, " ")
-	if PlayerResource.ref.exp >= expReq:
+	if GlobalData.ref.gameData.exp >= expReq:
 		expText += "[color=#00ff00]"
 	else:
 		expText += "[color=#ff0000]"
-	expText += str("(", PlayerResource.ref.exp, ")[/color][/right]")
+	expText += str("(", GlobalData.ref.gameData.exp, ")[/color][/right]")
 	
 	unitExp.text = expText
 	

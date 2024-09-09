@@ -35,8 +35,8 @@ func _start_exploring() -> void:
 	exploring = not exploring
 	
 func _update_resource() -> void:
-	PlayerResource.ref.update_money(claimAmount[0])
-	PlayerResource.ref.update_exp(claimAmount[1])
+	GlobalData.ref.gameData.update_money(claimAmount[0])
+	GlobalData.ref.gameData.update_exp(claimAmount[1])
 	explorationProgress.value += claimAmount[1]
 	
 	_update_loot()

@@ -5,6 +5,8 @@ static var ref : GlobalData
 
 var PAGETAB : PackedScene = preload("res://scene/page_tab.tscn")
 
+var gameData : GameData
+
 var lootboxGenListPath : String = "res://script/lootbox_generator_template.json"
 var unitStatListPath : String = "res://script/unit_stat.json"
 var unitCombinationListPath : String = "res://script/unit_combination.json"
@@ -18,9 +20,12 @@ var itemStatData : Dictionary
 
 var cachePromoData : Dictionary
 
-func _ready() -> void:
+func _enter_tree() -> void:
 	if not ref: ref = self
 	
+	gameData = GameData.new()
+
+func _ready() -> void:
 	_load_all_data()
 	
 	add_child(PAGETAB.instantiate())
