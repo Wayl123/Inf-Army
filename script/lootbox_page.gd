@@ -21,6 +21,6 @@ func _add_generator(pGen : String) -> void:
 	# Might need to change input type later on, still need to decide on how I want to store generator data
 	var lootboxGen : Node = LOOTBOXGENERATOR.instantiate()
 	
-	lootboxGen.boxId = pGen
+	lootboxGen.id = pGen
 	lootboxGen.data = GlobalData.ref.get_lootbox_gen_data_copy(pGen)
 	lootboxList.add_child(lootboxGen)

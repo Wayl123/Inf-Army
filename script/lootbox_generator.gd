@@ -4,7 +4,7 @@ extends PanelContainer
 @onready var display : Node = %LootboxAttributeDisplay
 @onready var genTimer : Node = %GeneratorTimer
 
-var boxId : String
+var id : String
 var data : Dictionary
 var amount : int = 0
 
@@ -26,4 +26,4 @@ func _get_and_empty_stored_amount() -> int:
 	return retrievedAmount
 	
 func _claim_lootbox() -> void:
-	Inventory.ref.add_item(boxId, _get_and_empty_stored_amount())
+	Inventory.ref.add_item(id, _get_and_empty_stored_amount())

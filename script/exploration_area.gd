@@ -9,9 +9,10 @@ extends PanelContainer
 @onready var payoutProgress : Node = %PayoutProgress
 @onready var payoutTimer : Node = %PayoutTimer
 
+var id : String
 var exploring : bool = false
 var data : Dictionary
-var claimAmount : Array = [0, 0]
+var claimAmount : Array[float] = [0, 0]
 
 var rng : Object = RandomNumberGenerator.new()
 
@@ -35,9 +36,11 @@ func _start_exploring() -> void:
 	exploring = not exploring
 	
 func _update_resource() -> void:
+	explorationProgress.value += claimAmount[1]
+	
 	GlobalData.ref.gameData.update_money(claimAmount[0])
 	GlobalData.ref.gameData.update_exp(claimAmount[1])
-	explorationProgress.value += claimAmount[1]
+	_update_area_saved_data()
 	
 	_update_loot()
 	
@@ -56,6 +59,14 @@ func _update_display() -> void:
 	payoutTimer.wait_time = data["ExploreTimer"]
 	payoutTimer.paused = true
 	
+func _update_area_saved_data() -> void:
+	var areaProgress : Dictionary
+	
+	areaProgress["Progress"] = explorationProgress.value
+	areaProgress["Exploring"] = exploring
+	
+	GlobalData.ref.gameData.update_exploration_area({id: areaProgress})
+	
 func update_claim_amount(pExplorationPower : float) -> void:
 	if claimAmount[0] < data["MaxMoneyAmount"]:
 		claimAmount[0] = clampf(pExplorationPower * float(data["MoneyBase"]), 0.0, data["MaxMoneyAmount"])
@@ -65,3 +76,6 @@ func update_claim_amount(pExplorationPower : float) -> void:
 	moneyRate.text = str("[right]", String.num_scientific(claimAmount[0] / float(data["ExploreTimer"])), "/sec[/right]")
 	expRate.text = str("[right]", String.num_scientific(claimAmount[1] / float(data["ExploreTimer"])), "/sec[/right]")
 	
+func update_saved_data(pData : Dictionary) -> void:
+	if pData.has("Progress"): explorationProgress.value = pData["Progress"]
+	if pData.has("Exploring") and pData["Exploring"]: _start_exploring()

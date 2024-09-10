@@ -8,7 +8,6 @@ static var ref : Exploration
 
 var EXPLORATIONAREA : PackedScene = preload("res://scene/exploration_area.tscn")
 
-var teamSize : Array = [0, 0]
 var explorationPower : float
 
 func _enter_tree() -> void:
@@ -17,30 +16,30 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	# To be changed to get from save file
 	_get_saved_area()
-	_update_exploration_stat([1, 10])
+	update_exploration_stat(GlobalData.ref.gameData.teamSize)
 	
 func _get_saved_area() -> void:
-	# To be changed to get from save file
-	_add_area("C1A1")
+	var savedArea = GlobalData.ref.gameData.explorationArea
 	
-func _add_area(pArea : String) -> void:
+	for area in savedArea:
+		add_area(area, savedArea[area])
+	
+func add_area(pArea : String, pSavedData : Dictionary = {}) -> void:
 	var explorationArea : Node = EXPLORATIONAREA.instantiate()
 	
+	explorationArea.id = pArea
 	explorationArea.data = GlobalData.ref.get_exploration_area_data_copy(pArea)
 	explorationAreaList.add_child(explorationArea)
 	explorationArea.update_claim_amount(explorationPower)
+	if not pSavedData.is_empty():
+		explorationArea.update_saved_data(pSavedData)
 	
-func _update_exploration_stat(pTeamSize : Array) -> void:
-	if pTeamSize[0] != teamSize[0]:
-		teamSize[0] = pTeamSize[0]
-		explorationStat.update_hero_cap(teamSize[0])
-	if pTeamSize[1] != teamSize[1]:
-		teamSize[1] = pTeamSize[1]
-		explorationStat.update_normal_unit_cap(teamSize[1])
+func update_exploration_stat(pTeamSize : Array[int]) -> void:
+	explorationStat.update_unit_cap(pTeamSize)
 	update_exploration_power()
 	
 func update_exploration_power() -> void:
-	explorationPower = UnitInventory.ref.get_power_by_amount(teamSize)
+	explorationPower = UnitInventory.ref.get_power_by_amount(GlobalData.ref.gameData.teamSize)
 	explorationStat.update_exploration_power(explorationPower)
 	
 	for area in explorationAreaList.get_children():
