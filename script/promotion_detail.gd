@@ -24,12 +24,24 @@ var promoMulti : Dictionary
 var totalPower : float
 var totalMulti : Dictionary
 
+var unitRegex : Object
+var itemRegex : Object
+
+func _enter_tree() -> void:
+	_set_regex()
+
 func _ready() -> void:
 	selectLeft.connect("pressed", Callable(self, "_change_selection").bind(-1))
 	selectRight.connect("pressed", Callable(self, "_change_selection").bind(1))
 	optionalItemList.connect("item_activated", Callable(self, "_select_optional_item"))
 	selectedItem.connect("item_activated", Callable(self, "_deselect_optional_item"))
 	promoteButton.connect("pressed", Callable(self, "_promote_unit"))
+	
+func _set_regex() -> void:
+	unitRegex = RegEx.new()
+	itemRegex = RegEx.new()
+	unitRegex.compile("\\d+S\\d+")
+	itemRegex.compile("^[PB]\\d+")
 	
 func _change_selection(pDirection : int) -> void:
 	if promoSelection and promoSelection.size() > 1:
@@ -52,9 +64,11 @@ func _promote_unit() -> void:
 		req = totalCost[cost]["Req"]
 		
 		if cost == "Money":
-			succeed = totalCost[cost]["Node"].update_money(-req)
+			succeed = GlobalData.ref.gameData.update_money(-req)
 		elif cost == "Exp":
-			succeed = totalCost[cost]["Node"].update_exp(-req)
+			succeed = GlobalData.ref.gameData.update_exp(-req)
+		elif itemRegex.search(cost) != null:
+			succeed = GlobalData.ref.gameData.update_inventory_item_amount(totalCost[cost]["Id"], -req)
 		else:
 			succeed = totalCost[cost]["Node"].update_amount(-req)
 			
@@ -70,11 +84,6 @@ func _promote_unit() -> void:
 		promote_unit.emit(promoData)
 	
 func _transform_data() -> void:
-	var unitRegex : Object = RegEx.new()
-	var itemRegex : Object = RegEx.new()
-	unitRegex.compile("\\d+S\\d+")
-	itemRegex.compile("^[PB]\\d+")
-	
 	for promo in data:
 		var cacheData : Dictionary = GlobalData.ref.get_cache_promo_data(promo)
 		
@@ -94,12 +103,11 @@ func _transform_data() -> void:
 					newCost[unitName]["Power"] = unitData["Power"]
 					newCost[unitName]["Req"] = data[promo]["Cost"][cost]
 				elif itemRegex.search(cost) != null:
-					var itemNode : Node = Inventory.ref.get_item_node_ref(cost)
 					var itemData : Dictionary = GlobalData.ref.get_item_stat_data_copy(cost)
 					var itemName : String = itemData["Name"]
 					newCost[itemName] = {}
 					newCost[itemName]["Id"] = cost
-					newCost[itemName]["Node"] = itemNode
+					newCost[itemName]["Node"] = GlobalData.ref.gameData
 					newCost[itemName]["Power"] = itemData["Power"]
 					newCost[itemName]["Req"] = data[promo]["Cost"][cost]
 					if itemData.has("Multi"):
@@ -122,12 +130,11 @@ func _transform_data() -> void:
 					newSelection[unitName]["Node"] = unitNode
 					newSelection[unitName]["Power"] = unitData["Power"]
 				elif itemRegex.search(selection) != null:
-					var itemNode : Node = Inventory.ref.get_item_node_ref(selection)
 					var itemData : Dictionary = GlobalData.ref.get_item_stat_data_copy(selection)
 					var itemName : String = itemData["Name"]
 					newSelection[itemName] = {}
 					newSelection[itemName]["Id"] = selection
-					newSelection[itemName]["Node"] = itemNode
+					newSelection[itemName]["Node"] = GlobalData.ref.gameData
 					newSelection[itemName]["Power"] = itemData["Power"]
 					if itemData.has("Multi"):
 						newSelection[itemName]["Multi"] = itemData["Multi"]
@@ -140,11 +147,7 @@ func _transform_data() -> void:
 		data[promo] = cacheData
 		
 func _fill_empty_data(pData : Dictionary) -> void:
-	var unitRegex : Object = RegEx.new()
-	var itemRegex : Object = RegEx.new()
 	var dataNode : Node
-	unitRegex.compile("\\d+S\\d+")
-	itemRegex.compile("^[PB]\\d+")
 	
 	if unitRegex.search(pData["Id"]) != null:
 		dataNode = UnitInventory.ref.get_unit_node_ref(pData["Id"])
@@ -171,9 +174,14 @@ func _update_selected_display() -> void:
 		
 		if totalCost[cost]["Node"] != null:
 			if cost == "Money":
-				amount = totalCost[cost]["Node"].money
+				amount = GlobalData.ref.gameData.money
 			elif cost == "Exp":
-				amount = totalCost[cost]["Node"].exp
+				amount = GlobalData.ref.gameData.exp
+			elif itemRegex.search(totalCost[cost]["Id"]) != null:
+				if GlobalData.ref.gameData.inventoryItem.has(totalCost[cost]["Id"]):
+					amount = GlobalData.ref.gameData.inventoryItem[totalCost[cost]["Id"]]
+				else:
+					amount = 0
 			else:
 				amount = totalCost[cost]["Node"].amount
 			req = totalCost[cost]["Req"]

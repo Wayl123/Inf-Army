@@ -26,4 +26,17 @@ func _get_and_empty_stored_amount() -> int:
 	return retrievedAmount
 	
 func _claim_lootbox() -> void:
-	Inventory.ref.add_item(id, _get_and_empty_stored_amount())
+	var splitId : PackedStringArray = id.split("_")
+	
+	Inventory.ref.add_item(splitId[0], _get_and_empty_stored_amount())
+	
+func load_saved_data(pData : Dictionary) -> void:
+	if pData.has("Amount"): amount = pData["Amount"]
+	display.update_amount_display(amount)
+	
+func update_generator_saved_data() -> void:
+	var genData : Dictionary
+	
+	genData["Amount"] = amount
+	
+	GlobalData.ref.gameData.update_lootbox_generator({id: genData})

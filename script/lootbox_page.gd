@@ -14,13 +14,22 @@ func _ready() -> void:
 	_get_saved_generator()
 
 func _get_saved_generator() -> void:
-	# To be changed to get from save file
-	_add_generator("L1T1")
+	var savedGen = GlobalData.ref.gameData.lootboxGenerator
+	
+	for gen in savedGen:
+		for genNum in savedGen[gen]:
+			add_generator(str(gen, "_", genNum), savedGen[gen][genNum])
 
-func _add_generator(pGen : String) -> void:
-	# Might need to change input type later on, still need to decide on how I want to store generator data
+func add_generator(pGen : String, pSavedData : Dictionary = {}) -> void:
 	var lootboxGen : Node = LOOTBOXGENERATOR.instantiate()
+	var splitId : PackedStringArray = pGen.split("_")
 	
 	lootboxGen.id = pGen
-	lootboxGen.data = GlobalData.ref.get_lootbox_gen_data_copy(pGen)
+	lootboxGen.data = GlobalData.ref.get_lootbox_gen_data_copy(splitId[0])
 	lootboxList.add_child(lootboxGen)
+	if not pSavedData.is_empty():
+		lootboxGen.load_saved_data(pSavedData)
+		
+func update_saved_data() -> void:
+	for gen in lootboxList.get_children():
+		gen.update_generator_saved_data()

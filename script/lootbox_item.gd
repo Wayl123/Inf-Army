@@ -8,9 +8,9 @@ extends "res://script/inventory_item.gd"
 var rng : Object = RandomNumberGenerator.new()
 
 func _ready() -> void:
-	open1Button.connect("pressed", Callable(self, "update_amount").bind(-1))
-	open10Button.connect("pressed", Callable(self, "update_amount").bind(-10))
-	openAllButton.connect("pressed", Callable(self, "update_amount"))
+	open1Button.connect("pressed", Callable(GlobalData.ref.gameData, "update_inventory_item_amount").bind(id, -1))
+	open10Button.connect("pressed", Callable(GlobalData.ref.gameData, "update_inventory_item_amount").bind(id, -10))
+	openAllButton.connect("pressed", Callable(GlobalData.ref.gameData, "update_inventory_item_amount").bind(id))
 	
 	display.update_display(data)
 
@@ -32,19 +32,13 @@ func _open_box(pAmount : int) -> void:
 func _update_unit_get(pUnits : Dictionary) -> void:
 	UnitInventory.ref.add_unit(pUnits)
 	
-func _update_amount_display() -> void:
-	display.update_amount_display(amount)
+func update_amount_display(pAmount : int = 0) -> void:
+	display.update_amount_display(GlobalData.ref.gameData.inventoryItem[id])
 	
-func update_amount(pAmount : int = -amount) -> bool:
-	if super(pAmount):
-		if pAmount < 0:
-			_open_box(abs(pAmount))
-				
-		if amount < 10:
-			open10Button.disabled = true
-		else:
-			open10Button.disabled = false
+	if pAmount < 0:
+		_open_box(abs(pAmount))
 			
-		return true
+	if GlobalData.ref.gameData.inventoryItem[id] < 10:
+		open10Button.disabled = true
 	else:
-		return false
+		open10Button.disabled = false

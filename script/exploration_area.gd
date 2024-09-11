@@ -40,7 +40,6 @@ func _update_resource() -> void:
 	
 	GlobalData.ref.gameData.update_money(claimAmount[0])
 	GlobalData.ref.gameData.update_exp(claimAmount[1])
-	_update_area_saved_data()
 	
 	_update_loot()
 	
@@ -51,21 +50,13 @@ func _update_loot() -> void:
 	for loot in data["Loot"]:
 		var roll : float = rng.randf()
 		if roll < data["Loot"][loot] * (claimAmount[1] / float(data["MaxExpAmount"])):
-			Inventory.ref.add_item(loot, 1)
+			GlobalData.ref.gameData.update_inventory_item({loot: 1})
 
 func _update_display() -> void:
 	areaName.text = str("[b]", data["Name"], "[/b]")
 	explorationProgress.max_value = data["ExploreCompletion"]
 	payoutTimer.wait_time = data["ExploreTimer"]
 	payoutTimer.paused = true
-	
-func _update_area_saved_data() -> void:
-	var areaProgress : Dictionary
-	
-	areaProgress["Progress"] = explorationProgress.value
-	areaProgress["Exploring"] = exploring
-	
-	GlobalData.ref.gameData.update_exploration_area({id: areaProgress})
 	
 func update_claim_amount(pExplorationPower : float) -> void:
 	if claimAmount[0] < data["MaxMoneyAmount"]:
@@ -76,6 +67,14 @@ func update_claim_amount(pExplorationPower : float) -> void:
 	moneyRate.text = str("[right]", String.num_scientific(claimAmount[0] / float(data["ExploreTimer"])), "/sec[/right]")
 	expRate.text = str("[right]", String.num_scientific(claimAmount[1] / float(data["ExploreTimer"])), "/sec[/right]")
 	
-func update_saved_data(pData : Dictionary) -> void:
+func load_saved_data(pData : Dictionary) -> void:
 	if pData.has("Progress"): explorationProgress.value = pData["Progress"]
 	if pData.has("Exploring") and pData["Exploring"]: _start_exploring()
+	
+func update_area_saved_data() -> void:
+	var areaData : Dictionary
+	
+	areaData["Progress"] = explorationProgress.value
+	areaData["Exploring"] = exploring
+	
+	GlobalData.ref.gameData.update_exploration_area({id: areaData})

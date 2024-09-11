@@ -32,7 +32,7 @@ func add_area(pArea : String, pSavedData : Dictionary = {}) -> void:
 	explorationAreaList.add_child(explorationArea)
 	explorationArea.update_claim_amount(explorationPower)
 	if not pSavedData.is_empty():
-		explorationArea.update_saved_data(pSavedData)
+		explorationArea.load_saved_data(pSavedData)
 	
 func update_exploration_stat(pTeamSize : Array[int]) -> void:
 	explorationStat.update_unit_cap(pTeamSize)
@@ -44,3 +44,7 @@ func update_exploration_power() -> void:
 	
 	for area in explorationAreaList.get_children():
 		area.update_claim_amount(explorationPower)
+		
+func update_saved_data() -> void:
+	for area in explorationAreaList.get_children():
+		area.update_area_saved_data()
