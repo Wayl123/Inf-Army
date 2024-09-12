@@ -56,7 +56,7 @@ func _change_selection(pDirection : int) -> void:
 
 func _promote_unit() -> void:
 	var promoData : Dictionary
-	var succeed : bool = true
+	var succeed : bool
 	
 	for cost in totalCost:
 		var req : float
@@ -67,10 +67,12 @@ func _promote_unit() -> void:
 			succeed = GlobalData.ref.gameData.update_money(-req)
 		elif cost == "Exp":
 			succeed = GlobalData.ref.gameData.update_exp(-req)
-		elif itemRegex.search(cost) != null:
+		elif unitRegex.search(totalCost[cost]["Id"]) != null:
+			succeed = GlobalData.ref.gameData.update_normal_unit_amount(totalCost[cost]["Id"], -req)
+		elif itemRegex.search(totalCost[cost]["Id"]) != null:
 			succeed = GlobalData.ref.gameData.update_inventory_item_amount(totalCost[cost]["Id"], -req)
 		else:
-			succeed = totalCost[cost]["Node"].update_amount(-req)
+			succeed = false
 			
 		if not succeed:
 			break
@@ -94,12 +96,10 @@ func _transform_data() -> void:
 			
 			for cost in data[promo]["Cost"]:
 				if unitRegex.search(cost) != null:
-					var unitNode : Node = UnitInventory.ref.get_unit_node_ref(cost)
 					var unitData : Dictionary = GlobalData.ref.get_unit_stat_data_copy(cost)
 					var unitName : String = unitData["Name"]
 					newCost[unitName] = {}
 					newCost[unitName]["Id"] = cost
-					newCost[unitName]["Node"] = unitNode
 					newCost[unitName]["Power"] = unitData["Power"]
 					newCost[unitName]["Req"] = data[promo]["Cost"][cost]
 				elif itemRegex.search(cost) != null:
@@ -107,14 +107,12 @@ func _transform_data() -> void:
 					var itemName : String = itemData["Name"]
 					newCost[itemName] = {}
 					newCost[itemName]["Id"] = cost
-					newCost[itemName]["Node"] = GlobalData.ref.gameData
 					newCost[itemName]["Power"] = itemData["Power"]
 					newCost[itemName]["Req"] = data[promo]["Cost"][cost]
 					if itemData.has("Multi"):
 						newCost[itemName]["Multi"] = itemData["Multi"]
 				else:
 					newCost[cost] = {}
-					newCost[cost]["Node"] = GlobalData.ref.gameData
 					newCost[cost]["Req"] = data[promo]["Cost"][cost]
 					
 			cacheData["Cost"] = newCost
@@ -122,19 +120,16 @@ func _transform_data() -> void:
 					
 			for selection in data[promo]["Optional"]["Selection"]:
 				if unitRegex.search(selection) != null:
-					var unitNode : Node = UnitInventory.ref.get_unit_node_ref(selection)
 					var unitData : Dictionary = GlobalData.ref.get_unit_stat_data_copy(selection)
 					var unitName : String = unitData["Name"]
 					newSelection[unitName] = {}
 					newSelection[unitName]["Id"] = selection
-					newSelection[unitName]["Node"] = unitNode
 					newSelection[unitName]["Power"] = unitData["Power"]
 				elif itemRegex.search(selection) != null:
 					var itemData : Dictionary = GlobalData.ref.get_item_stat_data_copy(selection)
 					var itemName : String = itemData["Name"]
 					newSelection[itemName] = {}
 					newSelection[itemName]["Id"] = selection
-					newSelection[itemName]["Node"] = GlobalData.ref.gameData
 					newSelection[itemName]["Power"] = itemData["Power"]
 					if itemData.has("Multi"):
 						newSelection[itemName]["Multi"] = itemData["Multi"]
@@ -145,16 +140,6 @@ func _transform_data() -> void:
 			cacheData["OptionalMulti"] = data[promo]["OptionalMulti"]
 			
 		data[promo] = cacheData
-		
-func _fill_empty_data(pData : Dictionary) -> void:
-	var dataNode : Node
-	
-	if unitRegex.search(pData["Id"]) != null:
-		dataNode = UnitInventory.ref.get_unit_node_ref(pData["Id"])
-	elif itemRegex.search(pData["Id"]) != null:
-		dataNode = Inventory.ref.get_item_node_ref(pData["Id"])
-		
-	pData["Node"] = dataNode
 	
 func _update_selected_display() -> void:
 	var costText : String
@@ -165,27 +150,28 @@ func _update_selected_display() -> void:
 	for cost in totalCost:
 		var amount : float
 		var req : float
+		var unlocked : bool = true
 		
-		if selectedData["Cost"].has(cost) and selectedData["Cost"][cost]["Node"] == null:
-			_fill_empty_data(selectedData["Cost"][cost])
-			
-		if totalCost[cost]["Node"] == null and selectedData["Cost"][cost]["Node"] != null:
-			totalCost[cost]["Node"] = selectedData["Cost"][cost]["Node"]
-		
-		if totalCost[cost]["Node"] != null:
-			if cost == "Money":
-				amount = GlobalData.ref.gameData.money
-			elif cost == "Exp":
-				amount = GlobalData.ref.gameData.exp
-			elif itemRegex.search(totalCost[cost]["Id"]) != null:
-				if GlobalData.ref.gameData.inventoryItem.has(totalCost[cost]["Id"]):
-					amount = GlobalData.ref.gameData.inventoryItem[totalCost[cost]["Id"]]
-				else:
-					amount = 0
+		if cost == "Money":
+			amount = GlobalData.ref.gameData.money
+		elif cost == "Exp":
+			amount = GlobalData.ref.gameData.exp
+		elif unitRegex.search(totalCost[cost]["Id"]) != null:
+			if GlobalData.ref.gameData.normalUnit.has(totalCost[cost]["Id"]):
+				amount = GlobalData.ref.gameData.normalUnit[totalCost[cost]["Id"]]
 			else:
-				amount = totalCost[cost]["Node"].amount
-			req = totalCost[cost]["Req"]
+				unlocked = false
+		elif itemRegex.search(totalCost[cost]["Id"]) != null:
+			if GlobalData.ref.gameData.inventoryItem.has(totalCost[cost]["Id"]):
+				amount = GlobalData.ref.gameData.inventoryItem[totalCost[cost]["Id"]]
+			else:
+				unlocked = false
+		else:
+			unlocked = false
 		
+		if unlocked:
+			req = totalCost[cost]["Req"]
+			
 			if amount >= req:
 				costText += "[color=#00ff00]"
 			else:
@@ -204,10 +190,11 @@ func _update_optional_list() -> void:
 	optionalItemList.clear()
 	
 	for item in selectedData["Optional"]["Selection"]:
-		if selectedData["Optional"]["Selection"][item]["Node"] == null:
-			_fill_empty_data(selectedData["Optional"]["Selection"][item])
 		
-		if selectedData["Optional"]["Selection"][item]["Node"] != null:
+		if ((unitRegex.search(selectedData["Optional"]["Selection"][item]["Id"]) != null and 
+			GlobalData.ref.gameData.normalUnit.has(selectedData["Optional"]["Selection"][item]["Id"])) or 
+			(itemRegex.search(selectedData["Optional"]["Selection"][item]["Id"]) != null and
+			GlobalData.ref.gameData.inventoryItem.has(selectedData["Optional"]["Selection"][item]["Id"]))):
 			optionalItemList.add_item(item)
 		else:
 			var index : int = optionalItemList.add_item("????????")

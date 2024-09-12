@@ -14,12 +14,11 @@ func _enter_tree() -> void:
 	if not ref: ref = self
 
 func _ready() -> void:
-	# To be changed to get from save file
 	_get_saved_area()
 	update_exploration_stat(GlobalData.ref.gameData.teamSize)
 	
 func _get_saved_area() -> void:
-	var savedArea = GlobalData.ref.gameData.explorationArea
+	var savedArea : Dictionary = GlobalData.ref.gameData.explorationArea
 	
 	for area in savedArea:
 		add_area(area, savedArea[area])

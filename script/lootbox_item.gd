@@ -8,36 +8,34 @@ extends "res://script/inventory_item.gd"
 var rng : Object = RandomNumberGenerator.new()
 
 func _ready() -> void:
-	open1Button.connect("pressed", Callable(GlobalData.ref.gameData, "update_inventory_item_amount").bind(id, -1))
-	open10Button.connect("pressed", Callable(GlobalData.ref.gameData, "update_inventory_item_amount").bind(id, -10))
-	openAllButton.connect("pressed", Callable(GlobalData.ref.gameData, "update_inventory_item_amount").bind(id))
+	open1Button.connect("pressed", Callable(self, "_open_box").bind(1))
+	open10Button.connect("pressed", Callable(self, "_open_box").bind(10))
+	openAllButton.connect("pressed", Callable(self, "_open_box"))
 	
 	display.update_display(data)
 
-func _open_box(pAmount : int) -> void:
+func _open_box(pAmount : int = GlobalData.ref.gameData.inventoryItem[id] if GlobalData.ref.gameData.inventoryItem.has(id) else 0) -> void:
 	var output : Dictionary
 	
-	for i in range(pAmount):
-		var roll : float = rng.randf()
-		for itemKey in data["Prob"]:
-			roll -= data["Prob"][itemKey]
-			if roll < 0:
-				if not output.has(itemKey):
-					output[itemKey] = 0
-				output[itemKey] += 1
-				break
+	if GlobalData.ref.gameData.update_inventory_item_amount(id, -pAmount):
+		for i in range(pAmount):
+			var roll : float = rng.randf()
+			for itemKey in data["Prob"]:
+				roll -= data["Prob"][itemKey]
+				if roll < 0:
+					if not output.has(itemKey):
+						output[itemKey] = 0
+					output[itemKey] += 1
+					break
 	
-	_update_unit_get(output)
+		_update_unit_get(output)
 	
 func _update_unit_get(pUnits : Dictionary) -> void:
-	UnitInventory.ref.add_unit(pUnits)
+	GlobalData.ref.gameData.update_unit(pUnits)
 	
-func update_amount_display(pAmount : int = 0) -> void:
+func update_amount_display() -> void:
 	display.update_amount_display(GlobalData.ref.gameData.inventoryItem[id])
 	
-	if pAmount < 0:
-		_open_box(abs(pAmount))
-			
 	if GlobalData.ref.gameData.inventoryItem[id] < 10:
 		open10Button.disabled = true
 	else:

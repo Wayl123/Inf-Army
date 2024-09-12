@@ -28,7 +28,7 @@ func _get_and_empty_stored_amount() -> int:
 func _claim_lootbox() -> void:
 	var splitId : PackedStringArray = id.split("_")
 	
-	Inventory.ref.add_item(splitId[0], _get_and_empty_stored_amount())
+	GlobalData.ref.gameData.update_inventory_item({splitId[0]: _get_and_empty_stored_amount()})
 	
 func load_saved_data(pData : Dictionary) -> void:
 	if pData.has("Amount"): amount = pData["Amount"]

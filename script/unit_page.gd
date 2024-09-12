@@ -16,6 +16,17 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	unitShopToggle.connect("pressed", Callable(self, "_expand_unit_shop"))
 	
+	_get_saved_unit()
+	
+func _get_saved_unit() -> void:
+	var savedNormalUnitKey : Array = GlobalData.ref.gameData.normalUnit.keys()
+	var savedNormalUnit : Dictionary
+	
+	for key in savedNormalUnitKey:
+		savedNormalUnit[key] = 0
+	
+	normalUnitList.add_unit(savedNormalUnit)
+	
 func _expand_unit_shop() -> void:
 	if not shopExpanded:
 		unitShop.size_flags_vertical = SIZE_EXPAND_FILL

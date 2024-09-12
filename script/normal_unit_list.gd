@@ -28,6 +28,7 @@ func add_unit(pUnits : Dictionary) -> void:
 				else:
 					index += 1
 			
+			normalUnit.id = unit
 			add_child(normalUnit)
 			move_child(normalUnit, index)
 			
@@ -37,7 +38,7 @@ func add_unit(pUnits : Dictionary) -> void:
 			
 			data[unit] = normalUnit
 			
-		data[unit].update_amount(pUnits[unit])
+		GlobalData.ref.gameData.update_normal_unit_amount(unit, pUnits[unit])
 			
 func get_power_by_amount(pAmount : int) -> float:
 	var power = 0

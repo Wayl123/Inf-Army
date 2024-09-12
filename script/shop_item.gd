@@ -10,10 +10,19 @@ signal item_purchased
 
 var data : Dictionary
 
+var unitRegex : Object
+
+func _enter_tree() -> void:
+	_set_regex()
+
 func _ready() -> void:
 	quantity.connect("value_changed", Callable(self, "update_cost_display"))
 	setMax.connect("pressed", Callable(self, "_max_possible"))
 	buyButton.connect("pressed", Callable(self, "_buy_amount"))
+	
+func _set_regex() -> void:
+	unitRegex = RegEx.new()
+	unitRegex.compile("\\d+S\\d+")
 	
 func _max_possible() -> void:
 	var maxPossible : int
@@ -24,14 +33,16 @@ func _max_possible() -> void:
 		req = data["Cost"][cost]["Req"]
 		
 		if cost == "Money":
-			maxPossible = clampi(floori(data["Cost"][cost]["Node"].money / req), 1, maxPossible) if maxPossible else maxi(floori(data["Cost"][cost]["Node"].money / req), 1)
+			maxPossible = clampi(floori(GlobalData.ref.gameData.money / req), 1, maxPossible) if maxPossible else maxi(floori(GlobalData.ref.gameData.money / req), 1)
+		elif unitRegex.search(data["Cost"][cost]["Id"]) != null:
+			maxPossible = clampi(floori(GlobalData.ref.gameData.normalUnit[data["Cost"][cost]["Id"]] / req), 1, maxPossible) if maxPossible else maxi(floori(GlobalData.ref.gameData.normalUnit[data["Cost"][cost]["Id"]] / req), 1)
 		else:
-			maxPossible = clampi(floori(data["Cost"][cost]["Node"].amount / req), 1, maxPossible) if maxPossible else maxi(floori(data["Cost"][cost]["Node"].amount / req), 1)
+			maxPossible = 1
 		
 	quantity.value = maxPossible
 	
 func _buy_amount() -> void:
-	var succeed : bool = true
+	var succeed : bool
 	
 	for cost in data["Cost"]:
 		var req : float
@@ -42,44 +53,33 @@ func _buy_amount() -> void:
 		totalReq = req * quantity.value
 		
 		if cost == "Money":
-			succeed = data["Cost"][cost]["Node"].update_money(-totalReq)
+			succeed = GlobalData.ref.gameData.update_money(-totalReq)
+		elif unitRegex.search(data["Cost"][cost]["Id"]) != null:
+			succeed = GlobalData.ref.gameData.update_normal_unit_amount(data["Cost"][cost]["Id"], -totalReq)
 		else:
-			succeed = data["Cost"][cost]["Node"].update_amount(-totalReq)
+			succeed = false
 			
 		if not succeed:
 			break
 	
 	if succeed:
-		UnitInventory.ref.add_unit({data["Id"]: quantity.value})
+		GlobalData.ref.gameData.update_unit({data["Id"]: quantity.value})
 		item_purchased.emit()
 		
 func _transform_data() -> void:
 	var newCost : Dictionary
-	var unitRegex : Object = RegEx.new()
-	unitRegex.compile("\\d+S\\d+")
 	
 	for cost in data["Cost"]:
 		if unitRegex.search(cost) != null:
-			var unitNode : Node = UnitInventory.ref.get_unit_node_ref(cost)
 			var unitName : String = GlobalData.ref.get_unit_stat_data_copy(cost)["Name"]
 			newCost[unitName] = {}
 			newCost[unitName]["Id"] = cost
-			newCost[unitName]["Node"] = unitNode
 			newCost[unitName]["Req"] = data["Cost"][cost]
 		else:
 			newCost[cost] = {}
-			newCost[cost]["Node"] = GlobalData.ref.gameData
 			newCost[cost]["Req"] = data["Cost"][cost]
 			
 	data["Cost"] = newCost
-			
-func _fill_empty_data(pData : Dictionary) -> void:
-	var unitRegex : Object = RegEx.new()
-	unitRegex.compile("\\d+S\\d+")
-	
-	if unitRegex.search(pData["Id"]) != null:
-		var unitNode : Node = UnitInventory.ref.get_unit_node_ref(pData["Id"])
-		pData["Node"] = unitNode
 	
 func update_display() -> void:
 	itemName.text = str("[b]", data["Name"], "[/b]")
@@ -95,17 +95,21 @@ func update_cost_display(reqAmount : int = quantity.value) -> void:
 		var amount : float
 		var req : float
 		var totalReq : float
+		var unlocked : bool = true
 		
-		if data["Cost"][cost]["Node"] == null:
-			_fill_empty_data(data["Cost"][cost])
-		
-		if data["Cost"][cost]["Node"] != null:
-			if cost == "Money":
-				amount = data["Cost"][cost]["Node"].money
+		if cost == "Money":
+			amount = GlobalData.ref.gameData.money
+		elif unitRegex.search(data["Cost"][cost]["Id"]) != null:
+			if GlobalData.ref.gameData.normalUnit.has(data["Cost"][cost]["Id"]):
+				amount = GlobalData.ref.gameData.normalUnit[data["Cost"][cost]["Id"]]
 			else:
-				amount = data["Cost"][cost]["Node"].amount
+				unlocked = false
+		else:
+			unlocked = false
+		
+		if unlocked:
 			req = data["Cost"][cost]["Req"]
-			
+		
 			totalReq = req * reqAmount
 			
 			if amount >= totalReq:

@@ -14,7 +14,7 @@ func _ready() -> void:
 	_get_saved_generator()
 
 func _get_saved_generator() -> void:
-	var savedGen = GlobalData.ref.gameData.lootboxGenerator
+	var savedGen : Dictionary = GlobalData.ref.gameData.lootboxGenerator
 	
 	for gen in savedGen:
 		for genNum in savedGen[gen]:

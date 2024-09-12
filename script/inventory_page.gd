@@ -16,10 +16,8 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	_get_saved_item()
 	
-	GlobalData.ref.gameData.update_inventory_item_amount("P1", 1)
-	
 func _get_saved_item() -> void:
-	var savedItem = GlobalData.ref.gameData.inventoryItem
+	var savedItem : Dictionary = GlobalData.ref.gameData.inventoryItem
 	
 	for item in savedItem:
 		add_item(item)
