@@ -28,7 +28,7 @@ func add_unit(pUnits : Dictionary) -> void:
 				else:
 					index += 1
 			
-			normalUnit.set("id", unit)
+			normalUnit.id = unit
 			add_child(normalUnit)
 			move_child(normalUnit, index)
 			

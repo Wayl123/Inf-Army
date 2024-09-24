@@ -18,4 +18,4 @@ func _update_display():
 			itemStat.text += str(effect, "\n")
 
 func update_amount_display() -> void:
-	itemAmount.text = str("[b]Amount: [/b]", String.num_scientific(GlobalData.ref.gameData.inventoryItem[id]))
+	itemAmount.text = str("[b]Amount: [/b]", String.num_scientific(gameData[id]))

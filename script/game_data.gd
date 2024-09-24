@@ -33,17 +33,20 @@ func _init() -> void:
 		"P1": 10
 	}
 	
-	#heroUnit = {
-		#1: {
-			#"Id": "H3S1",
-			#"Level": 10
-		#},
-		#2: {
-			#"Id": "H4S1",
-			#"Level": 1,
-			#"BasePower": 168
-		#}
-	#}
+	heroUnit = {
+		"1": {
+			"Id": "H3S1",
+			"Level": 10,
+			"BasePower": 0,
+			"BaseMulti": {}
+		},
+		"2": {
+			"Id": "H4S1",
+			"Level": 1,
+			"BasePower": 168,
+			"BaseMulti": {}
+		}
+	}
 	
 	normalUnit = {
 		"U4S1": 2
@@ -131,10 +134,10 @@ func update_unit(pUnits : Dictionary) -> void:
 	
 func update_new_hero_unit(heroId : String, pId : String) -> void:
 	heroUnit[heroId] = {
-		"Id" = pId,
-		"Level" = 1,
-		"BasePower" = 0,
-		"BaseMulti" = {}
+		"Id": pId,
+		"Level": 1,
+		"BasePower": 0,
+		"BaseMulti": {}
 	}
 		
 func update_normal_unit_amount(pId : String, pAmount : int = 0) -> bool:

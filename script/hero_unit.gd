@@ -16,11 +16,8 @@ var VISIBLECOLOR : Color = Color.hex(0xffffff3f)
 signal move_node(index : int)
 signal unit_info_changed
 
-var savedId : String:
-	set(pId):
-		savedId = pId
-		gameData = GlobalData.ref.gameData.heroUnit
-var gameData : Dictionary
+var savedId : String
+var gameData : Dictionary = GlobalData.ref.gameData.heroUnit
 var data : Dictionary
 var expReq : float
 

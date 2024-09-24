@@ -14,7 +14,7 @@ func _ready() -> void:
 	
 	display.update_display(data)
 
-func _open_box(pAmount : int = GlobalData.ref.gameData.inventoryItem[id] if GlobalData.ref.gameData.inventoryItem.has(id) else 0) -> void:
+func _open_box(pAmount : int = gameData[id] if gameData.has(id) else 0) -> void:
 	var output : Dictionary
 	
 	if GlobalData.ref.gameData.update_inventory_item_amount(id, -pAmount):
@@ -34,9 +34,9 @@ func _update_unit_get(pUnits : Dictionary) -> void:
 	GlobalData.ref.gameData.update_unit(pUnits)
 	
 func update_amount_display() -> void:
-	display.update_amount_display(GlobalData.ref.gameData.inventoryItem[id])
+	display.update_amount_display(gameData[id])
 	
-	if GlobalData.ref.gameData.inventoryItem[id] < 10:
+	if gameData[id] < 10:
 		open10Button.disabled = true
 	else:
 		open10Button.disabled = false

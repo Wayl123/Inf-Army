@@ -16,7 +16,7 @@ func add_unit_node(pUnit : Dictionary) -> void:
 	
 	add_child(heroUnit)
 	
-	heroUnit.set("savedId", savedId)
+	heroUnit.savedId = savedId
 	heroUnit.set_data(unitData)
 	heroUnit.connect("move_node", Callable(self, "_move_unit").bind(heroUnit))
 	heroUnit.connect("unit_info_changed", Callable(self, "update_display"))

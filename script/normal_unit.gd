@@ -5,11 +5,8 @@ extends PanelContainer
 @onready var unitPower : Node = %Power
 @onready var unitTotal : Node = %Total
 
-var id : String : 
-	set(pId):
-		id = pId
-		gameData = GlobalData.ref.gameData.normalUnit
-var gameData : Dictionary
+var id : String
+var gameData : Dictionary = GlobalData.ref.gameData.normalUnit
 var data : Dictionary
 
 func _update_display() -> void:
