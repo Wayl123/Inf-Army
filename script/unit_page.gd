@@ -19,18 +19,14 @@ func _ready() -> void:
 	_get_saved_unit()
 	
 func _get_saved_unit() -> void:
-	var savedNormalUnitKey : Array = GlobalData.ref.gameData.normalUnit.keys()
-	var savedNormalUnit : Dictionary
-	var savedHeroUnit : Dictionary = GlobalData.ref.gameData.heroUnit.duplicate(true)
+	var savedNormalUnit : Array = GlobalData.ref.gameData.normalUnit.keys()
+	var savedHeroUnit : Dictionary = GlobalData.ref.gameData.heroUnit
 	
-	for key in savedNormalUnitKey:
-		savedNormalUnit[key] = 0
-	
-	normalUnitList.add_unit(savedNormalUnit)
+	for key in savedNormalUnit:
+		normalUnitList.add_unit(key)
 	
 	for unit in savedHeroUnit:
-		savedHeroUnit[unit]["SavedId"] = unit
-		heroUnitList.add_unit_node(savedHeroUnit[unit])
+		heroUnitList.add_unit(savedHeroUnit[unit])
 	
 func _expand_unit_shop() -> void:
 	if not shopExpanded:

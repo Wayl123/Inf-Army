@@ -26,6 +26,7 @@ func _init() -> void:
 	lootboxGenerator = {
 		"1": {
 			"Id": "L1T1",
+			"SavedId": "1",
 			"Amount": 10
 		}
 	}
@@ -37,12 +38,14 @@ func _init() -> void:
 	heroUnit = {
 		"1": {
 			"Id": "H3S1",
+			"SavedId": "1",
 			"Level": 10,
 			"BasePower": 0,
 			"BaseMulti": {}
 		},
 		"2": {
 			"Id": "H4S1",
+			"SavedId": "2",
 			"Level": 1,
 			"BasePower": 168,
 			"BaseMulti": {}
@@ -54,7 +57,10 @@ func _init() -> void:
 	}
 	
 	explorationArea = {
-		"C1A1": {}
+		"C1A1": {
+			"Progress": 100,
+			"Exploring": true
+		}
 	}
 	teamSize = [1, 10]
 
@@ -80,20 +86,26 @@ func update_exp(pExp : float) -> bool:
 		return false
 		
 #LootboxInventory
-func add_lootbox_generator(pGen : Dictionary) -> void:
-	lootboxGenerator[pGen["SavedId"]] = {
-		"Id": pGen["Id"],
-		"Amount": 0
-	}
+#Currently extra information send through the parameter does nothing but might make it do something later
+func update_lootbox_generator(pGens : Dictionary) -> void:
+	for gen in pGens:
+		var savedId : String = str(ResourceUID.create_id())
+		lootboxGenerator[savedId] = {
+			"Id": gen,
+			"SavedId": savedId,
+			"Amount": 0
+		}
+		LootboxInventory.ref.add_generator(gen)
 		
 #Inventory
 func update_inventory_item(pItems : Dictionary) -> void:
 	for item in pItems:
 		if not inventoryItem.has(item):
 			inventoryItem[item] = 0
-		Inventory.ref.add_item(item, pItems[item])
+			Inventory.ref.add_item(item)
+		_update_inventory_item_amount(item, pItems[item])
 		
-func update_inventory_item_amount(pId : String, pAmount : int = 0) -> bool:
+func _update_inventory_item_amount(pId : String, pAmount : int = 0) -> bool:
 	if (Inventory.ref.get_item_node_ref(pId) and inventoryItem.has(pId) and 
 		inventoryItem[pId] >= -pAmount):
 		inventoryItem[pId] += pAmount
@@ -105,36 +117,32 @@ func update_inventory_item_amount(pId : String, pAmount : int = 0) -> bool:
 		return false
 		
 #UnitInventory
-func update_unit(pUnits : Dictionary) -> void:
-	var heroUnits : Dictionary
-	var normalUnits : Dictionary
-	
+func update_unit(pUnits : Dictionary) -> void:	
 	for unit in pUnits:
 		if unit.begins_with("H"):
-			heroUnits[unit] = pUnits[unit]
+			for i in range(pUnits[unit]):
+				var savedId : String = str(ResourceUID.create_id())
+				heroUnit[savedId] = {
+					"Id": unit,
+					"SavedId": savedId,
+					"Level": 1,
+					"BasePower": 0,
+					"BaseMulti": {}
+				}
+				UnitInventory.ref.heroUnitList.add_unit(heroUnit[savedId])
 		else:
 			if not normalUnit.has(unit):
 				normalUnit[unit] = 0
-			normalUnits[unit] = pUnits[unit]
+				UnitInventory.ref.normalUnitList.add_unit(unit)
+			_update_normal_unit_amount(unit, pUnits[unit])
 			
 	print_debug(pUnits)
-				
-	UnitInventory.ref.heroUnitList.add_unit(heroUnits)
-	UnitInventory.ref.normalUnitList.add_unit(normalUnits)
 	
 	Exploration.ref.update_exploration_power()
 	UnitInventory.ref.update_hero_display()
 	UnitInventory.ref.unitShop.update_shop_unlocks()
-	
-func add_hero_unit(pUnit : Dictionary) -> void:
-	heroUnit[pUnit["SavedId"]] = {
-		"Id": pUnit["Id"],
-		"Level": 1,
-		"BasePower": 0,
-		"BaseMulti": {}
-	}
 		
-func update_normal_unit_amount(pId : String, pAmount : int = 0) -> bool:
+func _update_normal_unit_amount(pId : String, pAmount : int = 0) -> bool:
 	if (UnitInventory.ref.get_unit_node_ref(pId) and normalUnit.has(pId) and 
 		normalUnit[pId] >= -pAmount):
 		normalUnit[pId] += pAmount
@@ -148,9 +156,12 @@ func update_normal_unit_amount(pId : String, pAmount : int = 0) -> bool:
 #Exploration
 func update_exploration_area(pAreas : Dictionary) -> void:
 	for area in pAreas:
+		explorationArea[area] = {
+			"Progress": pAreas[area]["Progress"] if pAreas[area].has("Progress") else 0,
+			"Exploring": pAreas[area]["Exploring"] if pAreas[area].has("Exploring") else false,
+		}
 		if not explorationArea.has(area):
-			Exploration.ref.add_area(area, pAreas[area])
-		explorationArea[area] = pAreas[area]
+			Exploration.ref.add_area(area)
 		
 func update_team_size(pTeamSize : Array[int]) -> void:
 	teamSize[0] += pTeamSize[0]

@@ -17,12 +17,12 @@ func _ready() -> void:
 	_get_saved_item()
 	
 func _get_saved_item() -> void:
-	var savedItem : Dictionary = GlobalData.ref.gameData.inventoryItem
+	var savedItem : Array = GlobalData.ref.gameData.inventoryItem.keys()
 	
 	for item in savedItem:
 		add_item(item)
 
-func add_item(pId : String, pAmount : int = 0) -> void:
+func add_item(pId : String) -> void:
 	var item : Node
 	var itemData : Dictionary
 	
@@ -41,8 +41,6 @@ func add_item(pId : String, pAmount : int = 0) -> void:
 		data[pId] = item
 	else:
 		item = data[pId]
-		
-	GlobalData.ref.gameData.update_inventory_item_amount(pId, pAmount)
 	
 func get_item_node_ref(pId : String) -> Node:
 	if data.has(pId):

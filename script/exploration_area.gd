@@ -10,6 +10,7 @@ extends PanelContainer
 @onready var payoutTimer : Node = %PayoutTimer
 
 var id : String
+var gameData : Dictionary = GlobalData.ref.gameData.explorationArea
 var exploring : bool = false
 var data : Dictionary
 var claimAmount : Array[float] = [0, 0]
@@ -26,17 +27,18 @@ func _process(delta : float) -> void:
 	payoutProgress.value = 0 if payoutTimer.is_stopped() else abs((payoutTimer.time_left / payoutTimer.wait_time) - 1.0)
 
 func _start_exploring() -> void:
-	if not exploring:
+	if not gameData[id]["Exploring"]:
 		activeToggle.text = "Stop"
 		payoutTimer.paused = false
 	else:
 		activeToggle.text = "Start"
 		payoutTimer.paused = true
 
-	exploring = not exploring
+	gameData[id]["Exploring"] = not gameData[id]["Exploring"]
 	
 func _update_resource() -> void:
-	explorationProgress.value += claimAmount[1]
+	gameData[id]["Progress"] += claimAmount[1]
+	explorationProgress.value = gameData[id]["Progress"]
 	
 	GlobalData.ref.gameData.update_money(claimAmount[0])
 	GlobalData.ref.gameData.update_exp(claimAmount[1])
@@ -57,6 +59,10 @@ func _update_display() -> void:
 	explorationProgress.max_value = data["ExploreCompletion"]
 	payoutTimer.wait_time = data["ExploreTimer"]
 	payoutTimer.paused = true
+	if gameData[id].has("Progress"): explorationProgress.value = gameData[id]["Progress"]
+	if gameData[id].has("Exploring") and gameData[id]["Exploring"]: 
+		activeToggle.text = "Stop"
+		payoutTimer.paused = false
 	
 func update_claim_amount(pExplorationPower : float) -> void:
 	if claimAmount[0] < data["MaxMoneyAmount"]:
@@ -66,15 +72,3 @@ func update_claim_amount(pExplorationPower : float) -> void:
 		
 	moneyRate.text = str("[right]", String.num_scientific(claimAmount[0] / float(data["ExploreTimer"])), "/sec[/right]")
 	expRate.text = str("[right]", String.num_scientific(claimAmount[1] / float(data["ExploreTimer"])), "/sec[/right]")
-	
-func load_saved_data(pData : Dictionary) -> void:
-	if pData.has("Progress"): explorationProgress.value = pData["Progress"]
-	if pData.has("Exploring") and pData["Exploring"]: _start_exploring()
-	
-func update_saved_data() -> void:
-	var areaData : Dictionary
-	
-	areaData["Progress"] = explorationProgress.value
-	areaData["Exploring"] = exploring
-	
-	GlobalData.ref.gameData.update_exploration_area({id: areaData})

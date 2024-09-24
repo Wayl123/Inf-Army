@@ -7,7 +7,7 @@ var maxed : Dictionary
 func _move_unit(pIndex : int, pNode : Node) -> void:
 	move_child(pNode, pIndex)
 	
-func add_unit_node(pUnit : Dictionary) -> void:
+func add_unit(pUnit : Dictionary) -> void:
 	var heroUnit : Node = HEROUNIT.instantiate()
 	var index : int = 0
 	var spotFound : bool = false
@@ -29,18 +29,6 @@ func add_unit_node(pUnit : Dictionary) -> void:
 			index += 1
 			
 	move_child(heroUnit, index)
-
-func add_unit(pUnits : Dictionary) -> void:
-	for unit in pUnits:
-		for i in range(pUnits[unit]):
-			var unitNode : Dictionary = {
-				"Id": unit,
-				"SavedId": str(ResourceUID.create_id())
-			}
-			
-			GlobalData.ref.gameData.add_hero_unit(unitNode)
-			
-			add_unit_node(unitNode)
 			
 func update_display() -> void:
 	for item in get_children():

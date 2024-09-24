@@ -18,20 +18,18 @@ func _ready() -> void:
 	update_exploration_stat(GlobalData.ref.gameData.teamSize)
 	
 func _get_saved_area() -> void:
-	var savedArea : Dictionary = GlobalData.ref.gameData.explorationArea
+	var savedArea : Array = GlobalData.ref.gameData.explorationArea.keys()
 	
 	for area in savedArea:
-		add_area(area, savedArea[area])
+		add_area(area)
 	
-func add_area(pArea : String, pSavedData : Dictionary = {}) -> void:
+func add_area(pId : String) -> void:
 	var explorationArea : Node = EXPLORATIONAREA.instantiate()
 	
-	explorationArea.id = pArea
-	explorationArea.data = GlobalData.ref.get_exploration_area_data_copy(pArea)
+	explorationArea.id = pId
+	explorationArea.data = GlobalData.ref.get_exploration_area_data_copy(pId)
 	explorationAreaList.add_child(explorationArea)
 	explorationArea.update_claim_amount(explorationPower)
-	if not pSavedData.is_empty():
-		explorationArea.load_saved_data(pSavedData)
 	
 func update_exploration_stat(pTeamSize : Array[int]) -> void:
 	explorationStat.update_unit_cap(pTeamSize)
