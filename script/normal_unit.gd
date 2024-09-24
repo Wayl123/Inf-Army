@@ -5,7 +5,11 @@ extends PanelContainer
 @onready var unitPower : Node = %Power
 @onready var unitTotal : Node = %Total
 
-var id : String
+var id : String : 
+	set(pId):
+		id = pId
+		gameData = GlobalData.ref.gameData.normalUnit
+var gameData : Dictionary
 var data : Dictionary
 
 func _update_display() -> void:
@@ -15,10 +19,10 @@ func _update_display() -> void:
 	update_amount_display()
 	
 func update_amount_display() -> void:
-	unitAmount.text = str("[right]", String.num_scientific(GlobalData.ref.gameData.normalUnit[id]), "[/right]")
-	unitTotal.text = str("[right]", String.num_scientific(GlobalData.ref.gameData.normalUnit[id] * data["Power"]), "[/right]")
+	unitAmount.text = str("[right]", String.num_scientific(gameData[id]), "[/right]")
+	unitTotal.text = str("[right]", String.num_scientific(gameData[id] * data["Power"]), "[/right]")
 	
-	visible = GlobalData.ref.gameData.normalUnit[id] > 0
+	visible = gameData[id] > 0
 
 func set_data(pUnit : Dictionary) -> void:
 	data = pUnit
@@ -29,7 +33,7 @@ func get_power() -> float:
 	return data["Power"]
 	
 func get_power_by_amount(pAmount : int) -> Array:
-	if pAmount > GlobalData.ref.gameData.normalUnit[id]:
-		return [GlobalData.ref.gameData.normalUnit[id] * data["Power"], pAmount - GlobalData.ref.gameData.normalUnit[id]]
+	if pAmount > gameData[id]:
+		return [gameData[id] * data["Power"], pAmount - gameData[id]]
 	else:
 		return [pAmount * data["Power"], 0]

@@ -6,29 +6,42 @@ var maxed : Dictionary
 
 func _move_unit(pIndex : int, pNode : Node) -> void:
 	move_child(pNode, pIndex)
+	
+func add_unit_node(pUnit : Dictionary) -> void:
+	var heroUnit : Node = HEROUNIT.instantiate()
+	var index : int = 0
+	var spotFound : bool = false
+	var unitData : Dictionary = GlobalData.ref.get_unit_stat_data_copy(pUnit["Id"])
+	var savedId : String = pUnit["SavedId"]
+	
+	add_child(heroUnit)
+	
+	heroUnit.set("savedId", savedId)
+	heroUnit.set_data(unitData)
+	heroUnit.connect("move_node", Callable(self, "_move_unit").bind(heroUnit))
+	heroUnit.connect("unit_info_changed", Callable(self, "update_display"))
+	
+	while (index < get_child_count() - 1 and not spotFound):
+		var nodePower : float = get_child(index).get_power()
+		
+		if (heroUnit.get_power() >= nodePower):
+			spotFound = true
+		else:
+			index += 1
+			
+	move_child(heroUnit, index)
 
 func add_unit(pUnits : Dictionary) -> void:
 	for unit in pUnits:
 		for i in range(pUnits[unit]):
-			var heroUnit : Node = HEROUNIT.instantiate()
-			var index : int = 0
-			var spotFound : bool = false
-			var unitData : Dictionary = GlobalData.ref.get_unit_stat_data_copy(unit)
+			var unitNode : Dictionary = {
+				"Id": unit,
+				"SavedId": str(ResourceUID.create_id())
+			}
 			
-			while (index < get_child_count() and not spotFound):
-				var nodePower : float = get_child(index).get_power()
-				
-				if (unitData["LevelPower"] >= nodePower):
-					spotFound = true
-				else:
-					index += 1
+			GlobalData.ref.gameData.update_new_hero_unit(unitNode["SavedId"], unit)
 			
-			add_child(heroUnit)
-			move_child(heroUnit, index)
-			
-			heroUnit.set_data(unitData)
-			heroUnit.connect("move_node", Callable(self, "_move_unit").bind(heroUnit))
-			heroUnit.connect("unit_info_changed", Callable(self, "update_display"))
+			add_unit_node(unitNode)
 			
 func update_display() -> void:
 	for item in get_children():

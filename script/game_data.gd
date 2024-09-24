@@ -21,7 +21,7 @@ extends Object
 
 func _init() -> void:
 	money = 0
-	exp = 200
+	exp = 20000
 	
 	lootboxGenerator = {
 		"L1T1": {
@@ -32,6 +32,18 @@ func _init() -> void:
 	inventoryItem = {
 		"P1": 10
 	}
+	
+	#heroUnit = {
+		#1: {
+			#"Id": "H3S1",
+			#"Level": 10
+		#},
+		#2: {
+			#"Id": "H4S1",
+			#"Level": 1,
+			#"BasePower": 168
+		#}
+	#}
 	
 	normalUnit = {
 		"U4S1": 2
@@ -107,6 +119,8 @@ func update_unit(pUnits : Dictionary) -> void:
 			if not normalUnit.has(unit):
 				normalUnit[unit] = 0
 			normalUnits[unit] = pUnits[unit]
+			
+	print_debug(pUnits)
 				
 	UnitInventory.ref.heroUnitList.add_unit(heroUnits)
 	UnitInventory.ref.normalUnitList.add_unit(normalUnits)
@@ -114,6 +128,14 @@ func update_unit(pUnits : Dictionary) -> void:
 	Exploration.ref.update_exploration_power()
 	UnitInventory.ref.update_hero_display()
 	UnitInventory.ref.unitShop.update_shop_unlocks()
+	
+func update_new_hero_unit(heroId : String, pId : String) -> void:
+	heroUnit[heroId] = {
+		"Id" = pId,
+		"Level" = 1,
+		"BasePower" = 0,
+		"BaseMulti" = {}
+	}
 		
 func update_normal_unit_amount(pId : String, pAmount : int = 0) -> bool:
 	if (UnitInventory.ref.get_unit_node_ref(pId) and normalUnit.has(pId) and 

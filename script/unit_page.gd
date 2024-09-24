@@ -21,11 +21,16 @@ func _ready() -> void:
 func _get_saved_unit() -> void:
 	var savedNormalUnitKey : Array = GlobalData.ref.gameData.normalUnit.keys()
 	var savedNormalUnit : Dictionary
+	var savedHeroUnit : Dictionary = GlobalData.ref.gameData.heroUnit.duplicate(true)
 	
 	for key in savedNormalUnitKey:
 		savedNormalUnit[key] = 0
 	
 	normalUnitList.add_unit(savedNormalUnit)
+	
+	for unit in savedHeroUnit:
+		savedHeroUnit[unit]["SavedId"] = unit
+		heroUnitList.add_unit_node(savedHeroUnit[unit])
 	
 func _expand_unit_shop() -> void:
 	if not shopExpanded:
@@ -35,25 +40,6 @@ func _expand_unit_shop() -> void:
 		
 	shopExpanded = not shopExpanded
 	unitShop.visible = shopExpanded
-
-func add_unit(pUnits : Dictionary) -> void:
-	var heroUnits : Dictionary
-	var normalUnits : Dictionary
-	
-	for unit in pUnits:
-		if unit.begins_with("H"):
-			heroUnits[unit] = pUnits[unit]
-		else:
-			normalUnits[unit] = pUnits[unit]
-			
-	print_debug(pUnits)
-			
-	heroUnitList.add_unit(heroUnits)
-	normalUnitList.add_unit(normalUnits)
-	
-	Exploration.ref.update_exploration_power()
-	update_hero_display()
-	unitShop.update_shop_unlocks()
 
 func get_power_by_amount(pAmounts : Array) -> float:
 	var power : float = 0

@@ -71,7 +71,7 @@ func load_saved_data(pData : Dictionary) -> void:
 	if pData.has("Progress"): explorationProgress.value = pData["Progress"]
 	if pData.has("Exploring") and pData["Exploring"]: _start_exploring()
 	
-func update_area_saved_data() -> void:
+func update_saved_data() -> void:
 	var areaData : Dictionary
 	
 	areaData["Progress"] = explorationProgress.value

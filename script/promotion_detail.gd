@@ -78,6 +78,7 @@ func _promote_unit() -> void:
 			break
 	
 	if succeed:
+		promoData["Id"] = promoSelection[currentIndex]
 		promoData["Data"] = GlobalData.ref.get_unit_stat_data_copy(promoSelection[currentIndex])
 		promoData["Power"] = totalPower
 		promoData["Multi"] = totalMulti
