@@ -14,21 +14,28 @@ func _ready() -> void:
 	_get_saved_generator()
 
 func _get_saved_generator() -> void:
-	var savedGen : Dictionary = GlobalData.ref.gameData.lootboxGenerator
+	var savedGen : Dictionary = GlobalData.ref.gameData.lootboxGenerator.duplicate(true)
 	
 	for gen in savedGen:
-		for genNum in savedGen[gen]:
-			add_generator(str(gen, "_", genNum), savedGen[gen][genNum])
-
-func add_generator(pGen : String, pSavedData : Dictionary = {}) -> void:
+		savedGen[gen]["SavedId"] = gen
+		_add_generator_node(savedGen[gen])
+		
+func _add_generator_node(pGen : Dictionary) -> void:
 	var lootboxGen : Node = LOOTBOXGENERATOR.instantiate()
-	var splitId : PackedStringArray = pGen.split("_")
 	
-	lootboxGen.id = pGen
-	lootboxGen.data = GlobalData.ref.get_lootbox_gen_data_copy(splitId[0])
+	lootboxGen.savedId = pGen["SavedId"]
+	lootboxGen.data = GlobalData.ref.get_lootbox_gen_data_copy(pGen["Id"])
 	lootboxList.add_child(lootboxGen)
-	if not pSavedData.is_empty():
-		lootboxGen.load_saved_data(pSavedData)
+
+func add_generator(pId : String) -> void:
+	var genNode : Dictionary = {
+		"Id": pId,
+		"SavedId": str(ResourceUID.create_id())
+	}
+	
+	GlobalData.ref.gameData.add_lootbox_generator(genNode)
+	
+	_add_generator_node(genNode)
 		
 func update_saved_data() -> void:
 	for gen in lootboxList.get_children():

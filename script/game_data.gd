@@ -24,8 +24,9 @@ func _init() -> void:
 	exp = 20000
 	
 	lootboxGenerator = {
-		"L1T1": {
-			1: {"Amount": 10}
+		"1": {
+			"Id": "L1T1",
+			"Amount": 10
 		}
 	}
 	
@@ -57,6 +58,7 @@ func _init() -> void:
 	}
 	teamSize = [1, 10]
 
+#PlayerResource
 func update_money(pMoney : float) -> bool:
 	if money >= -pMoney:
 		money += pMoney
@@ -77,23 +79,14 @@ func update_exp(pExp : float) -> bool:
 	else:
 		return false
 		
-func update_lootbox_generator(pGens : Dictionary) -> void:
-	for gen in pGens:
-		var splitId : PackedStringArray = gen.split("_")
-		var genNum : int
+#LootboxInventory
+func add_lootbox_generator(pGen : Dictionary) -> void:
+	lootboxGenerator[pGen["SavedId"]] = {
+		"Id": pGen["Id"],
+		"Amount": 0
+	}
 		
-		if not lootboxGenerator.has(splitId[0]):
-			lootboxGenerator[splitId[0]] = {}
-			
-		if splitId.size() < 2 or not lootboxGenerator[splitId[0]].has(int(splitId[1])):
-			genNum = lootboxGenerator[splitId[0]].size() + 1
-			
-			LootboxInventory.ref.add_generator(str(splitId[0], "_", genNum), pGens[gen])
-		else:
-			genNum = int(splitId[1])
-			
-		lootboxGenerator[splitId[0]][genNum] = pGens[gen]
-		
+#Inventory
 func update_inventory_item(pItems : Dictionary) -> void:
 	for item in pItems:
 		if not inventoryItem.has(item):
@@ -111,6 +104,7 @@ func update_inventory_item_amount(pId : String, pAmount : int = 0) -> bool:
 	else:
 		return false
 		
+#UnitInventory
 func update_unit(pUnits : Dictionary) -> void:
 	var heroUnits : Dictionary
 	var normalUnits : Dictionary
@@ -132,9 +126,9 @@ func update_unit(pUnits : Dictionary) -> void:
 	UnitInventory.ref.update_hero_display()
 	UnitInventory.ref.unitShop.update_shop_unlocks()
 	
-func update_new_hero_unit(heroId : String, pId : String) -> void:
-	heroUnit[heroId] = {
-		"Id": pId,
+func add_hero_unit(pUnit : Dictionary) -> void:
+	heroUnit[pUnit["SavedId"]] = {
+		"Id": pUnit["Id"],
 		"Level": 1,
 		"BasePower": 0,
 		"BaseMulti": {}
@@ -151,6 +145,7 @@ func update_normal_unit_amount(pId : String, pAmount : int = 0) -> bool:
 	else:
 		return false
 		
+#Exploration
 func update_exploration_area(pAreas : Dictionary) -> void:
 	for area in pAreas:
 		if not explorationArea.has(area):

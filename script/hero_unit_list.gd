@@ -11,13 +11,12 @@ func add_unit_node(pUnit : Dictionary) -> void:
 	var heroUnit : Node = HEROUNIT.instantiate()
 	var index : int = 0
 	var spotFound : bool = false
-	var unitData : Dictionary = GlobalData.ref.get_unit_stat_data_copy(pUnit["Id"])
 	var savedId : String = pUnit["SavedId"]
 	
 	add_child(heroUnit)
 	
 	heroUnit.savedId = savedId
-	heroUnit.set_data(unitData)
+	heroUnit.set_data(GlobalData.ref.get_unit_stat_data_copy(pUnit["Id"]))
 	heroUnit.connect("move_node", Callable(self, "_move_unit").bind(heroUnit))
 	heroUnit.connect("unit_info_changed", Callable(self, "update_display"))
 	
@@ -39,7 +38,7 @@ func add_unit(pUnits : Dictionary) -> void:
 				"SavedId": str(ResourceUID.create_id())
 			}
 			
-			GlobalData.ref.gameData.update_new_hero_unit(unitNode["SavedId"], unit)
+			GlobalData.ref.gameData.add_hero_unit(unitNode)
 			
 			add_unit_node(unitNode)
 			
