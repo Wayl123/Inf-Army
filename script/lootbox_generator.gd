@@ -12,8 +12,7 @@ func _ready() -> void:
 	genTimer.connect("timeout", Callable(self, "_update_amount").bind(1))
 	claimButton.connect("pressed", Callable(self, "_claim_lootbox"))
 	
-	display.update_display(data)
-	display.update_amount_display(gameData[savedId]["Amount"])
+	display.update_display(data, gameData[savedId]["Amount"])
 		
 func _update_amount(pAmount : int) -> void:
 	gameData[savedId]["Amount"] += pAmount
@@ -22,7 +21,7 @@ func _update_amount(pAmount : int) -> void:
 func _get_and_empty_stored_amount() -> int:
 	var retrievedAmount : int = gameData[savedId]["Amount"]
 	
-	_update_amount(-gameData[savedId]["Amount"])
+	_update_amount(-retrievedAmount)
 	
 	return retrievedAmount
 	

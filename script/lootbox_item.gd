@@ -12,7 +12,8 @@ func _ready() -> void:
 	open10Button.connect("pressed", Callable(self, "_open_box").bind(10))
 	openAllButton.connect("pressed", Callable(self, "_open_box"))
 	
-	display.update_display(data)
+	display.update_display(data, gameData[id])
+	open10Button.disabled = gameData[id] < 10
 
 func _open_box(pAmount : int = gameData[id] if gameData.has(id) else 0) -> void:
 	var output : Dictionary
@@ -36,7 +37,4 @@ func _update_unit_get(pUnits : Dictionary) -> void:
 func update_amount_display() -> void:
 	display.update_amount_display(gameData[id])
 	
-	if gameData[id] < 10:
-		open10Button.disabled = true
-	else:
-		open10Button.disabled = false
+	open10Button.disabled = gameData[id] < 10

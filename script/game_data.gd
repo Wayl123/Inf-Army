@@ -103,9 +103,9 @@ func update_inventory_item(pItems : Dictionary) -> void:
 		if not inventoryItem.has(item):
 			inventoryItem[item] = 0
 			Inventory.ref.add_item(item)
-		_update_inventory_item_amount(item, pItems[item])
+		update_inventory_item_amount(item, pItems[item])
 		
-func _update_inventory_item_amount(pId : String, pAmount : int = 0) -> bool:
+func update_inventory_item_amount(pId : String, pAmount : int = 0) -> bool:
 	if (Inventory.ref.get_item_node_ref(pId) and inventoryItem.has(pId) and 
 		inventoryItem[pId] >= -pAmount):
 		inventoryItem[pId] += pAmount
@@ -134,7 +134,7 @@ func update_unit(pUnits : Dictionary) -> void:
 			if not normalUnit.has(unit):
 				normalUnit[unit] = 0
 				UnitInventory.ref.normalUnitList.add_unit(unit)
-			_update_normal_unit_amount(unit, pUnits[unit])
+			update_normal_unit_amount(unit, pUnits[unit])
 			
 	print_debug(pUnits)
 	
@@ -142,7 +142,7 @@ func update_unit(pUnits : Dictionary) -> void:
 	UnitInventory.ref.update_hero_display()
 	UnitInventory.ref.unitShop.update_shop_unlocks()
 		
-func _update_normal_unit_amount(pId : String, pAmount : int = 0) -> bool:
+func update_normal_unit_amount(pId : String, pAmount : int = 0) -> bool:
 	if (UnitInventory.ref.get_unit_node_ref(pId) and normalUnit.has(pId) and 
 		normalUnit[pId] >= -pAmount):
 		normalUnit[pId] += pAmount
