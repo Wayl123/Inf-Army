@@ -112,6 +112,7 @@ func _promote_unit(pData : Dictionary) -> void:
 		gameData[savedId]["BaseMulti"][item] += pData["Multi"][item]
 	
 	gameData[savedId]["Level"] = 1
+	gameData[savedId]["Id"] = pData["Id"]
 	
 	_expand_promotion_detail()
 	set_data(pData["Data"])
