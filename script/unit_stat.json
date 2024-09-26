@@ -52,7 +52,7 @@
 		"MaxLevel": 10,
 		"LevelPower": 3,
 		"ExpBase": 10,
-		"ExpScale": 1.0,
+		"ExpScale": 1.5,
 		"Promotion": {
 			"H4S1": {
 				"Cost": {

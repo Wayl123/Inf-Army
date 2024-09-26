@@ -16,6 +16,8 @@ func _update_display():
 		itemStat.text += str("[b]Special Effect[/b]\n")
 		for effect in data["SpecialEffect"]:
 			itemStat.text += str(effect, "\n")
+			
+	update_amount_display()
 
-func _update_amount_display() -> void:
-	itemAmount.text = str("[b]Amount: [/b]", String.num_scientific(amount))
+func update_amount_display() -> void:
+	itemAmount.text = str("[b]Amount: [/b]", String.num_scientific(gameData[id]))

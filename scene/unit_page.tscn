@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://cm736vhs5rxx6" path="res://scene/hero_unit_list.tscn" id="2_yi5dd"]
 [ext_resource type="PackedScene" uid="uid://cc0xwy6jlhklc" path="res://scene/unit_shop.tscn" id="4_2c6rx"]
 
-[node name="UnitPage" type="PanelContainer" groups=["UnitInventory"]]
+[node name="UnitPage" type="PanelContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

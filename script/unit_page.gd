@@ -1,6 +1,7 @@
+class_name UnitInventory
 extends PanelContainer
 
-@onready var exploration : Node = get_tree().get_first_node_in_group("Exploration")
+static var ref : UnitInventory
 
 @onready var heroUnitList : Node = %HeroUnitList
 @onready var normalUnitList : Node = %NormalUnitList
@@ -9,8 +10,23 @@ extends PanelContainer
 
 var shopExpanded : bool = false
 
+func _enter_tree() -> void:
+	if not ref: ref = self
+
 func _ready() -> void:
 	unitShopToggle.connect("pressed", Callable(self, "_expand_unit_shop"))
+	
+	_get_saved_unit()
+	
+func _get_saved_unit() -> void:
+	var savedNormalUnit : Array = GlobalData.ref.gameData.normalUnit.keys()
+	var savedHeroUnit : Dictionary = GlobalData.ref.gameData.heroUnit
+	
+	for key in savedNormalUnit:
+		normalUnitList.add_unit(key)
+	
+	for unit in savedHeroUnit:
+		heroUnitList.add_unit(savedHeroUnit[unit])
 	
 func _expand_unit_shop() -> void:
 	if not shopExpanded:
@@ -20,25 +36,6 @@ func _expand_unit_shop() -> void:
 		
 	shopExpanded = not shopExpanded
 	unitShop.visible = shopExpanded
-
-func add_unit(pUnits : Dictionary) -> void:
-	var heroUnits : Dictionary
-	var normalUnits : Dictionary
-	
-	for unit in pUnits:
-		if unit.begins_with("H"):
-			heroUnits[unit] = pUnits[unit]
-		else:
-			normalUnits[unit] = pUnits[unit]
-			
-	print_debug(pUnits)
-			
-	heroUnitList.add_unit(heroUnits)
-	normalUnitList.add_unit(normalUnits)
-	
-	exploration.update_exploration_power()
-	update_hero_display()
-	unitShop.update_shop_unlocks()
 
 func get_power_by_amount(pAmounts : Array) -> float:
 	var power : float = 0

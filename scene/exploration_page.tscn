@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://script/exploration_page.gd" id="1_xmf5l"]
 [ext_resource type="PackedScene" uid="uid://dadw42ayhju7r" path="res://scene/exploration_stat.tscn" id="2_kjv1u"]
 
-[node name="ExplorationPage" type="PanelContainer" groups=["Exploration"]]
+[node name="ExplorationPage" type="PanelContainer"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0

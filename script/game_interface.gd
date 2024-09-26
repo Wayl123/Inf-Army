@@ -1,6 +1,13 @@
+class_name GlobalData
 extends Node2D
 
+static var ref : GlobalData
+
 var PAGETAB : PackedScene = preload("res://scene/page_tab.tscn")
+
+var gameData : GameData
+var saveFilePath : String = "user://save/"
+var saveFileName : String = "save_data.sav"
 
 var lootboxGenListPath : String = "res://script/lootbox_generator_template.json"
 var unitStatListPath : String = "res://script/unit_stat.json"
@@ -14,6 +21,11 @@ var explorationAreaData : Dictionary
 var itemStatData : Dictionary
 
 var cachePromoData : Dictionary
+
+func _enter_tree() -> void:
+	if not ref: ref = self
+	
+	gameData = _load_game_data()
 
 func _ready() -> void:
 	_load_all_data()
@@ -40,6 +52,33 @@ func _load_all_data() -> void:
 	unitCombinationData = _load_json_file(unitCombinationListPath)
 	explorationAreaData = _load_json_file(explorationAreaListPath)
 	itemStatData = _load_json_file(itemStatListPath)
+	
+func save_game_data() -> void:
+	var dirAccess = DirAccess.open("user://")
+	if dirAccess != null:
+		dirAccess.make_dir_recursive(saveFilePath)
+	else:
+		print("DirAccess is null");
+		
+	var file = FileAccess.open(str(saveFilePath + saveFileName), FileAccess.WRITE)
+	if file != null:
+		file.store_var(gameData, true)
+	else:
+		print("cannot open file to save")
+		
+func _load_game_data() -> GameData:
+	if FileAccess.file_exists(str(saveFilePath + saveFileName)):
+		var file : Object = FileAccess.open(str(saveFilePath + saveFileName), FileAccess.READ)
+		var data : Variant = file.get_var(true)
+		
+		if data is GameData:
+			return data
+		else:
+			print("Error reading file")
+	else:
+		print("File doesn't exist")
+	
+	return GameData.new()
 	
 func get_cache_promo_data(pId : String) -> Dictionary:
 	if not cachePromoData.has(pId):

@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://da8ep3g0d23y8" path="res://scene/player_ui.tscn" id="2_1bpam"]
 [ext_resource type="Script" path="res://script/game_setting.gd" id="2_t7boj"]
 
-[node name="GameInterface" type="Node2D" groups=["GlobalData"]]
+[node name="GameInterface" type="Node2D"]
 script = ExtResource("1_barvh")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]

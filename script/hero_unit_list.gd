@@ -1,36 +1,34 @@
 extends VBoxContainer
 
-@onready var globalData : Node = get_tree().get_first_node_in_group("GlobalData")
-
 var HEROUNIT : PackedScene = preload("res://scene/hero_unit.tscn")
 
 var maxed : Dictionary
 
 func _move_unit(pIndex : int, pNode : Node) -> void:
 	move_child(pNode, pIndex)
-
-func add_unit(pUnits : Dictionary) -> void:
-	for unit in pUnits:
-		for i in range(pUnits[unit]):
-			var heroUnit : Node = HEROUNIT.instantiate()
-			var index : int = 0
-			var spotFound : bool = false
-			var unitData : Dictionary = globalData.get_unit_stat_data_copy(unit)
+	
+func add_unit(pUnit : Dictionary) -> void:
+	var heroUnit : Node = HEROUNIT.instantiate()
+	var index : int = 0
+	var spotFound : bool = false
+	var savedId : String = pUnit["SavedId"]
+	
+	add_child(heroUnit)
+	
+	heroUnit.savedId = savedId
+	heroUnit.set_data(GlobalData.ref.get_unit_stat_data_copy(pUnit["Id"]))
+	heroUnit.connect("move_node", Callable(self, "_move_unit").bind(heroUnit))
+	heroUnit.connect("unit_info_changed", Callable(self, "update_display"))
+	
+	while (index < get_child_count() - 1 and not spotFound):
+		var nodePower : float = get_child(index).get_power()
+		
+		if (heroUnit.get_power() >= nodePower):
+			spotFound = true
+		else:
+			index += 1
 			
-			while (index < get_child_count() and not spotFound):
-				var nodePower : float = get_child(index).get_power()
-				
-				if (unitData["LevelPower"] >= nodePower):
-					spotFound = true
-				else:
-					index += 1
-			
-			add_child(heroUnit)
-			move_child(heroUnit, index)
-			
-			heroUnit.set_data(unitData)
-			heroUnit.connect("move_node", Callable(self, "_move_unit").bind(heroUnit))
-			heroUnit.connect("unit_info_changed", Callable(self, "update_display"))
+	move_child(heroUnit, index)
 			
 func update_display() -> void:
 	for item in get_children():
