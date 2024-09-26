@@ -41,7 +41,3 @@ func update_exploration_power() -> void:
 	
 	for area in explorationAreaList.get_children():
 		area.update_claim_amount(explorationPower)
-		
-func update_saved_data() -> void:
-	for area in explorationAreaList.get_children():
-		area.update_saved_data()
