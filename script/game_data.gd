@@ -15,6 +15,8 @@ extends Object
 @export var heroUnit : Dictionary
 @export var normalUnit : Dictionary
 
+@export var unitShopUnlock : Array[String]
+
 #Exploration
 @export var explorationArea : Dictionary
 @export var teamSize : Array[int]
@@ -55,6 +57,8 @@ func _init() -> void:
 	normalUnit = {
 		"U4S1": 2
 	}
+	
+	unitShopUnlock = []
 	
 	explorationArea = {
 		"C1A1": {
@@ -105,6 +109,8 @@ func update_inventory_item(pItems : Dictionary) -> void:
 			Inventory.ref.add_item(item)
 		update_inventory_item_amount(item, pItems[item])
 		
+	UnitInventory.ref.unitShop.update_shop_unlocks()
+		
 func update_inventory_item_amount(pId : String, pAmount : int = 0) -> bool:
 	if (Inventory.ref.get_item_node_ref(pId) and inventoryItem.has(pId) and 
 		inventoryItem[pId] >= -pAmount):
@@ -140,7 +146,6 @@ func update_unit(pUnits : Dictionary) -> void:
 	
 	Exploration.ref.update_exploration_power()
 	UnitInventory.ref.update_hero_display()
-	UnitInventory.ref.unitShop.update_shop_unlocks()
 		
 func update_normal_unit_amount(pId : String, pAmount : int = 0) -> bool:
 	if (UnitInventory.ref.get_unit_node_ref(pId) and normalUnit.has(pId) and 
