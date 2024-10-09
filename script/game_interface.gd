@@ -9,7 +9,7 @@ var gameData : GameData
 var saveFilePath : String = "user://save/"
 var saveFileName : String = "save_data.sav"
 
-var lootboxGenListPath : String = "res://script/lootbox_generator_template.json"
+var lootboxGenListPath : String = "res://script/lootbox_template.json"
 var unitStatListPath : String = "res://script/unit_stat.json"
 var unitCombinationListPath : String = "res://script/unit_combination.json"
 var explorationAreaListPath : String = "res://script/exploration_area_template.json"

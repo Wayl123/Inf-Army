@@ -61,7 +61,7 @@ func _init() -> void:
 	unitShopUnlock = []
 	
 	explorationArea = {
-		"C1A1": {
+		"E1A1": {
 			"Progress": 100,
 			"Exploring": true
 		}

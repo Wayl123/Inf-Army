@@ -7,14 +7,6 @@
 		"Name": "Chicken",
 		"Power": 1
 	},
-	"U1S3": {
-		"Name": "Trained Peasant",
-		"Power": 3
-	},
-	"U1S4": {
-		"Name": "Chicken Coop",
-		"Power": 5
-	},
 	"U2S1": {
 		"Name": "Farmer",
 		"Power": 3
@@ -23,6 +15,19 @@
 		"Name": "Horse",
 		"Power": 3
 	},
+	"U3S1": {
+		"Name": "Guard",
+		"Power": 10
+	},
+	
+	"U1S3": {
+		"Name": "Trained Peasant",
+		"Power": 3
+	},
+	"U1S4": {
+		"Name": "Chicken Coop",
+		"Power": 5
+	},
 	"U2S3": {
 		"Name": "Chicken Farmer",
 		"Power": 12
@@ -30,10 +35,6 @@
 	"U2S4": {
 		"Name": "Peasant Rider",
 		"Power": 8
-	},
-	"U3S1": {
-		"Name": "Guard",
-		"Power": 10
 	},
 	"U3S2": {
 		"Name": "Scout",
@@ -47,8 +48,9 @@
 		"Name": "Expedition Team",
 		"Power": 100
 	},
+	
 	"H3S1": {
-		"Name": "NoobHero",
+		"Name": "Noob Hero",
 		"MaxLevel": 10,
 		"LevelPower": 3,
 		"ExpBase": 10,
@@ -69,11 +71,93 @@
 		}
 	},
 	"H4S1": {
-		"Name": "NoviceHero",
+		"Name": "Novice Hero",
 		"MaxLevel": 30,
 		"LevelPower": 10,
 		"ExpBase": 100,
 		"ExpScale": 1.3,
 		"TeamSize": [0, 20]
+	},
+	
+	"U1S5": {
+		"Name": "Green Slime",
+		"Power": 2
+	},
+	"U1S6": {
+		"Name": "Snake",
+		"Power": 3
+	},
+	"U2S5": {
+		"Name": "Blue Slime",
+		"Power": 5
+	},
+	"U2S6": {
+		"Name": "Wolf",
+		"Power": 8
+	},
+	"U3S4": {
+		"Name": "Red Slime",
+		"Power": 15
+	},
+	"U3S5": {
+		"Name": "Bear",
+		"Power": 20
+	},
+	"U4S2": {
+		"Name": "Rainbow Slime",
+		"Power": 100
+	},
+	
+	"U1S7": {
+		"Name": "Venomous Snake",
+		"Power": 8
+	},
+	"U2S7": {
+		"Name": "Wolf Pack",
+		"Power": 20
+	},
+	"U3S6": {
+		"Name": "Slime Swarm",
+		"Power": 40
+	},
+	"U3S7": {
+		"Name": "King Bear",
+		"Power": 50
+	},
+	"U4S3": {
+		"Name": "King Slime",
+		"Power": 120
+	},
+	"U4S4": {
+		"Name": "Beast Pack",
+		"Power": 150
+	},
+	
+	"H3S2": {
+		"Name": "Noob Archer",
+		"MaxLevel": 10,
+		"LevelPower": 2.5,
+		"ExpBase": 10,
+		"ExpScale": 1.35,
+		"Promotion": {
+			"H4S2": {
+				"Cost": {
+					"P1": 10
+				},
+				"BaseMulti": 0.8,
+				"Optional": {
+					"Selection": ["U2S3", "U2S4", "U3S2", "U3S3", "U4S1"],
+					"MaxAmount": 1
+				},
+				"OptionalMulti": 0.5
+			}
+		}
+	},
+	"H4S2": {
+		"Name": "Novice Archer",
+		"MaxLevel": 30,
+		"LevelPower": 8,
+		"ExpBase": 150,
+		"ExpScale": 1.2
 	}
 }
