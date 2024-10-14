@@ -39,8 +39,6 @@ func add_item(pId : String) -> void:
 		inventoryList.add_child(item)
 		
 		data[pId] = item
-	else:
-		item = data[pId]
 	
 func get_item_node_ref(pId : String) -> Node:
 	if data.has(pId):

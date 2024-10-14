@@ -9,6 +9,7 @@ static var ref : Exploration
 var EXPLORATIONAREA : PackedScene = preload("res://scene/exploration_area.tscn")
 
 var explorationPower : float
+var data : Dictionary
 
 func _enter_tree() -> void:
 	if not ref: ref = self
@@ -24,12 +25,14 @@ func _get_saved_area() -> void:
 		add_area(area)
 	
 func add_area(pId : String) -> void:
-	var explorationArea : Node = EXPLORATIONAREA.instantiate()
-	
-	explorationArea.id = pId
-	explorationArea.data = GlobalData.ref.get_exploration_area_data_copy(pId)
-	explorationAreaList.add_child(explorationArea)
-	explorationArea.update_claim_amount(explorationPower)
+	if not data.has(pId):
+		var explorationArea : Node = EXPLORATIONAREA.instantiate()
+		explorationArea.id = pId
+		explorationArea.data = GlobalData.ref.get_exploration_area_data_copy(pId)
+		explorationAreaList.add_child(explorationArea)
+		explorationArea.update_claim_amount(explorationPower)
+		
+		data[pId] = explorationArea
 	
 func update_exploration_stat(pTeamSize : Array[int]) -> void:
 	explorationStat.update_unit_cap(pTeamSize)

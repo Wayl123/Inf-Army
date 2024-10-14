@@ -111,5 +111,3 @@ max_value = 1.0
 
 [node name="PayoutTimer" type="Timer" parent="AreaMargin/AreaAttributeDisplay/PayoutProgress"]
 unique_name_in_owner = true
-wait_time = 10.0
-autostart = true

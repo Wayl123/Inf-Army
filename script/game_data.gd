@@ -62,8 +62,9 @@ func _init() -> void:
 	
 	explorationArea = {
 		"E1A1": {
+			"Unlocked": true,
 			"Progress": 100,
-			"Exploring": true
+			"Exploring": false
 		}
 	}
 	teamSize = [1, 10]
@@ -161,12 +162,16 @@ func update_normal_unit_amount(pId : String, pAmount : int = 0) -> bool:
 #Exploration
 func update_exploration_area(pAreas : Dictionary) -> void:
 	for area in pAreas:
-		explorationArea[area] = {
-			"Progress": pAreas[area]["Progress"] if pAreas[area].has("Progress") else 0,
-			"Exploring": pAreas[area]["Exploring"] if pAreas[area].has("Exploring") else false,
-		}
 		if not explorationArea.has(area):
+			explorationArea[area] = {
+				"Unlocked": false,
+				"Progress": 0,
+				"Exploring": false
+			}
 			Exploration.ref.add_area(area)
+		if pAreas[area].has("Unlocked"): explorationArea[area]["Unlocked"] = pAreas[area]["Unlocked"]
+		if pAreas[area].has("Progress"): explorationArea[area]["Progress"] = pAreas[area]["Progress"]
+		if pAreas[area].has("Exploring"): explorationArea[area]["Exploring"] = pAreas[area]["Exploring"]
 		
 func update_team_size(pTeamSize : Array[int]) -> void:
 	teamSize[0] += pTeamSize[0]
