@@ -30,13 +30,18 @@ func _process(delta : float) -> void:
 
 func _start_exploring() -> void:
 	if not gameData[id]["Exploring"]:
-		activeToggle.text = "Stop"
-		payoutTimer.paused = false
+		if Exploration.ref.exploringCount < GlobalData.ref.gameData.maxExplore:
+			activeToggle.text = "Stop"
+			payoutTimer.paused = false
+			Exploration.ref.exploringCount += 1
+			gameData[id]["Exploring"] = not gameData[id]["Exploring"]
 	else:
 		activeToggle.text = "Start"
 		payoutTimer.paused = true
-
-	gameData[id]["Exploring"] = not gameData[id]["Exploring"]
+		Exploration.ref.exploringCount -= 1
+		gameData[id]["Exploring"] = not gameData[id]["Exploring"]
+		
+	Exploration.ref.update_max_explore()
 	
 func _update_resource() -> void:
 	gameData[id]["Progress"] = minf(gameData[id]["Progress"] + (claimAmount.reduce(func(sum, number): return sum + number) / claimAmount.size()), explorationProgress.max_value)
@@ -76,6 +81,7 @@ func _update_display() -> void:
 	if gameData[id].has("Exploring") and gameData[id]["Exploring"]: 
 		activeToggle.text = "Stop"
 		payoutTimer.paused = false
+		Exploration.ref.exploringCount += 1
 		
 func _unlock_power_lock() -> void:
 	powerLock.visible = false

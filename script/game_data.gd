@@ -20,6 +20,7 @@ extends Object
 #Exploration
 @export var explorationArea : Dictionary
 @export var teamSize : Array[int]
+@export var maxExplore : int
 
 func _init() -> void:
 	money = 0
@@ -63,11 +64,12 @@ func _init() -> void:
 	explorationArea = {
 		"E1A1": {
 			"Unlocked": true,
-			"Progress": 100,
-			"Exploring": false
+			"Progress": 1000,
+			"Exploring": true
 		}
 	}
 	teamSize = [1, 10]
+	maxExplore = 1
 
 #PlayerResource
 func update_money(pMoney : float) -> bool:
@@ -177,4 +179,4 @@ func update_team_size(pTeamSize : Array[int]) -> void:
 	teamSize[0] += pTeamSize[0]
 	teamSize[1] += pTeamSize[1]
 	
-	Exploration.ref.update_exploration_stat(teamSize)
+	Exploration.ref.update_exploration_stat()

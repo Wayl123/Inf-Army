@@ -9,6 +9,7 @@ static var ref : Exploration
 var EXPLORATIONAREA : PackedScene = preload("res://scene/exploration_area.tscn")
 
 var explorationPower : float
+var exploringCount : int = 0
 var data : Dictionary
 
 func _enter_tree() -> void:
@@ -16,7 +17,7 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	_get_saved_area()
-	update_exploration_stat(GlobalData.ref.gameData.teamSize)
+	update_exploration_stat()
 	
 func _get_saved_area() -> void:
 	var savedArea : Array = GlobalData.ref.gameData.explorationArea.keys()
@@ -34,9 +35,13 @@ func add_area(pId : String) -> void:
 		
 		data[pId] = explorationArea
 	
-func update_exploration_stat(pTeamSize : Array[int]) -> void:
-	explorationStat.update_unit_cap(pTeamSize)
+func update_exploration_stat() -> void:
+	explorationStat.update_unit_cap()
+	update_max_explore()
 	update_exploration_power()
+	
+func update_max_explore() -> void:
+	explorationStat.update_max_explore(exploringCount)
 	
 func update_exploration_power() -> void:
 	explorationPower = UnitInventory.ref.get_power_by_amount(GlobalData.ref.gameData.teamSize)
