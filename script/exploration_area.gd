@@ -8,6 +8,8 @@ extends PanelContainer
 @onready var explorationProgress : Node = %ExplorationProgress
 @onready var payoutProgress : Node = %PayoutProgress
 @onready var payoutTimer : Node = %PayoutTimer
+@onready var powerLock : Node = %PowerLock
+@onready var unlockReq : Node = %UnlockReq
 
 var id : String
 var gameData : Dictionary = GlobalData.ref.gameData.explorationArea
@@ -68,16 +70,28 @@ func _update_display() -> void:
 	payoutTimer.wait_time = data["ExploreTimer"]
 	payoutTimer.start()
 	payoutTimer.paused = true
+	if gameData[id].has("Unlocked") and gameData[id]["Unlocked"]: _unlock_power_lock() 
+	else: gameData[id]["Unlocked"] = false
 	if gameData[id].has("Progress"): explorationProgress.value = gameData[id]["Progress"]
 	if gameData[id].has("Exploring") and gameData[id]["Exploring"]: 
 		activeToggle.text = "Stop"
 		payoutTimer.paused = false
+		
+func _unlock_power_lock() -> void:
+	powerLock.visible = false
+	powerLock.size_flags_horizontal = SIZE_SHRINK_BEGIN
 	
 func update_claim_amount(pExplorationPower : float) -> void:
 	if claimAmount[0] < data["MaxMoneyAmount"]:
 		claimAmount[0] = clampf(pExplorationPower * float(data["MoneyBase"]), 0.0, data["MaxMoneyAmount"])
 	if claimAmount[1] < data["MaxExpAmount"]:
 		claimAmount[1] = clampf(pExplorationPower * float(data["ExpBase"]), 0.0, data["MaxExpAmount"])
+		
+	if not gameData[id]["Unlocked"] and pExplorationPower >= data["UnlockReq"]:
+		_unlock_power_lock()
+		gameData[id]["Unlocked"] = true
+	else:
+		unlockReq.text = str("[center]Required Exploration Power: ", pExplorationPower, "/" , data["UnlockReq"])
 		
 	moneyRate.text = str("[right]", String.num_scientific(claimAmount[0] / float(data["ExploreTimer"])), "/sec[/right]")
 	expRate.text = str("[right]", String.num_scientific(claimAmount[1] / float(data["ExploreTimer"])), "/sec[/right]")
