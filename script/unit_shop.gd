@@ -2,34 +2,38 @@ extends PanelContainer
 
 @onready var unitShopList : Node = %UnitShopList
 
-var SHOPITEM : PackedScene = preload("res://scene/shop_item.tscn")
+var SHOPGROUP : PackedScene = preload("res://scene/shop_group.tscn")
 
 var data : Dictionary
 
 func _ready() -> void:
 	data = GlobalData.ref.get_unit_combination_data_copy()
-		
-func update_shop_unlocks() -> void:
-	var unitRegex : Object = RegEx.new()
-	unitRegex.compile("\\d+S\\d+")
 	
-	for item in data:
-		if not data[item].has("ItemNode"):
-			var shopItem : Node = SHOPITEM.instantiate()
+	update_shop_unlocks()
 		
-			shopItem.data["Id"] = item
-			shopItem.data["Name"] = GlobalData.ref.get_unit_stat_data_copy(item)["Name"]
-			shopItem.data["Cost"] = data[item]
+func update_shop_unlocks() -> void:	
+	for shop in data:
+		if not GlobalData.ref.gameData.unitShopUnlock.has(shop):
+			var unlock = true
 			
-			unitShopList.add_child(shopItem)
+			for item in data[shop]["Unlock"]:
+				if not GlobalData.ref.gameData.inventoryItem.has(item):
+					unlock = false
+					break
+					
+			if unlock:
+				GlobalData.ref.gameData.unitShopUnlock.append(shop)
+		
+		if GlobalData.ref.gameData.unitShopUnlock.has(shop) and not data[shop].has("Unlocked"):
+			var shopGroup : Node = SHOPGROUP.instantiate()
 			
-			shopItem.update_display()
+			shopGroup.data = data[shop]["Content"]
+			unitShopList.add_child(shopGroup)
 			
-			data[item]["ItemNode"] = shopItem
-			shopItem.connect("item_purchased", Callable(self, "update_shop_cost"))
-		else:
-			data[item]["ItemNode"].update_cost_display()
+			data[shop]["Unlocked"] = true
+			
+	update_shop_cost()
 			
 func update_shop_cost() -> void:
 	for item in unitShopList.get_children():
-		item.update_cost_display()
+		item.update_shop_cost()

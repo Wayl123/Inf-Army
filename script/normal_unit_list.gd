@@ -30,7 +30,6 @@ func add_unit(pId : String) -> void:
 		normalUnit.id = pId
 		add_child(normalUnit)
 		move_child(normalUnit, index)
-		
 		normalUnit.set_data(unitData)
 		
 		data[pId] = normalUnit

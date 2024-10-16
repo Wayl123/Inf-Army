@@ -1,16 +1,44 @@
 {
-	"C1A1": {
+	"E1A1": {
 		"Name": "Beginner's Hill",
 		"MoneyBase": 1.0,
 		"ExpBase": 1.0,
 		"MaxMoneyAmount": 1000.0,
 		"MaxExpAmount": 1000.0,
 		"Loot": {
-			"P1": 100.0
+			"P1": 1.0
 		},
 		"ExploreCompletion": 1000.0,
 		"ExploreTimer": 10.0,
 		"UnlockReq": 0.0,
-		"Unlocks": "C1A2"
-	}
+		"Unlocks": ["E1A2"]
+	},
+	"E1A2": {
+		"Name": "Beginner's Forest",
+		"MoneyBase": 3.5,
+		"ExpBase": 3.5,
+		"MaxMoneyAmount": 5000.0,
+		"MaxExpAmount": 5000.0,
+		"Loot": {
+			"L1T2": 0.5,
+			"P1": 3.0
+		},
+		"ExploreCompletion": 5000.0,
+		"ExploreTimer": 30.0,
+		"UnlockReq": 100.0,
+		"Unlocks": ["E1A3"]
+	},
+	"E1A3": {
+		"Name": "Beginner's Cave",
+		"MoneyBase": 8,
+		"ExpBase": 8,
+		"MaxMoneyAmount": 15000.0,
+		"MaxExpAmount": 15000.0,
+		"Loot": {
+			"P1": 10.0
+		},
+		"ExploreCompletion": 5000.0,
+		"ExploreTimer": 60.0,
+		"UnlockReq": 300.0
+	},
 }

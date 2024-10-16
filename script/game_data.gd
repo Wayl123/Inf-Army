@@ -15,54 +15,61 @@ extends Object
 @export var heroUnit : Dictionary
 @export var normalUnit : Dictionary
 
+@export var unitShopUnlock : Array[String]
+
 #Exploration
 @export var explorationArea : Dictionary
 @export var teamSize : Array[int]
+@export var maxExplore : int
 
 func _init() -> void:
 	money = 0
-	exp = 20000
+	exp = 0
 	
 	lootboxGenerator = {
 		"1": {
 			"Id": "L1T1",
 			"SavedId": "1",
-			"Amount": 10
+			"Amount": 0
 		}
 	}
 	
 	inventoryItem = {
-		"P1": 10
+		#"P1": 10
 	}
 	
 	heroUnit = {
-		"1": {
-			"Id": "H3S1",
-			"SavedId": "1",
-			"Level": 10,
-			"BasePower": 0,
-			"BaseMulti": {}
-		},
-		"2": {
-			"Id": "H4S1",
-			"SavedId": "2",
-			"Level": 1,
-			"BasePower": 168,
-			"BaseMulti": {}
-		}
+		#"1": {
+			#"Id": "H3S1",
+			#"SavedId": "1",
+			#"Level": 10,
+			#"BasePower": 0,
+			#"BaseMulti": {}
+		#},
+		#"2": {
+			#"Id": "H4S1",
+			#"SavedId": "2",
+			#"Level": 1,
+			#"BasePower": 168,
+			#"BaseMulti": {}
+		#}
 	}
 	
 	normalUnit = {
-		"U4S1": 2
+		#"U4S1": 2
 	}
 	
+	unitShopUnlock = []
+	
 	explorationArea = {
-		"C1A1": {
-			"Progress": 100,
-			"Exploring": true
+		"E1A1": {
+			"Unlocked": true,
+			"Progress": 0,
+			"Exploring": false
 		}
 	}
 	teamSize = [1, 10]
+	maxExplore = 1
 
 #PlayerResource
 func update_money(pMoney : float) -> bool:
@@ -105,6 +112,8 @@ func update_inventory_item(pItems : Dictionary) -> void:
 			Inventory.ref.add_item(item)
 		update_inventory_item_amount(item, pItems[item])
 		
+	UnitInventory.ref.unitShop.update_shop_unlocks()
+		
 func update_inventory_item_amount(pId : String, pAmount : int = 0) -> bool:
 	if (Inventory.ref.get_item_node_ref(pId) and inventoryItem.has(pId) and 
 		inventoryItem[pId] >= -pAmount):
@@ -140,7 +149,6 @@ func update_unit(pUnits : Dictionary) -> void:
 	
 	Exploration.ref.update_exploration_power()
 	UnitInventory.ref.update_hero_display()
-	UnitInventory.ref.unitShop.update_shop_unlocks()
 		
 func update_normal_unit_amount(pId : String, pAmount : int = 0) -> bool:
 	if (UnitInventory.ref.get_unit_node_ref(pId) and normalUnit.has(pId) and 
@@ -156,15 +164,19 @@ func update_normal_unit_amount(pId : String, pAmount : int = 0) -> bool:
 #Exploration
 func update_exploration_area(pAreas : Dictionary) -> void:
 	for area in pAreas:
-		explorationArea[area] = {
-			"Progress": pAreas[area]["Progress"] if pAreas[area].has("Progress") else 0,
-			"Exploring": pAreas[area]["Exploring"] if pAreas[area].has("Exploring") else false,
-		}
 		if not explorationArea.has(area):
+			explorationArea[area] = {
+				"Unlocked": false,
+				"Progress": 0,
+				"Exploring": false
+			}
 			Exploration.ref.add_area(area)
+		if pAreas[area].has("Unlocked"): explorationArea[area]["Unlocked"] = pAreas[area]["Unlocked"]
+		if pAreas[area].has("Progress"): explorationArea[area]["Progress"] = pAreas[area]["Progress"]
+		if pAreas[area].has("Exploring"): explorationArea[area]["Exploring"] = pAreas[area]["Exploring"]
 		
 func update_team_size(pTeamSize : Array[int]) -> void:
 	teamSize[0] += pTeamSize[0]
 	teamSize[1] += pTeamSize[1]
 	
-	Exploration.ref.update_exploration_stat(teamSize)
+	Exploration.ref.update_exploration_stat()
