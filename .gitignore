@@ -1,3 +1,6 @@
 # Godot 4+ specific ignores
 .godot/
 notes/
+release/
+export.cfg
+export_presets.cfg
