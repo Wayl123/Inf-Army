@@ -24,39 +24,39 @@ extends Object
 
 func _init() -> void:
 	money = 0
-	exp = 20000
+	exp = 0
 	
 	lootboxGenerator = {
 		"1": {
 			"Id": "L1T1",
 			"SavedId": "1",
-			"Amount": 10
+			"Amount": 0
 		}
 	}
 	
 	inventoryItem = {
-		"P1": 10
+		#"P1": 10
 	}
 	
 	heroUnit = {
-		"1": {
-			"Id": "H3S1",
-			"SavedId": "1",
-			"Level": 10,
-			"BasePower": 0,
-			"BaseMulti": {}
-		},
-		"2": {
-			"Id": "H4S1",
-			"SavedId": "2",
-			"Level": 1,
-			"BasePower": 168,
-			"BaseMulti": {}
-		}
+		#"1": {
+			#"Id": "H3S1",
+			#"SavedId": "1",
+			#"Level": 10,
+			#"BasePower": 0,
+			#"BaseMulti": {}
+		#},
+		#"2": {
+			#"Id": "H4S1",
+			#"SavedId": "2",
+			#"Level": 1,
+			#"BasePower": 168,
+			#"BaseMulti": {}
+		#}
 	}
 	
 	normalUnit = {
-		"U4S1": 2
+		#"U4S1": 2
 	}
 	
 	unitShopUnlock = []
@@ -64,8 +64,8 @@ func _init() -> void:
 	explorationArea = {
 		"E1A1": {
 			"Unlocked": true,
-			"Progress": 1000,
-			"Exploring": true
+			"Progress": 0,
+			"Exploring": false
 		}
 	}
 	teamSize = [1, 10]
