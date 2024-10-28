@@ -73,6 +73,11 @@ func _update_display() -> void:
 	areaName.text = str("[b]", data["Name"], "[/b]")
 	explorationProgress.max_value = data["ExploreCompletion"]
 	payoutTimer.wait_time = data["ExploreTimer"]
+	for loot in data["Loot"]:
+		var lootImage : Node = TextureRect.new()
+		lootImage.expand_mode = TextureRect.EXPAND_FIT_WIDTH_PROPORTIONAL
+		lootImage.texture = load(GlobalData.ref.get_item_stat_data_copy(loot)["Image"])
+		lootList.add_child(lootImage)
 	payoutTimer.start()
 	payoutTimer.paused = true
 	if gameData[id].has("Unlocked") and gameData[id]["Unlocked"]: _unlock_power_lock() 

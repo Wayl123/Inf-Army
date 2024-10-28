@@ -1,7 +1,7 @@
 {
 	"P1": {
 		"Name": "Basic Promotion Gem",
-		"Image": "",
+		"Image": "res://image/item/P1.png",
 		"Power": 1
 	}
 }

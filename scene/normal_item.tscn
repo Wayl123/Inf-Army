@@ -28,10 +28,11 @@ fit_content = true
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="ItemImage" type="PanelContainer" parent="ItemMargin/AttributeDisplay/ItemDisplay"]
+[node name="ItemImage" type="TextureRect" parent="ItemMargin/AttributeDisplay/ItemDisplay"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
+expand_mode = 3
 
 [node name="ItemStatScroll" type="ScrollContainer" parent="ItemMargin/AttributeDisplay/ItemDisplay"]
 layout_mode = 2

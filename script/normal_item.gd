@@ -10,7 +10,7 @@ func _ready() -> void:
 	
 func _update_display():
 	itemName.text = str("[b]", data["Name"], "[/b]")
-	#itemImage
+	itemImage.texture = load(data["Image"])
 	itemStat.text = str("[b]Power: [/b]", data["Power"], "\n")
 	if data.has("SpecialEffect"):
 		itemStat.text += str("[b]Special Effect[/b]\n")
