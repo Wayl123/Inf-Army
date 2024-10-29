@@ -1,6 +1,7 @@
 extends PanelContainer
 
 @onready var levelPromotion : Node = %LevelPromotion
+@onready var unitImage : Node = %Image
 @onready var unitName : Node = %Name
 @onready var unitLevel : Node = %Level
 @onready var unitExp : Node = %Exp
@@ -11,7 +12,7 @@ extends PanelContainer
 var AVAILABLESTYLE : StyleBox = preload("res://stylebox/available.tres")
 var SEMIAVAILABLESTYLE : StyleBox = preload("res://stylebox/semi_available.tres")
 var NOTAVAILABLESTYLE : StyleBox = preload("res://stylebox/not_available.tres")
-var VISIBLECOLOR : Color = Color.hex(0xffffff3f)
+var VISIBLECOLOR : Color = Color.hex(0xffffffff)
 
 signal move_node(index : int)
 signal unit_info_changed
@@ -33,6 +34,7 @@ func _ready() -> void:
 func _update_display() -> void:
 	unitName.text = str("[center][b]", data["Name"], "[/b][/center]")
 	unitLevelPower.text = str("[right]", String.num_scientific(data["LevelPower"]), "[/right]")
+	unitImage.texture = load(data["Image"])
 	
 	update_level_display()
 	
@@ -41,6 +43,7 @@ func _level_available() -> void:
 	
 	levelPromotion.text = "Level up" if gameData[savedId]["Level"] < data["MaxLevel"] else "Promote"
 	levelPromotion.add_theme_color_override("font_color", VISIBLECOLOR)
+	levelPromotion.add_theme_color_override("font_hover_color", VISIBLECOLOR)
 	levelPromotion.add_theme_color_override("font_disabled_color", VISIBLECOLOR)
 	
 	if gameData[savedId]["Level"] >= data["MaxLevel"]:
@@ -62,6 +65,7 @@ func _hide_hover() -> void:
 	levelPromotion.remove_theme_stylebox_override("pressed")
 	levelPromotion.remove_theme_stylebox_override("disabled")
 	levelPromotion.remove_theme_color_override("font_color")
+	levelPromotion.remove_theme_color_override("font_hover_color")
 	levelPromotion.remove_theme_color_override("font_disabled_color")
 	
 func _move_self() -> void:

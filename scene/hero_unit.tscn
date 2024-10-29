@@ -46,8 +46,15 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_nqdre")
 
 [node name="LevelPromotion" type="Button" parent="FoldingMenu/HeroUnitDisplay/ImageBorder"]
 unique_name_in_owner = true
+z_index = 1
 layout_mode = 2
 theme = ExtResource("2_cp7p7")
+
+[node name="Image" type="TextureRect" parent="FoldingMenu/HeroUnitDisplay/ImageBorder"]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+expand_mode = 3
 
 [node name="StatBorder" type="PanelContainer" parent="FoldingMenu/HeroUnitDisplay"]
 layout_mode = 2

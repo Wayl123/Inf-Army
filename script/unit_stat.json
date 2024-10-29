@@ -51,6 +51,7 @@
 	
 	"H3S1": {
 		"Name": "Noob Hero",
+		"Image": "res://image/hero/noob_hero.png",
 		"MaxLevel": 10,
 		"LevelPower": 3,
 		"ExpBase": 10,
@@ -72,6 +73,7 @@
 	},
 	"H4S1": {
 		"Name": "Novice Hero",
+		"Image": "res://image/hero/novice_hero.png",
 		"MaxLevel": 30,
 		"LevelPower": 10,
 		"ExpBase": 100,
@@ -135,6 +137,7 @@
 	
 	"H3S2": {
 		"Name": "Noob Archer",
+		"Image": "",
 		"MaxLevel": 10,
 		"LevelPower": 2.5,
 		"ExpBase": 10,
@@ -155,6 +158,7 @@
 	},
 	"H4S2": {
 		"Name": "Novice Archer",
+		"Image": "",
 		"MaxLevel": 30,
 		"LevelPower": 8,
 		"ExpBase": 150,
