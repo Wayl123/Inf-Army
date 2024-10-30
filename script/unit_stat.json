@@ -137,7 +137,7 @@
 	
 	"H3S2": {
 		"Name": "Noob Archer",
-		"Image": "",
+		"Image": "res://image/hero/noob_archer.png",
 		"MaxLevel": 10,
 		"LevelPower": 2.5,
 		"ExpBase": 10,
@@ -158,7 +158,7 @@
 	},
 	"H4S2": {
 		"Name": "Novice Archer",
-		"Image": "",
+		"Image": "res://image/hero/novice_archer.png",
 		"MaxLevel": 30,
 		"LevelPower": 8,
 		"ExpBase": 150,
